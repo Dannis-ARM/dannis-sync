@@ -1,0 +1,1 @@
+sudo yum update -y && sudo yum install -y tmux podman && tmux -V
