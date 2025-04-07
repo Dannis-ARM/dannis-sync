@@ -88,3 +88,6 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+
+# Others
+tempCodeRunnerFile.py

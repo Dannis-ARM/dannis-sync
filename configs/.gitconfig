@@ -8,6 +8,7 @@ co = checkout
 br = branch
 mg = merge
 cm = commit
+cmm = commit -m
 ds = diff --staged
 dt = difftool
 mt = mergetool
@@ -19,3 +20,4 @@ type = cat-file -t
 dump = cat-file -p
 lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 pr = pull --rebase
+sw = switch 
