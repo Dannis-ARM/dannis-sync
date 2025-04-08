@@ -145,14 +145,6 @@
         "before": ["{"],
         "after": ["w"]
       },
-      // {
-      //   "before": ["L"],
-      //   "after": ["$"]
-      // },
-      // {
-      //   "before": ["H"],
-      //   "after": ["^"]
-      // },
       {
         "before": [">"],
         "commands": ["editor.action.indentLines"]

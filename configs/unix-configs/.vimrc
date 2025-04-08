@@ -52,9 +52,6 @@ set fileencodings=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936,utf-16,big5,e
 colorscheme torte
 " 设置颜色主题
  
-"set guifont=Menlo:h16:cANSI
-" 设置字体
- 
 set langmenu=zn_CN.UTF-8
 set helplang=cn
 " 语言设置
@@ -88,6 +85,3 @@ set wildmenu
  
 set linespace=2
 " 字符间插入的像素行数目
- 
-filetype plugin indent on
-" 分为三部分命令：file on, file plugin on, file indent on.分别表示自动识别文件类型，用文件类型脚
