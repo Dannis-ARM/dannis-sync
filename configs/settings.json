@@ -77,8 +77,13 @@
     "go.inlayHints.assignVariableTypes": true,
     "go.inlayHints.constantValues": true,
     "go.inlayHints.compositeLiteralFields": true,
+    // Python
+    "[python]": {
+      "editor.formatOnType": true
+  },
     "python.analysis.inlayHints.functionReturnTypes": true,
     "python.analysis.inlayHints.variableTypes": true,
+    // TS
     "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
     "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
     "typescript.inlayHints.variableTypes.enabled": true,
@@ -164,6 +169,18 @@
     "editor.codeActionsOnSave": {
       "source.organizeImports": "always",
       "source.addMissingImports": "always"
+    },
+    "terraform.codelens.referenceCount": true,
+    "terraform.experimentalFeatures.prefillRequiredFields": true,
+    "[terraform]": {
+        "editor.defaultFormatter": "hashicorp.terraform",
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "file"
+    },
+    "[terraform-vars]": {
+        "editor.defaultFormatter": "hashicorp.terraform",
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "file"
     }
   }
   
