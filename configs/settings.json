@@ -181,6 +181,16 @@
         "editor.defaultFormatter": "hashicorp.terraform",
         "editor.formatOnSave": true,
         "editor.formatOnSaveMode": "file"
-    }
+    },
+    // line sepatators
+    "separators.maxDepth": 1,
+    "separators.classes.borderStyle": "dashed",
+    "separators.constructors.borderStyle": "dashed",
+    "separators.enums.borderStyle": "dashed",
+    "separators.functions.borderStyle": "dashed",
+    "separators.interfaces.borderStyle": "dashed",
+    "separators.methods.borderStyle": "dashed",
+    "separators.namespaces.borderStyle": "dashed",
+    "separators.structs.borderStyle": "dashed",
   }
   
