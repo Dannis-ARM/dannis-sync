@@ -1,195 +1,196 @@
 {
-    "github.copilot.editor.enableAutoCompletions": true,
-    "workbench.iconTheme": "vscode-icons",
-    "explorer.confirmDelete": false,
-    "code-runner.executorMap": {
-      "javascript": "node",
-      "java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
-      "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
-      "zig": "zig run",
-      "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
-      "objective-c": "cd $dir && gcc -framework Cocoa $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
-      "php": "php",
-      "python": "python -u",
-      "perl": "perl",
-      "perl6": "perl6",
-      "ruby": "ruby",
-      "go": "go run",
-      "lua": "lua",
-      "groovy": "groovy",
-      "powershell": "powershell -ExecutionPolicy ByPass -File",
-      "bat": "cmd /c",
-      "shellscript": "bash",
-      "fsharp": "fsi",
-      "csharp": "cd $dir && dotnet run $fileName",
-      "vbscript": "cscript //Nologo",
-      "typescript": "ts-node",
-      "coffeescript": "coffee",
-      "scala": "scala",
-      "swift": "swift",
-      "julia": "julia",
-      "crystal": "crystal",
-      "ocaml": "ocaml",
-      "r": "Rscript",
-      "applescript": "osascript",
-      "clojure": "lein exec",
-      "haxe": "haxe --cwd $dirWithoutTrailingSlash --run $fileNameWithoutExt",
-      "rust": "cd $dir && rustc $fileName && $dir$fileNameWithoutExt",
-      "racket": "racket",
-      "scheme": "csi -script",
-      "ahk": "autohotkey",
-      "autoit": "autoit3",
-      "dart": "dart",
-      "pascal": "cd $dir && fpc $fileName && $dir$fileNameWithoutExt",
-      "d": "cd $dir && dmd $fileName && $dir$fileNameWithoutExt",
-      "haskell": "runghc",
-      "nim": "nim compile --verbosity:0 --hints:off --run",
-      "lisp": "sbcl --script",
-      "kit": "kitc --run",
-      "v": "v run",
-      "sass": "sass --style expanded",
-      "scss": "scss --style expanded",
-      "less": "cd $dir && lessc $fileName $fileNameWithoutExt.css",
-      "FortranFreeForm": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
-      "fortran-modern": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
-      "fortran_fixed-form": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
-      "fortran": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
-      "sml": "cd $dir && sml $fileName",
-      "mojo": "mojo run",
-      "erlang": "escript",
-      "spwn": "spwn build",
-      "pkl": "cd $dir && pkl eval -f yaml $fileName -o $fileNameWithoutExt.yaml",
-      "gleam": "gleam run -m $fileNameWithoutExt"
-    },
-    "code-runner.runInTerminal": true,
-    "files.autoSave": "onFocusChange",
-    "aws.telemetry": false,
-    "remote.SSH.remotePlatform": {
-      "ec2-18-141-110-91.ap-southeast-1.compute.amazonaws.com": "linux"
-    },
-    "security.workspace.trust.untrustedFiles": "open",
-    "gopls": {
-      "ui.semanticTokens": true,
-      "ui.diagnostic.staticcheck": false
-    },
-    "go.goroot": "/snap/go/current",
-    "code-runner.saveFileBeforeRun": true,
-    "go.inlayHints.assignVariableTypes": true,
-    "go.inlayHints.constantValues": true,
-    "go.inlayHints.compositeLiteralFields": true,
-    // Python
-    "[python]": {
-      "editor.formatOnType": true
+  "workbench.iconTheme": "vscode-icons",
+  "explorer.confirmDelete": false,
+  "code-runner.executorMap": {
+    "javascript": "node",
+    "java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
+    "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "zig": "zig run",
+    "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "objective-c": "cd $dir && gcc -framework Cocoa $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "php": "php",
+    "python": "python -u",
+    "perl": "perl",
+    "perl6": "perl6",
+    "ruby": "ruby",
+    "go": "go run",
+    "lua": "lua",
+    "groovy": "groovy",
+    "powershell": "powershell -ExecutionPolicy ByPass -File",
+    "bat": "cmd /c",
+    "shellscript": "bash",
+    "fsharp": "fsi",
+    "csharp": "cd $dir && dotnet run $fileName",
+    "vbscript": "cscript //Nologo",
+    "typescript": "ts-node",
+    "coffeescript": "coffee",
+    "scala": "scala",
+    "swift": "swift",
+    "julia": "julia",
+    "crystal": "crystal",
+    "ocaml": "ocaml",
+    "r": "Rscript",
+    "applescript": "osascript",
+    "clojure": "lein exec",
+    "haxe": "haxe --cwd $dirWithoutTrailingSlash --run $fileNameWithoutExt",
+    "rust": "cd $dir && rustc $fileName && $dir$fileNameWithoutExt",
+    "racket": "racket",
+    "scheme": "csi -script",
+    "ahk": "autohotkey",
+    "autoit": "autoit3",
+    "dart": "dart",
+    "pascal": "cd $dir && fpc $fileName && $dir$fileNameWithoutExt",
+    "d": "cd $dir && dmd $fileName && $dir$fileNameWithoutExt",
+    "haskell": "runghc",
+    "nim": "nim compile --verbosity:0 --hints:off --run",
+    "lisp": "sbcl --script",
+    "kit": "kitc --run",
+    "v": "v run",
+    "sass": "sass --style expanded",
+    "scss": "scss --style expanded",
+    "less": "cd $dir && lessc $fileName $fileNameWithoutExt.css",
+    "FortranFreeForm": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "fortran-modern": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "fortran_fixed-form": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "fortran": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "sml": "cd $dir && sml $fileName",
+    "mojo": "mojo run",
+    "erlang": "escript",
+    "spwn": "spwn build",
+    "pkl": "cd $dir && pkl eval -f yaml $fileName -o $fileNameWithoutExt.yaml",
+    "gleam": "gleam run -m $fileNameWithoutExt"
   },
-    "python.analysis.inlayHints.functionReturnTypes": true,
-    "python.analysis.inlayHints.variableTypes": true,
-    // TS
-    "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
-    "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
-    "typescript.inlayHints.variableTypes.enabled": true,
-    "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
-    "javascript.inlayHints.variableTypes.enabled": true,
-    "workbench.colorTheme": "JetBrains Darcula Theme",
-    "Key Promoter.suggestKeybindingCreation": false,
-    "go.inlayHints.parameterNames": true,
-    //vim
-    "vim.easymotion": true,
-    "vim.sneak": true,
-    "vim.incsearch": true,
-    "vim.useSystemClipboard": true,
-    "vim.useCtrlKeys": true,
-    "vim.hlsearch": true,
-    "vim.startInInsertMode": true,
-    "vim.normalModeKeyBindingsNonRecursive": [
-      {
-        "before": ["<leader>", "d"],
-        "after": ["d", "d"]
-      },
-      {
-        "before": ["<C-n>"],
-        "commands": [":nohl"]
-      },
-      {
-        "before": ["K"],
-        "commands": ["lineBreakInsert"],
-        "silent": true
-      },
-       {
-        "before": ["H"], // Focus previous tab at the left
-        "commands": ["workbench.action.previousEditor"]
-      },
-      {
-        "before": ["L"], // Focus next tab at the right
-        "commands": ["workbench.action.nextEditor"]
-      },
-      {
-        "before": ["Q"], // Close current tab
-        "after": ["<C-w>", "q"]
-      }
-    ],
-    "vim.leader": "<space>",
-    "vim.handleKeys": {
-      "<C-a>": false,
-      "<C-f>": false,
-      "<C-c>": false,
-      "<C-p>": false,
-      "<C-x>": false,
-      "<C-h>": false,
-      "<C-i>": false,
-      "<C-v>": false,
-      "<C-w>": true
+  "code-runner.runInTerminal": true,
+  "files.autoSave": "onFocusChange",
+  "aws.telemetry": false,
+  "remote.SSH.remotePlatform": {
+    "ec2-18-141-110-91.ap-southeast-1.compute.amazonaws.com": "linux"
+  },
+  "security.workspace.trust.untrustedFiles": "open",
+  "gopls": {
+    "ui.semanticTokens": true,
+    "ui.diagnostic.staticcheck": false
+  },
+  "go.goroot": "/snap/go/current",
+  "code-runner.saveFileBeforeRun": true,
+  "go.inlayHints.assignVariableTypes": true,
+  "go.inlayHints.constantValues": true,
+  "go.inlayHints.compositeLiteralFields": true,
+  // Python
+  "[python]": {
+    "editor.formatOnType": true
+  },
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  // TS
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "typescript.inlayHints.variableTypes.enabled": true,
+  "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "javascript.inlayHints.variableTypes.enabled": true,
+  "workbench.colorTheme": "JetBrains Darcula Theme",
+  "Key Promoter.suggestKeybindingCreation": false,
+  "go.inlayHints.parameterNames": true,
+  //vim
+  "vim.easymotion": true,
+  "vim.sneak": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.startInInsertMode": true,
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "d"],
+      "after": ["d", "d"]
     },
-    "vim.sneakUseIgnorecaseAndSmartcase": true,
-  
-    // To improve performance"
-    "extensions.experimental.affinity": {
-      "vscodevim.vim": 1
+    {
+      "before": ["<C-n>"],
+      "commands": [":nohl"]
     },
-    "vim.operatorPendingModeKeyBindings": [
-      {
-        "before": ["{"],
-        "after": ["w"]
-      },
-      {
-        "before": [">"],
-        "commands": ["editor.action.indentLines"]
-      },
-      {
-        "before": ["<"],
-        "commands": ["editor.action.outdentLines"]
-      }
-    ],
-    "[jsonc]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    {
+      "before": ["K"],
+      "commands": ["lineBreakInsert"],
+      "silent": true
     },
-    "explorer.confirmDragAndDrop": false,
-    "redhat.telemetry.enabled": false,
-    "editor.lineNumbers": "relative",
-    "java.saveActions.organizeImports": true,
-    "editor.codeActionsOnSave": {
-      "source.addMissingImports": "always"
+    {
+      "before": ["H"], // Focus previous tab at the left
+      "commands": ["workbench.action.previousEditor"]
     },
-    "terraform.codelens.referenceCount": true,
-    "terraform.experimentalFeatures.prefillRequiredFields": true,
-    "[terraform]": {
-        "editor.defaultFormatter": "hashicorp.terraform",
-        "editor.formatOnSave": true,
-        "editor.formatOnSaveMode": "file"
+    {
+      "before": ["L"], // Focus next tab at the right
+      "commands": ["workbench.action.nextEditor"]
     },
-    "[terraform-vars]": {
-        "editor.defaultFormatter": "hashicorp.terraform",
-        "editor.formatOnSave": true,
-        "editor.formatOnSaveMode": "file"
+    {
+      "before": ["Q"], // Close current tab
+      "after": ["<C-w>", "q"]
+    }
+  ],
+  "vim.leader": "<space>",
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false,
+    "<C-c>": false,
+    "<C-p>": false,
+    "<C-x>": false,
+    "<C-h>": false,
+    "<C-i>": false,
+    "<C-v>": false,
+    "<C-w>": true
+  },
+  "vim.sneakUseIgnorecaseAndSmartcase": true,
+
+  // To improve performance"
+  "extensions.experimental.affinity": {
+    "vscodevim.vim": 1
+  },
+  "vim.operatorPendingModeKeyBindings": [
+    {
+      "before": ["{"],
+      "after": ["w"]
     },
-    // line sepatators
-    "separators.maxDepth": 1,
-    "separators.classes.borderStyle": "dashed",
-    "separators.constructors.borderStyle": "dashed",
-    "separators.enums.borderStyle": "dashed",
-    "separators.functions.borderStyle": "dashed",
-    "separators.interfaces.borderStyle": "dashed",
-    "separators.methods.borderStyle": "dashed",
-    "separators.namespaces.borderStyle": "dashed",
-    "separators.structs.borderStyle": "dashed",
+    {
+      "before": [">"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<"],
+      "commands": ["editor.action.outdentLines"]
+    }
+  ],
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "explorer.confirmDragAndDrop": false,
+  "redhat.telemetry.enabled": false,
+  "editor.lineNumbers": "relative",
+  "java.saveActions.organizeImports": true,
+  "editor.codeActionsOnSave": {
+    "source.addMissingImports": "always"
+  },
+  "terraform.codelens.referenceCount": true,
+  "terraform.experimentalFeatures.prefillRequiredFields": true,
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
+  },
+  "[terraform-vars]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
+  },
+  // line sepatators
+  "separators.maxDepth": 1,
+  "separators.classes.borderStyle": "dashed",
+  "separators.constructors.borderStyle": "dashed",
+  "separators.enums.borderStyle": "dashed",
+  "separators.functions.borderStyle": "dashed",
+  "separators.interfaces.borderStyle": "dashed",
+  "separators.methods.borderStyle": "dashed",
+  "separators.namespaces.borderStyle": "dashed",
+  "separators.structs.borderStyle": "dashed",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
-  
+}
