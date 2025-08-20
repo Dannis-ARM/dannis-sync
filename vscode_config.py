@@ -1,32 +1,47 @@
+
+import argparse
+import logging
 import pathlib
 import shutil
 import sys
-
-ACTION = sys.argv[1]
-
 import enum
 
 class Action(enum.Enum):
     REPO_LOAD = "load-from-repo"
     VSC_LOAD = "load-from-vscode"
 
-if ACTION not in [LOAD_ACTION.value for LOAD_ACTION in Action]:
-    print("Invalid action. Please use 'load' or 'save'.")
-    sys.exit(1)
+def main():
+    parser = argparse.ArgumentParser(description="Sync VSCode settings between repo and local user config.")
+    parser.add_argument(
+        "action",
+        choices=[action.value for action in Action],
+        help="Action to perform: load-from-repo or load-from-vscode"
+    )
+    args = parser.parse_args()
 
-CUR_FILE = pathlib.Path(__file__)
-CUR_DIR = CUR_FILE.parent
-HOME = pathlib.Path.home()
+    CUR_FILE = pathlib.Path(__file__).resolve()
+    CUR_DIR = CUR_FILE.parent
+    HOME = pathlib.Path.home()
 
-REPO_VSCODE_SETTING_PATH = CUR_DIR / pathlib.Path("configs/settings.json")
-VSCODE_SETTING_PATH = HOME / pathlib.Path("AppData/Roaming/Code/User/settings.json")
+    REPO_VSCODE_SETTING_PATH = CUR_DIR / "configs" / "settings.json"
+    VSCODE_SETTING_PATH = HOME / "AppData" / "Roaming" / "Code" / "User" / "settings.json"
 
-VSCODE_SETTING_PATH.parent.mkdir(parents=True, exist_ok=True)
-if ACTION == Action.REPO_LOAD.value:
-    # load_from_repo's setting
-    print(f"Copying settings from {REPO_VSCODE_SETTING_PATH} to {VSCODE_SETTING_PATH}")
-    shutil.copyfile(REPO_VSCODE_SETTING_PATH, VSCODE_SETTING_PATH)
-elif ACTION == Action.VSC_LOAD.value:
-    # load from vscode's setting
-    print(f"Copying settings from {VSCODE_SETTING_PATH} to {REPO_VSCODE_SETTING_PATH}")
-    shutil.copyfile(VSCODE_SETTING_PATH, REPO_VSCODE_SETTING_PATH)
+    VSCODE_SETTING_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    try:
+        if args.action == Action.REPO_LOAD.value:
+            logging.info(f"Copying settings from {REPO_VSCODE_SETTING_PATH} to {VSCODE_SETTING_PATH}")
+            shutil.copyfile(REPO_VSCODE_SETTING_PATH, VSCODE_SETTING_PATH)
+        elif args.action == Action.VSC_LOAD.value:
+            logging.info(f"Copying settings from {VSCODE_SETTING_PATH} to {REPO_VSCODE_SETTING_PATH}")
+            shutil.copyfile(VSCODE_SETTING_PATH, REPO_VSCODE_SETTING_PATH)
+    except FileNotFoundError as e:
+        logging.error(f"File not found: {e}")
+        sys.exit(1)
+    except Exception as e:
+        logging.error(f"An error occurred: {e}")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    main()
