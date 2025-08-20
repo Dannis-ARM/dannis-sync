@@ -192,5 +192,6 @@
   "separators.structs.borderStyle": "dashed",
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "python.analysis.typeCheckingMode": "basic"
 }
