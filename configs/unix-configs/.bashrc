@@ -23,5 +23,5 @@ fi
 
 EOF
 
-echo '. $user_bashrc' >> ~/.bashrc
+echo 'user_bashrc=~/.cfgs/.bashrc && . $user_bashrc' >> ~/.bashrc
 
