@@ -18,22 +18,20 @@ class Action(enum.Enum):
     VSC_LOAD = "load-from-vscode"
     SOFTLINK_CREATE = "softlink-create"
 
-def create_symlink(src: pathlib.Path, dst: pathlib.Path):
+def create_symlink(src: pathlib.Path, symlink: pathlib.Path):
     """
-    Creates a symbolic link at the destination path pointing to the source path.
-    If a file or symlink already exists at the destination, it is removed before creating the new symlink.
-    Logs the creation of the symlink on success, or logs an error and exits the program on failure.
+    Creates a symbolic link 
     Args:
-        src (pathlib.Path): The source path to which the symlink should point.
-        dst (pathlib.Path): The destination path where the symlink will be created.
+        src (pathlib.Path): The path which the symlink should point.
+        symlink (pathlib.Path): The path where the symlink will be created.
     Raises:
         SystemExit: If an exception occurs during symlink creation, the program exits with status 1.
     """
     try:
-        if dst.exists() or dst.is_symlink():
-            dst.unlink()
-        dst.symlink_to(src)
-        logging.info(f"Created symlink: {dst} -> {src}")
+        if symlink.exists() or symlink.is_symlink():
+            symlink.unlink()
+        symlink.symlink_to(src)
+        logging.info(f"Created symlink: {symlink} -> {src}")
     except Exception as e:
         logging.error(f"Failed to create symlink: {e}")
         sys.exit(1)
@@ -78,12 +76,12 @@ def cli():
         help="""
         Create a symbolic link.
 
-        If --src and --dst are provided, creates a symlink from --dst to --src.
+        If --src and --symlink are provided, creates a symlink from --symlink to --src.
         If no arguments are provided, creates a default symlink for VSCode settings:
         (REPO_VSCODE_SETTING_PATH -> VSCODE_SETTING_PATH)
 
         Examples: (Please be aware you need to be Admin on Windows)
-          python vscode_config.py softlink --src C:/path/to/source --dst C:/path/to/destination
+          python vscode_config.py softlink --src C:/path/to/source --symlink C:/path/to/destination
           python vscode_config.py softlink # Creates default symlink for VSCode settings 
         """,
         formatter_class=argparse.RawTextHelpFormatter
@@ -95,7 +93,7 @@ def cli():
         help="The source path (file or directory) to which the symlink should point."
     )
     softlink_parser.add_argument(
-        "--dst",
+        "--symlink",
         type=pathlib.Path,
         required=False,
         help="The destination path where the symlink will be created."
@@ -112,10 +110,10 @@ def cli():
                 logging.info(f"Copying settings from {VSCODE_SETTING_PATH} to {REPO_VSCODE_SETTING_PATH}")
                 shutil.copyfile(VSCODE_SETTING_PATH, REPO_VSCODE_SETTING_PATH)
         elif args.command == "softlink":
-            if args.src is None or args.dst is None:
-                create_symlink(VSCODE_SETTING_PATH, REPO_VSCODE_SETTING_PATH)
+            if args.src is None or args.symlink is None:
+                create_symlink(REPO_VSCODE_SETTING_PATH, VSCODE_SETTING_PATH)
             else:
-                create_symlink(args.src, args.dst)
+                create_symlink(args.src, args.symlink)
     except FileNotFoundError as e:
         logging.error(f"File not found: {e}")
         sys.exit(1)
