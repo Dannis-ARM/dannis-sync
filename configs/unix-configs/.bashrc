@@ -1,3 +1,9 @@
+mkdir -p ~/.cfgs
+
+user_bashrc=~/.cfgs/.bashrc
+
+cat <<'EOF' > ${user_bashrc}
+
 alias ls='ls --color=auto'
 alias ll='ls -al'
 alias cl='clear'
@@ -14,3 +20,8 @@ if [ $(id -u) -eq 0 ]; then
 else
         export PS1="\u@\h:\w $ "
 fi
+
+EOF
+
+echo '. $user_bashrc' >> ~/.bashrc
+
