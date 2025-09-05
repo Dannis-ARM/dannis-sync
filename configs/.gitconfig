@@ -10,7 +10,7 @@ mg = merge
 cm = commit
 cmm = commit -m
 ds = diff --staged
-dt = difftool
+dt = difftool -y
 mt = mergetool
 last = log -1 HEAD
 latest = for-each-ref --sort=-committerdate --format=\"%(committername)@%(refname:short) [%(committerdate:short)] %(contents)\"

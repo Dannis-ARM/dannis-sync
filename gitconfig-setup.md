@@ -3,6 +3,9 @@ git config --list --show-origin
 
 git config --global user.name "Dannis"
 git config --global user.email hzzhanyuyang@gmail.com
+
+git config --global diff.tool vscode
+git config --global difftool.vscode.cmd "code --wait --diff $LOCAL $REMOTE"
 ```
 
 # generate ssh key
