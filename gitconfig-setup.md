@@ -6,6 +6,8 @@ git config --global user.email hzzhanyuyang@gmail.com
 
 git config --global diff.tool vscode
 git config --global difftool.vscode.cmd "code --wait --diff $LOCAL $REMOTE"
+
+git config --global alias.cp cherry-pick
 ```
 
 # generate ssh key
