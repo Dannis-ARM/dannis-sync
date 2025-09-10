@@ -8,6 +8,7 @@ git config --global diff.tool vscode
 git config --global difftool.vscode.cmd "code --wait --diff $LOCAL $REMOTE"
 
 git config --global alias.cp cherry-pick
+git config --global alias.lg "log --abbrev-commit --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %Cblue%an'"
 ```
 
 # generate ssh key
