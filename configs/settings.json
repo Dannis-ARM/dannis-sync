@@ -162,7 +162,7 @@
   },
   "explorer.confirmDragAndDrop": false,
   "redhat.telemetry.enabled": false,
-  "editor.lineNumbers": "relative",
+  // "editor.lineNumbers": "relative",
   "java.saveActions.organizeImports": true,
   "editor.codeActionsOnSave": {
     "source.addMissingImports": "always"
