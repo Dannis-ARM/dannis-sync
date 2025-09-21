@@ -199,5 +199,7 @@
     "markdown": false,
     "scminput": false
   },
-  "go.lintOnSave": "off"
+  "[go]": {
+    "editor.formatOnSave": false
+  }
 }
