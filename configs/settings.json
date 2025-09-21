@@ -90,7 +90,6 @@
   "javascript.inlayHints.variableTypes.enabled": true,
   "workbench.colorTheme": "JetBrains Darcula Theme",
   "Key Promoter.suggestKeybindingCreation": false,
-  "go.inlayHints.parameterNames": true,
   //vim
   "vim.easymotion": true,
   "vim.sneak": true,
@@ -199,5 +198,6 @@
     "plaintext": false,
     "markdown": false,
     "scminput": false
-  }
+  },
+  "go.lintOnSave": "off"
 }
