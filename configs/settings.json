@@ -75,7 +75,6 @@
   "code-runner.saveFileBeforeRun": true,
   "go.inlayHints.assignVariableTypes": true,
   "go.inlayHints.constantValues": true,
-  "go.inlayHints.compositeLiteralFields": true,
   // Python
   "[python]": {
     "editor.formatOnType": true
