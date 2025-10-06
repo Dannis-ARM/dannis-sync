@@ -200,5 +200,7 @@
   },
   "[go]": {
     "editor.formatOnSave": false
-  }
+  },
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "terminal.integrated.tabs.location": "left"
 }
