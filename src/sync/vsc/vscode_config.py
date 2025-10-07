@@ -18,11 +18,11 @@ class Action(enum.Enum):
     VSC_LOAD = "load-from-vscode"
     SOFTLINK_CREATE = "softlink-create"
 
-def create_symlink(src: pathlib.Path, symlink: pathlib.Path):
+def create_symlink(to: pathlib.Path, symlink: pathlib.Path):
     """
     Creates a symbolic link 
     Args:
-        src (pathlib.Path): The path which the symlink should point.
+        to (pathlib.Path): The path which the symlink should point.
         symlink (pathlib.Path): The path where the symlink will be created.
     Raises:
         SystemExit: If an exception occurs during symlink creation, the program exits with status 1.
@@ -30,8 +30,8 @@ def create_symlink(src: pathlib.Path, symlink: pathlib.Path):
     try:
         if symlink.exists() or symlink.is_symlink():
             symlink.unlink()
-        symlink.symlink_to(src)
-        logging.info(f"Created symlink: {symlink} -> {src}")
+        symlink.symlink_to(to)
+        logging.info(f"Created symlink: {symlink} -> {to}")
     except Exception as e:
         logging.error(f"Failed to create symlink: {e}")
         sys.exit(1)

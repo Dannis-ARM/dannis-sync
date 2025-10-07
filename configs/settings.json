@@ -75,7 +75,6 @@
   "code-runner.saveFileBeforeRun": true,
   "go.inlayHints.assignVariableTypes": true,
   "go.inlayHints.constantValues": true,
-  "go.inlayHints.compositeLiteralFields": true,
   // Python
   "[python]": {
     "editor.formatOnType": true
@@ -90,7 +89,6 @@
   "javascript.inlayHints.variableTypes.enabled": true,
   "workbench.colorTheme": "JetBrains Darcula Theme",
   "Key Promoter.suggestKeybindingCreation": false,
-  "go.inlayHints.parameterNames": true,
   //vim
   "vim.easymotion": true,
   "vim.sneak": true,
@@ -163,7 +161,7 @@
   },
   "explorer.confirmDragAndDrop": false,
   "redhat.telemetry.enabled": false,
-  "editor.lineNumbers": "relative",
+  // "editor.lineNumbers": "relative",
   "java.saveActions.organizeImports": true,
   "editor.codeActionsOnSave": {
     "source.addMissingImports": "always"
@@ -199,5 +197,10 @@
     "plaintext": false,
     "markdown": false,
     "scminput": false
-  }
+  },
+  "[go]": {
+    "editor.formatOnSave": false
+  },
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "terminal.integrated.tabs.location": "left"
 }
