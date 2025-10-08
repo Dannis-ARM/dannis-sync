@@ -14,6 +14,8 @@ alias egrep='egrep --color=auto'
 # tmux
 alias tmux='tmux -2' # tmux with 256 colors
 alias ..='cd ..'
+alias ...='cd ./../..'
+alias ....='cd ./../../..'
 # others
 
 # set PS1
