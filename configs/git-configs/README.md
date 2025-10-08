@@ -4,7 +4,6 @@
 ```cmd
 git remote remove origin 
 git remote add origin git@github.com:Dannis-ARM/dannis-sync.git
-
 ```
 
 ### Fix
@@ -17,3 +16,14 @@ Host github.com
  Hostname ssh.github.com
  Port 443
 ```
+
+```bash
+mkdir -p ~/.ssh
+cat <<'EOF' > ~/.ssh/config
+Host github.com
+  Hostname ssh.github.com
+  Port 443
+EOF
+```
+
+ssh -Tv git@github.com
