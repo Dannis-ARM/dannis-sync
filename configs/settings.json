@@ -1,6 +1,12 @@
 {
   "workbench.iconTheme": "vscode-icons",
   "explorer.confirmDelete": false,
+  // editor
+  "editor.folding": false,
+  "editor.detectIndentation": true,
+  "editor.cursorBlinking": "solid",
+
+  // code-runner
   "code-runner.executorMap": {
     "javascript": "node",
     "java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
@@ -63,10 +69,9 @@
   "code-runner.runInTerminal": true,
   "files.autoSave": "onFocusChange",
   "aws.telemetry": false,
-  "remote.SSH.remotePlatform": {
-    "ec2-18-141-110-91.ap-southeast-1.compute.amazonaws.com": "linux"
-  },
   "security.workspace.trust.untrustedFiles": "open",
+
+  // go
   "gopls": {
     "ui.semanticTokens": true,
     "ui.diagnostic.staticcheck": false
@@ -75,12 +80,14 @@
   "code-runner.saveFileBeforeRun": true,
   "go.inlayHints.assignVariableTypes": true,
   "go.inlayHints.constantValues": true,
+
   // Python
   "[python]": {
     "editor.formatOnType": true
   },
   "python.analysis.inlayHints.functionReturnTypes": true,
   "python.analysis.inlayHints.variableTypes": true,
+
   // TS
   "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
   "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
@@ -89,7 +96,10 @@
   "javascript.inlayHints.variableTypes.enabled": true,
   "workbench.colorTheme": "JetBrains Darcula Theme",
   "Key Promoter.suggestKeybindingCreation": false,
+
+
   //vim
+  "vim.leader": "<space>",
   "vim.easymotion": true,
   "vim.sneak": true,
   "vim.incsearch": true,
@@ -112,19 +122,10 @@
       "silent": true
     },
     {
-      "before": ["H"], // Focus previous tab at the left
-      "commands": ["workbench.action.previousEditor"]
-    },
-    {
-      "before": ["L"], // Focus next tab at the right
-      "commands": ["workbench.action.nextEditor"]
-    },
-    {
       "before": ["Q"], // Close current tab
       "after": ["<C-w>", "q"]
     }
   ],
-  "vim.leader": "<space>",
   "vim.handleKeys": {
     "<C-a>": false,
     "<C-f>": false,
@@ -132,12 +133,12 @@
     "<C-p>": false,
     "<C-x>": false,
     "<C-h>": false,
-    "<C-i>": false,
+    "<C-i>": true,
     "<C-v>": false,
-    "<C-w>": true
+    "<C-w>": false,
+    "<C-b>": false,
   },
   "vim.sneakUseIgnorecaseAndSmartcase": true,
-
   // To improve performance"
   "extensions.experimental.affinity": {
     "vscodevim.vim": 1
@@ -156,6 +157,76 @@
       "commands": ["editor.action.outdentLines"]
     }
   ],
+  // --- vim experiment ---
+  "vim.normalModeKeyBindings": [
+    // --- not common used ---
+    {
+      "before": ["<leader>", "t", "x"],
+      "commands": [":tabclose"]
+    },
+    {
+      "before": ["<leader>", "s", "a"],
+      "commands": ["editor.action.selectAll"]
+    },
+    {
+      "before": ["<leader>", "e"],
+      "commands": ["workbench.action.toggleSidebarVisibility"]
+    },
+    {
+      "before": ["<leader>", "q"],
+      "commands": ["workbench.action.closeActiveEditor"]
+    },
+    // --- not commmon used ---
+    {
+      "before": ["<leader>", "h"],
+      "commands": [":nohl"]
+    },
+    {
+      "before": ["<leader>", "s", "v"],
+      "commands": ["workbench.action.splitEditor"]
+    },
+    {
+      "before": ["<leader>", "s", "h"],
+      "commands": ["workbench.action.splitEditorDown"]
+    },
+    {
+      "before": ["<S-h>"],
+      "commands": [":tabp"] // go to previous tab
+    },
+    {
+      "before": ["<S-l>"],
+      "commands": [":tabnext"] // go to next tab
+    },
+    {
+      "before": ["<leader>", "f", "o"],
+      "commands": ["workbench.action.quickOpen"]
+    },
+    {
+      "before": ["<leader>", "f", "b"],
+      "commands": ["workbench.action.showAllEditors"]
+    },
+    {
+      "before": ["<leader>", "f", "s"],
+      "commands": ["workbench.action.findInFiles"]
+    },
+    {
+      "before": ["<leader>", "r", "n"],
+      "commands": ["editor.action.rename"]
+    },
+    {
+      "before": ["<leader>", "a", "f"],
+      "commands": ["editor.action.autoFix"]
+    },
+    {
+      "before": ["<leader>", "f", "m"],
+      "commands": ["editor.action.format"]
+    },
+    {
+      "before": ["<leader>", "c", "a"],
+      "commands": ["editor.action.quickFix"]
+    }
+  ],
+  // --- vim end ---
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -178,6 +249,7 @@
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "file"
   },
+
   // line sepatators
   "separators.maxDepth": 1,
   "separators.classes.borderStyle": "dashed",
@@ -188,6 +260,7 @@
   "separators.methods.borderStyle": "dashed",
   "separators.namespaces.borderStyle": "dashed",
   "separators.structs.borderStyle": "dashed",
+  
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
