@@ -1,0 +1,1 @@
+Please use Chinese to interfact with me, unless I explicitly use commands like ("use english"/ "use eng") to ask you to use english

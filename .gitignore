@@ -93,3 +93,5 @@ docs/_build/
 tempCodeRunnerFile.py
 
 test.*
+.venv
+.pytest_cache
