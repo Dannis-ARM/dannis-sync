@@ -3,20 +3,21 @@ import ctypes
 import argparse
 from pathlib import Path
 
-# --- 常量定义 ---
+# --- Constants ---
 REG_ENV_PATH = r"Environment"
 HWND_BROADCAST = 0xFFFF
 WM_SETTINGCHANGE = 0x001A
 SMTO_ABORTIFHUNG = 0x0002
 
 class PathManager:
-    """处理 Windows 用户环境变量的逻辑类"""
+    """Logic class for handling Windows User Environment Variables"""
     
     def __init__(self):
+        # Operates on HKEY_CURRENT_USER (User PATH)
         self.hkey = winreg.HKEY_CURRENT_USER
 
     def _refresh_system(self):
-        """发送系统广播，通知环境变量已更改"""
+        """Broadcasts a system message to notify that environment variables have changed"""
         result = ctypes.c_long()
         ctypes.windll.user32.SendMessageTimeoutW(
             HWND_BROADCAST, WM_SETTINGCHANGE, 0, "Environment",
@@ -24,7 +25,7 @@ class PathManager:
         )
 
     def get_current_paths(self):
-        """获取当前所有的路径列表"""
+        """Retrieves the current list of paths from the registry"""
         try:
             with winreg.OpenKey(self.hkey, REG_ENV_PATH, 0, winreg.KEY_READ) as key:
                 raw_path, _ = winreg.QueryValueEx(key, "PATH")
@@ -33,35 +34,38 @@ class PathManager:
             return []
 
     def save_paths(self, path_list):
-        """将路径列表写回注册表并广播"""
+        """Writes the path list back to the registry and triggers a system refresh"""
         new_value = ";".join(path_list)
         try:
             with winreg.OpenKey(self.hkey, REG_ENV_PATH, 0, winreg.KEY_WRITE) as key:
+                # Use REG_EXPAND_SZ to allow environment variables like %USERPROFILE%
                 winreg.SetValueEx(key, "PATH", 0, winreg.REG_EXPAND_SZ, new_value)
             self._refresh_system()
             return True
         except Exception as e:
-            print(f"❌ 写入注册表失败: {e}")
+            print(f"❌ Failed to write to registry: {e}")
             return False
 
 def handle_add(manager, target_paths):
+    """Adds new paths to the PATH variable if they don't already exist"""
     current_paths = manager.get_current_paths()
     changed = False
     
     for p in target_paths:
         abs_path = str(Path(p).resolve())
-        # 规范化去重
+        # Normalization and duplication check
         if any(Path(existing).resolve() == Path(abs_path).resolve() for existing in current_paths):
-            print(f"ℹ️ 已存在: {abs_path}")
+            print(f"ℹ️ Already exists: {abs_path}")
         else:
             current_paths.append(abs_path)
-            print(f"➕ 添加: {abs_path}")
+            print(f"➕ Adding: {abs_path}")
             changed = True
 
     if changed and manager.save_paths(current_paths):
-        print("✅ 批量添加完成。")
+        print("✅ Batch addition completed.")
 
 def handle_remove(manager, target_paths):
+    """Removes specified paths from the PATH variable"""
     current_paths = manager.get_current_paths()
     targets_to_remove = {Path(p).resolve() for p in target_paths}
     
@@ -69,12 +73,12 @@ def handle_remove(manager, target_paths):
     
     if len(new_paths) < len(current_paths):
         if manager.save_paths(new_paths):
-            print(f"🗑️ 成功移除了 {len(current_paths) - len(new_paths)} 个路径。")
+            print(f"🗑️ Successfully removed {len(current_paths) - len(new_paths)} path(s).")
     else:
-        print("ℹ️ 未发现匹配的可移除路径。")
+        print("ℹ️ No matching paths found to remove.")
 
 def handle_clean(manager):
-    """清理不存在的路径以及重复的路径"""
+    """Cleans up non-existent paths and removes duplicates"""
     current_paths = manager.get_current_paths()
     seen_paths = set()
     cleaned_paths = []
@@ -84,17 +88,21 @@ def handle_clean(manager):
 
     for p in current_paths:
         path_obj = Path(p)
-        resolved_path = path_obj.resolve()
+        # We need to handle potential errors during resolution (e.g., illegal characters)
+        try:
+            resolved_path = path_obj.resolve()
+        except Exception:
+            resolved_path = None
 
-        # 1. 检查是否存在
+        # 1. Check if path exists
         if not path_obj.exists():
-            print(f"🧹 移除失效路径: {p}")
+            print(f"🧹 Removing invalid path: {p}")
             invalid_count += 1
             continue
         
-        # 2. 检查是否重复
+        # 2. Check for duplicates
         if resolved_path in seen_paths:
-            print(f"👯 移除重复路径: {p}")
+            print(f"👯 Removing duplicate path: {p}")
             duplicate_count += 1
             continue
             
@@ -103,27 +111,27 @@ def handle_clean(manager):
 
     if invalid_count > 0 or duplicate_count > 0:
         if manager.save_paths(cleaned_paths):
-            print(f"✨ 清理完毕：移除了 {invalid_count} 个失效路径，{duplicate_count} 个重复路径。")
+            print(f"✨ Cleanup finished: Removed {invalid_count} invalid path(s) and {duplicate_count} duplicate(s).")
     else:
-        print("✅ PATH 非常干净，无需清理。")
+        print("✅ PATH is already clean.")
 
 def main():
-    parser = argparse.ArgumentParser(description="Windows 用户 PATH 管理增强版")
+    parser = argparse.ArgumentParser(description="Windows User PATH Manager (Enhanced)")
     subparsers = parser.add_subparsers(dest="command")
 
-    # Add 子命令
-    add_cmd = subparsers.add_parser("add", help="添加一个或多个路径")
-    add_cmd.add_argument("paths", nargs="+", help="路径列表")
+    # Add subcommand
+    add_cmd = subparsers.add_parser("add", help="Add one or more paths")
+    add_cmd.add_argument("paths", nargs="+", help="List of paths to add")
 
-    # Remove 子命令
-    rm_cmd = subparsers.add_parser("remove", help="移除一个或多个路径")
-    rm_cmd.add_argument("paths", nargs="+", help="路径列表")
+    # Remove subcommand
+    rm_cmd = subparsers.add_parser("remove", help="Remove one or more paths")
+    rm_cmd.add_argument("paths", nargs="+", help="List of paths to remove")
 
-    # Clean 子命令
-    subparsers.add_parser("clean", help="清理不存在的路径及重复项")
+    # Clean subcommand
+    subparsers.add_parser("clean", help="Clean invalid paths and duplicates")
 
-    # List 子命令
-    subparsers.add_parser("list", help="显示当前 PATH")
+    # List subcommand
+    subparsers.add_parser("list", help="Display current PATH entries")
 
     args = parser.parse_args()
     manager = PathManager()
@@ -136,7 +144,7 @@ def main():
         handle_clean(manager)
     elif args.command == "list":
         paths = manager.get_current_paths()
-        print("\n当前用户 PATH 变量:")
+        print("\nCurrent User PATH Variables:")
         for i, p in enumerate(paths, 1):
             status = " [OK]" if Path(p).exists() else " [INVALID!]"
             print(f"  {i:02d}. {p}{status}")
