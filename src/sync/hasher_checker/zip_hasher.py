@@ -6,11 +6,36 @@ import json
 import time
 from pathlib import Path
 
-def get_zip_files(folder_path):
-    """Find all .zip files in a folder, ignoring access errors."""
+def get_zip_files(folder_path, reference_file_path=None):
+    """
+    Find all .zip files in a folder, optionally filtering by modification time.
+
+    Args:
+        folder_path (str or Path): The path to the folder to search.
+        reference_file_path (str or Path, optional): If provided, only .zip files
+                                                  modified after this file's
+                                                  modification time will be returned.
+    Returns:
+        list: A list of Path objects for the filtered .zip files.
+    """
     try:
-        # Correctly search for .zip files as intended
-        return list(Path(folder_path).rglob("*"))
+        all_files = Path(folder_path).rglob("*")
+        zip_files = [f for f in all_files if f.is_file() and f.suffix == '.zip']
+
+        if reference_file_path:
+            reference_file_path = Path(reference_file_path)
+            if not reference_file_path.exists():
+                print(f"⚠️ Warning: Reference file {reference_file_path} not found. Skipping time-based filtering.")
+                return zip_files
+
+            reference_mtime = reference_file_path.stat().st_mtime
+            filtered_zip_files = [
+                f for f in zip_files
+                if f.stat().st_mtime > reference_mtime
+            ]
+            return filtered_zip_files
+        else:
+            return zip_files
     except OSError as e:
         print(f"⚠️ Error scanning directory {folder_path}: {e}")
         return []
@@ -96,19 +121,24 @@ def print_summary(results):
     print("="*50)
 
 
-def check_hashes(folder_path):
+def check_hashes(folder_path, reference_file_path=None):
     """
     Checks for file changes in a directory based on their hashes.
 
     Args:
         folder_path (str or Path): The path to the folder to check.
+        reference_file_path (str or Path, optional): If provided, only .zip files
+                                                  modified after this file's
+                                                  modification time will be checked.
 
     Returns:
         list: A list of file paths that have been modified.
     """
     print(f"🔍 Starting hash check for *.zip files in '{folder_path}'...")
+    if reference_file_path:
+        print(f"    (Filtering for files modified after '{reference_file_path}')")
     
-    files_to_check = get_zip_files(folder_path)
+    files_to_check = get_zip_files(folder_path, reference_file_path)
     if not files_to_check:
         print("No *.zip files found to check.")
         return []
@@ -188,18 +218,20 @@ def main():
     parser.add_argument("folder_path", type=str, help="The path to the folder to check.")
     parser.add_argument("--output-format", type=str, choices=['human', 'bash'], default='human',
                         help="Output format: 'human' for readable logs, 'bash' for machine-readable list of files.")
+    parser.add_argument("--reference-file", type=str,
+                        help="Only check .zip files modified after this reference file's modification time.")
     args = parser.parse_args()
     
     if args.output_format == 'bash':
         # Temporarily redirect stdout to suppress verbose output
         f = StringIO()
         with redirect_stdout(f):
-            changed_files = check_hashes(args.folder_path)
+            changed_files = check_hashes(args.folder_path, args.reference_file)
         # Print only the changed files for bash consumption
         for file_path in changed_files:
             print(file_path)
     else: # default 'human'
-        modified_files = check_hashes(args.folder_path)
+        modified_files = check_hashes(args.folder_path, args.reference_file)
         if modified_files:
             print("\nScript finished. Modified files were found.")
         else:
