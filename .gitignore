@@ -95,3 +95,4 @@ tempCodeRunnerFile.py
 test.*
 .venv
 .pytest_cache
+test/
