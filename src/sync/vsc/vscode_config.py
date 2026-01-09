@@ -20,16 +20,27 @@ class Action(enum.Enum):
 
 def create_symlink(to: pathlib.Path, symlink: pathlib.Path):
     """
-    Creates a symbolic link 
+    Creates a symbolic link. If a file, directory, or another symlink already exists
+    at the destination, it will be removed before the new symlink is created.
     Args:
-        to (pathlib.Path): The path which the symlink should point.
+        to (pathlib.Path): The path to which the symlink should point.
         symlink (pathlib.Path): The path where the symlink will be created.
     Raises:
-        SystemExit: If an exception occurs during symlink creation, the program exits with status 1.
+        SystemExit: If an exception occurs during the process, the program exits with status 1.
     """
     try:
-        if symlink.exists() or symlink.is_symlink():
+        # The is_symlink() check must come first, as a symlink to a directory
+        # will also return True for is_dir().
+        if symlink.is_symlink():
             symlink.unlink()
+            logging.info(f"Removed existing symlink: {symlink}")
+        elif symlink.is_dir():
+            shutil.rmtree(symlink)
+            logging.info(f"Removed existing directory: {symlink}")
+        elif symlink.exists():
+            symlink.unlink()
+            logging.info(f"Removed existing file: {symlink}")
+
         symlink.symlink_to(to)
         logging.info(f"Created symlink: {symlink} -> {to}")
     except Exception as e:
