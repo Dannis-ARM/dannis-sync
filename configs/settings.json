@@ -224,8 +224,9 @@
     {
       "before": ["<leader>", "c", "a"],
       "commands": ["editor.action.quickFix"]
-    }
+    },
   ],
+  
   // --- vim end ---
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -276,10 +277,4 @@
   },
   "terminal.integrated.enableMultiLinePasteWarning": "never",
   "terminal.integrated.tabs.location": "left",
-  "explorer.confirmPasteNative": false,
-  "python.defaultInterpreterPath": "c:\\Users\\18905\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
-  "aws.cloudformation.telemetry.enabled": false,
-  "[markdown]": {
-    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
-  }
 }
