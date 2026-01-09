@@ -3,12 +3,14 @@ from io import StringIO
 import argparse
 import hashlib
 import json
+import os
 import time
 from pathlib import Path
 
 def get_zip_files(folder_path, reference_file_path=None):
     """
     Find all .zip files in a folder, optionally filtering by modification time.
+    This function traverses symbolic links.
 
     Args:
         folder_path (str or Path): The path to the folder to search.
@@ -19,8 +21,15 @@ def get_zip_files(folder_path, reference_file_path=None):
         list: A list of Path objects for the filtered .zip files.
     """
     try:
-        all_files = Path(folder_path).rglob("*")
-        zip_files = [f for f in all_files if f.is_file() and f.suffix == '.zip']
+        zip_files = []
+        for dirpath, _, filenames in os.walk(folder_path, followlinks=True):
+            for filename in filenames:
+                if filename.endswith('.zip'):
+                    file_path = Path(dirpath) / filename
+                    # os.walk can yield symlinks to files, so we check if it's a file.
+                    # is_file() on a symlink to a file returns True.
+                    if file_path.is_file():
+                        zip_files.append(file_path)
 
         if reference_file_path:
             reference_file_path = Path(reference_file_path)

@@ -2,5 +2,7 @@
     "D:\\MyProjects\\zyuyan\\dannis-sync\\src\\sync\\hasher_checker\\test\\test_dir\\file1.txt": "1b1e4a7a3263e81e0cd1c01570abd6d968f4ee3bf7fe7e4111ab303161e857d1",
     "D:\\MyProjects\\zyuyan\\dannis-sync\\src\\sync\\hasher_checker\\test\\test_dir\\file2.txt": "8b48740165383107033541399ca7ff294c38f39a29afd679b5c509829654fc91",
     "D:\\MyProjects\\zyuyan\\dannis-sync\\src\\sync\\hasher_checker\\tests\\test_dir\\file1.zip": "1b1e4a7a3263e81e0cd1c01570abd6d968f4ee3bf7fe7e4111ab303161e857d1",
-    "D:\\MyProjects\\zyuyan\\dannis-sync\\src\\sync\\hasher_checker\\tests\\test_dir\\file2.zip": "8b48740165383107033541399ca7ff294c38f39a29afd679b5c509829654fc91"
+    "D:\\MyProjects\\zyuyan\\dannis-sync\\src\\sync\\hasher_checker\\tests\\test_dir\\file2.zip": "7d957db414e2ec242b38d0f08dbe6e2957acb26893ffcd4e645ede889a296e14",
+    "D:\\MyProjects\\zyuyan\\dannis-sync\\src\\sync\\hasher_checker\\tests\\test_dir\\test_dd\\file1.zip": "1b1e4a7a3263e81e0cd1c01570abd6d968f4ee3bf7fe7e4111ab303161e857d1",
+    "D:\\MyProjects\\zyuyan\\dannis-sync\\src\\sync\\hasher_checker\\tests\\test_dir\\test_dd\\file2.zip": "7d957db414e2ec242b38d0f08dbe6e2957acb26893ffcd4e645ede889a296e14"
 }
