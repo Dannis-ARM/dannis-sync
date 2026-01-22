@@ -94,7 +94,6 @@
   "typescript.inlayHints.variableTypes.enabled": true,
   "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
   "javascript.inlayHints.variableTypes.enabled": true,
-  "workbench.colorTheme": "JetBrains Darcula Theme",
   "Key Promoter.suggestKeybindingCreation": false,
 
 
@@ -277,4 +276,5 @@
   },
   "terminal.integrated.enableMultiLinePasteWarning": "never",
   "terminal.integrated.tabs.location": "left",
+  "editor.fontFamily": "JetBrains Mono",
 }
