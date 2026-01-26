@@ -5,90 +5,106 @@ import argparse
 import sys
 from pathlib import Path
 
-# Configure logging to output to both console and a file
+# Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(sys.stdout)
-    ]
+    handlers=[logging.StreamHandler(sys.stdout)]
 )
 logger = logging.getLogger(__name__)
 
-def create_startup_shortcut(exe_path: str):
+def get_startup_folder():
     """
-    Creates a shortcut for the specified exe in the Windows Startup folder.
-    Uses native PowerShell to avoid third-party dependencies.
+    Retrieve the physical path of the Windows Startup folder for the current user.
+    """
+    appdata = os.environ.get('APPDATA')
+    if not appdata:
+        logger.error("Environment variable %APPDATA% not found. Ensure you are on Windows.")
+        return None
+    return Path(appdata) / "Microsoft" / "Windows" / "Start Menu" / "Programs" / "Startup"
+
+def manage_startup_shortcut(action: str, exe_path: str):
+    """
+    Manage Windows Startup items.
+    :param action: 'add' or 'remove'
+    :param exe_path: Full path to the target executable
     """
     try:
-        # 1. Resolve and validate the executable path
+        # Resolve the absolute path of the EXE
         exe_p = Path(exe_path).resolve()
-        if not exe_p.exists():
-            logger.error(f"Target EXE does not exist: {exe_p}")
+        startup_folder = get_startup_folder()
+        if not startup_folder:
             return
 
-        if exe_p.suffix.lower() != ".exe":
-            logger.warning(f"The file '{exe_p.name}' is not an .exe file. Proceeding anyway.")
-
-        # 2. Define the 'shell:startup' physical path
-        # Using environment variables to find the user's Roaming AppData
-        appdata = os.environ.get('APPDATA')
-        if not appdata:
-            logger.error("Environment variable %APPDATA% not found.")
-            return
-
-        startup_folder = Path(appdata) / "Microsoft" / "Windows" / "Start Menu" / "Programs" / "Startup"
-
-        # 3. Create the folder if it doesn't exist (User-custom directory logic)
-        if not startup_folder.exists():
-            logger.info(f"Directory not found. Creating: {startup_folder}")
-            startup_folder.mkdir(parents=True, exist_ok=True)
-
-        # 4. Define the shortcut (.lnk) path
+        # Define the shortcut (.lnk) path based on the EXE filename
         shortcut_path = startup_folder / f"{exe_p.stem}.lnk"
 
-        # 5. Build PowerShell command
-        # We use WScript.Shell via COM to create the shortcut
-        ps_command = (
-            f"$shell = New-Object -ComObject WScript.Shell; "
-            f"$shortcut = $shell.CreateShortcut('{str(shortcut_path)}'); "
-            f"$shortcut.TargetPath = '{str(exe_p)}'; "
-            f"$shortcut.WorkingDirectory = '{str(exe_p.parent)}'; "
-            f"$shortcut.Save()"
-        )
+        # --- Handle 'remove' action ---
+        if action == "remove":
+            if shortcut_path.exists():
+                shortcut_path.unlink()
+                logger.info(f"[-] Successfully removed startup shortcut: {shortcut_path}")
+            else:
+                logger.warning(f"[!] Shortcut not found, no action needed: {shortcut_path}")
+            return
 
-        # 6. Execute via subprocess
-        result = subprocess.run(
-            ["powershell", "-Command", ps_command],
-            capture_output=True,
-            text=True,
-            shell=True
-        )
+        # --- Handle 'add' action ---
+        if action == "add":
+            if not exe_p.exists():
+                logger.error(f"[X] Target EXE does not exist: {exe_p}")
+                return
 
-        if result.returncode == 0:
-            logger.info(f"Successfully created shortcut: {shortcut_path}")
-        else:
-            logger.error(f"PowerShell failed: {result.stderr}")
+            # Create startup directory if it's missing
+            if not startup_folder.exists():
+                logger.info(f"[*] Creating startup directory: {startup_folder}")
+                startup_folder.mkdir(parents=True, exist_ok=True)
+
+            # PowerShell command to create a Windows Shortcut via COM
+            ps_command = (
+                f"$shell = New-Object -ComObject WScript.Shell; "
+                f"$shortcut = $shell.CreateShortcut('{str(shortcut_path)}'); "
+                f"$shortcut.TargetPath = '{str(exe_p)}'; "
+                f"$shortcut.WorkingDirectory = '{str(exe_p.parent)}'; "
+                f"$shortcut.Save()"
+            )
+
+            # Execute the command
+            result = subprocess.run(
+                ["powershell", "-Command", ps_command],
+                capture_output=True,
+                text=True,
+                shell=True
+            )
+
+            if result.returncode == 0:
+                logger.info(f"[+] Successfully added to startup: {shortcut_path}")
+            else:
+                logger.error(f"[X] PowerShell failed to create shortcut: {result.stderr}")
 
     except Exception as e:
-        logger.exception(f"An unexpected error occurred: {e}")
+        logger.exception(f"[X] An unexpected error occurred: {e}")
 
 def main():
-    # Initialize argparse for command-line interaction
     parser = argparse.ArgumentParser(
-        description="Add an executable to Windows Startup (shell:startup)."
+        description="Windows Startup Manager (shell:startup CLI tool)"
     )
     
-    # Add argument for the EXE path
+    # Mandatory positional arguments
+    parser.add_argument(
+        "action", 
+        choices=["add", "remove"], 
+        help="Action to perform: 'add' to create shortcut, 'remove' to delete it."
+    )
+
     parser.add_argument(
         "path", 
-        help="Full path to the .exe file you want to add to startup."
+        help="Full path to the .exe file."
     )
 
     args = parser.parse_args()
 
-    # Execute the shortcut creation
-    create_startup_shortcut(args.path)
+    # Execution
+    manage_startup_shortcut(args.action, args.path)
 
 if __name__ == "__main__":
     main()
