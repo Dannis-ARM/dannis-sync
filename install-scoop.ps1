@@ -1,0 +1,1 @@
+ irm get.scoop.sh -Proxy 'http://127.0.0.1:7890' | iex
