@@ -19,27 +19,25 @@ def get_startup_folder():
     """
     appdata = os.environ.get('APPDATA')
     if not appdata:
-        logger.error("Environment variable %APPDATA% not found. Ensure you are on Windows.")
-        return None
-    return Path(appdata) / "Microsoft" / "Windows" / "Start Menu" / "Programs" / "Startup"
+        # 在显示帮助文档时，如果拿不到路径，返回一个提示字符串
+        return "Unknown (APPDATA environment variable not found)"
+    return str(Path(appdata) / "Microsoft" / "Windows" / "Start Menu" / "Programs" / "Startup")
 
 def manage_startup_shortcut(action: str, exe_path: str):
     """
     Manage Windows Startup items.
-    :param action: 'add' or 'remove'
-    :param exe_path: Full path to the target executable
     """
     try:
-        # Resolve the absolute path of the EXE
         exe_p = Path(exe_path).resolve()
-        startup_folder = get_startup_folder()
-        if not startup_folder:
+        startup_folder_str = get_startup_folder()
+        
+        if "Unknown" in startup_folder_str:
+            logger.error("Could not determine startup folder.")
             return
 
-        # Define the shortcut (.lnk) path based on the EXE filename
+        startup_folder = Path(startup_folder_str)
         shortcut_path = startup_folder / f"{exe_p.stem}.lnk"
 
-        # --- Handle 'remove' action ---
         if action == "remove":
             if shortcut_path.exists():
                 shortcut_path.unlink()
@@ -48,18 +46,15 @@ def manage_startup_shortcut(action: str, exe_path: str):
                 logger.warning(f"[!] Shortcut not found, no action needed: {shortcut_path}")
             return
 
-        # --- Handle 'add' action ---
         if action == "add":
             if not exe_p.exists():
                 logger.error(f"[X] Target EXE does not exist: {exe_p}")
                 return
 
-            # Create startup directory if it's missing
             if not startup_folder.exists():
                 logger.info(f"[*] Creating startup directory: {startup_folder}")
                 startup_folder.mkdir(parents=True, exist_ok=True)
 
-            # PowerShell command to create a Windows Shortcut via COM
             ps_command = (
                 f"$shell = New-Object -ComObject WScript.Shell; "
                 f"$shortcut = $shell.CreateShortcut('{str(shortcut_path)}'); "
@@ -68,7 +63,6 @@ def manage_startup_shortcut(action: str, exe_path: str):
                 f"$shortcut.Save()"
             )
 
-            # Execute the command
             result = subprocess.run(
                 ["powershell", "-Command", ps_command],
                 capture_output=True,
@@ -85,11 +79,17 @@ def manage_startup_shortcut(action: str, exe_path: str):
         logger.exception(f"[X] An unexpected error occurred: {e}")
 
 def main():
+    # 获取当前的启动路径
+    current_startup_path = get_startup_folder()
+
+    # 在 description 或 epilog 中加入路径信息
+    # epilog 会显示在参数说明的最后
     parser = argparse.ArgumentParser(
-        description="Windows Startup Manager (shell:startup CLI tool)"
+        description="Windows Startup Manager (shell:startup CLI tool)",
+        epilog=f"Current Startup Path: {current_startup_path}",
+        formatter_class=argparse.RawDescriptionHelpFormatter # 保持格式输出
     )
     
-    # Mandatory positional arguments
     parser.add_argument(
         "action", 
         choices=["add", "remove"], 
@@ -102,8 +102,6 @@ def main():
     )
 
     args = parser.parse_args()
-
-    # Execution
     manage_startup_shortcut(args.action, args.path)
 
 if __name__ == "__main__":

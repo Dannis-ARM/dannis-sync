@@ -277,4 +277,6 @@
   "terminal.integrated.enableMultiLinePasteWarning": "never",
   "terminal.integrated.tabs.location": "left",
   "editor.fontFamily": "JetBrains Mono",
+  "workbench.colorTheme": "JetBrains Darcula Theme",
+  "prettier.semi": false,
 }
