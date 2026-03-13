@@ -96,7 +96,6 @@
   "javascript.inlayHints.variableTypes.enabled": true,
   "Key Promoter.suggestKeybindingCreation": false,
 
-
   //vim
   "vim.leader": "<space>",
   "vim.easymotion": true,
@@ -135,7 +134,7 @@
     "<C-i>": true,
     "<C-v>": false,
     "<C-w>": false,
-    "<C-b>": false,
+    "<C-b>": false
   },
   "vim.sneakUseIgnorecaseAndSmartcase": true,
   // To improve performance"
@@ -223,9 +222,9 @@
     {
       "before": ["<leader>", "c", "a"],
       "commands": ["editor.action.quickFix"]
-    },
+    }
   ],
-  
+
   // --- vim end ---
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -260,7 +259,7 @@
   "separators.methods.borderStyle": "dashed",
   "separators.namespaces.borderStyle": "dashed",
   "separators.structs.borderStyle": "dashed",
-  
+
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -279,4 +278,11 @@
   "editor.fontFamily": "JetBrains Mono",
   "workbench.colorTheme": "JetBrains Darcula Theme",
   "prettier.semi": false,
+  "[markdown]": {
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+  },
+  "markdown.preview.fontSize": 11,
+  "markdown.preview.scrollEditorWithPreview": false,
+  "markdown.preview.typographer": true,
+  "markdown.extension.preview.autoShowPreviewToSide": true
 }

@@ -1,3 +1,4 @@
+# git config --global --list
 # --- profile settings ---
 # (--global means current user)
 git config --global user.name "Dannis"
@@ -24,11 +25,52 @@ git config --global alias.cm "commit"
 # git commit -m 的别名
 git config --global alias.cmm "commit -m"
 
+### BEGIN [diff enhancements]
 # git diff --staged 的别名
 git config --global alias.ds "diff --staged"
 
 # git difftool -y 的别名
+# 1. 快捷命令：dt = 直接打开图形对比工具（不弹窗确认）
 git config --global alias.dt "difftool -y"
+
+# 2. 快捷命令：df = 单词级高亮 diff（最清晰）
+git config --global alias.df "diff --color-words"
+
+# 3. diff 颜色主题（超好看）
+git config --global diff.color.meta "yellow bold"     # 文件头信息
+git config --global diff.color.frag "magenta bold"    # 代码块位置
+git config --global diff.color.old "red bold"         # 删除行
+git config --global diff.color.new "green bold"        # 新增行
+git config --global diff.color.commit "yellow bold"    # 提交信息
+
+# 4. 行内修改精细高亮（比默认强10倍）
+git config --global color.diff-highlight.oldNormal "red bold"
+git config --global color.diff-highlight.oldHighlight "red bold 52"
+git config --global color.diff-highlight.newNormal "green bold"
+git config --global color.diff-highlight.newHighlight "green bold 22"
+
+# 5. 终端分页器优化（不闪屏、支持颜色、自动退出）
+git config --global core.pager "less -R -F -X -S"
+### END
+
+### BEGIN - [diff tools]
+# 1. 设置默认 diff 工具为 vscode
+git config --global diff.tool vscode
+
+# 2. 配置 VS Code 对比命令（核心）
+git config --global difftool.vscode.cmd "code --wait --diff \$LOCAL \$REMOTE"
+
+# 3. 关闭每次弹出的确认提示（不烦人）
+git config --global difftool.prompt false
+
+# 4. 你之前的 dt 别名（直接用 git dt 打开 VS Code 对比）
+git config --global alias.dt "difftool -y"
+
+git config --global diff.tool vscode
+git config --global difftool.vscode.cmd "code --wait --diff \$LOCAL \$REMOTE"
+git config --global difftool.prompt false
+git config --global alias.dt "difftool -y"
+### END
 
 # git mergetool 的别名
 git config --global alias.mt "mergetool"
@@ -55,9 +97,6 @@ git config --list --show-origin
 
 git config --global user.name "Dannis"
 git config --global user.email hzzhanyuyang@gmail.com
-
-git config --global diff.tool vscode
-git config --global difftool.vscode.cmd "code --wait --diff $LOCAL $REMOTE"
 
 git config --global alias.cp cherry-pick
 git config --global alias.lg "log --abbrev-commit --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %Cblue%an'"
