@@ -64,7 +64,7 @@
     "erlang": "escript",
     "spwn": "spwn build",
     "pkl": "cd $dir && pkl eval -f yaml $fileName -o $fileNameWithoutExt.yaml",
-    "gleam": "gleam run -m $fileNameWithoutExt"
+    "gleam": "gleam run -m $fileNameWithoutExt",
   },
   "code-runner.runInTerminal": true,
   "files.autoSave": "onFocusChange",
@@ -74,7 +74,7 @@
   // go
   "gopls": {
     "ui.semanticTokens": true,
-    "ui.diagnostic.staticcheck": false
+    "ui.diagnostic.staticcheck": false,
   },
   "go.goroot": "/snap/go/current",
   "code-runner.saveFileBeforeRun": true,
@@ -83,7 +83,7 @@
 
   // Python
   "[python]": {
-    "editor.formatOnType": true
+    "editor.formatOnType": true,
   },
   "python.analysis.inlayHints.functionReturnTypes": true,
   "python.analysis.inlayHints.variableTypes": true,
@@ -96,7 +96,7 @@
   "javascript.inlayHints.variableTypes.enabled": true,
   "Key Promoter.suggestKeybindingCreation": false,
 
-  //vim
+  // --- BEIGIN vim ---
   "vim.leader": "<space>",
   "vim.easymotion": true,
   "vim.sneak": true,
@@ -108,23 +108,24 @@
   "vim.normalModeKeyBindingsNonRecursive": [
     {
       "before": ["<leader>", "d"],
-      "after": ["d", "d"]
+      "after": ["d", "d"],
     },
     {
       "before": ["<C-n>"],
-      "commands": [":nohl"]
+      "commands": [":nohl"],
     },
     {
       "before": ["K"],
       "commands": ["lineBreakInsert"],
-      "silent": true
+      "silent": true,
     },
     {
       "before": ["Q"], // Close current tab
-      "after": ["<C-w>", "q"]
-    }
+      "after": ["<C-w>", "q"],
+    },
   ],
   "vim.handleKeys": {
+    // Ctrl
     "<C-a>": false,
     "<C-f>": false,
     "<C-c>": false,
@@ -134,122 +135,122 @@
     "<C-i>": true,
     "<C-v>": false,
     "<C-w>": false,
-    "<C-b>": false
+    "<C-b>": false,
+    "<C-k>": false,
   },
   "vim.sneakUseIgnorecaseAndSmartcase": true,
   // To improve performance"
   "extensions.experimental.affinity": {
-    "vscodevim.vim": 1
+    "vscodevim.vim": 1,
   },
   "vim.operatorPendingModeKeyBindings": [
     {
       "before": ["{"],
-      "after": ["w"]
+      "after": ["w"],
     },
     {
       "before": [">"],
-      "commands": ["editor.action.indentLines"]
+      "commands": ["editor.action.indentLines"],
     },
     {
       "before": ["<"],
-      "commands": ["editor.action.outdentLines"]
-    }
+      "commands": ["editor.action.outdentLines"],
+    },
   ],
   // --- vim experiment ---
   "vim.normalModeKeyBindings": [
-    // --- not common used ---
     {
-      "before": ["<leader>", "t", "x"],
-      "commands": [":tabclose"]
+      "before": ["<leader>", "x"],
+      "commands": [":tabclose"],
     },
     {
       "before": ["<leader>", "s", "a"],
-      "commands": ["editor.action.selectAll"]
+      "commands": ["editor.action.selectAll"],
     },
     {
       "before": ["<leader>", "e"],
-      "commands": ["workbench.action.toggleSidebarVisibility"]
+      "commands": ["workbench.action.toggleSidebarVisibility"],
     },
     {
       "before": ["<leader>", "q"],
-      "commands": ["workbench.action.closeActiveEditor"]
+      "commands": ["workbench.action.closeActiveEditor"],
     },
     // --- not commmon used ---
     {
       "before": ["<leader>", "h"],
-      "commands": [":nohl"]
+      "commands": [":nohl"],
     },
     {
       "before": ["<leader>", "s", "v"],
-      "commands": ["workbench.action.splitEditor"]
+      "commands": ["workbench.action.splitEditor"],
     },
     {
       "before": ["<leader>", "s", "h"],
-      "commands": ["workbench.action.splitEditorDown"]
+      "commands": ["workbench.action.splitEditorDown"],
     },
     {
       "before": ["<S-h>"],
-      "commands": [":tabp"] // go to previous tab
+      "commands": [":tabp"], // go to previous tab
     },
     {
       "before": ["<S-l>"],
-      "commands": [":tabnext"] // go to next tab
+      "commands": [":tabnext"], // go to next tab
     },
     {
       "before": ["<leader>", "f", "o"],
-      "commands": ["workbench.action.quickOpen"]
+      "commands": ["workbench.action.quickOpen"],
     },
     {
       "before": ["<leader>", "f", "b"],
-      "commands": ["workbench.action.showAllEditors"]
+      "commands": ["workbench.action.showAllEditors"],
     },
     {
       "before": ["<leader>", "f", "s"],
-      "commands": ["workbench.action.findInFiles"]
+      "commands": ["workbench.action.findInFiles"],
     },
     {
       "before": ["<leader>", "r", "n"],
-      "commands": ["editor.action.rename"]
+      "commands": ["editor.action.rename"],
     },
     {
       "before": ["<leader>", "a", "f"],
-      "commands": ["editor.action.autoFix"]
+      "commands": ["editor.action.autoFix"],
     },
     {
       "before": ["<leader>", "f", "m"],
-      "commands": ["editor.action.format"]
+      "commands": ["editor.action.format"],
     },
     {
       "before": ["<leader>", "c", "a"],
-      "commands": ["editor.action.quickFix"]
-    }
+      "commands": ["editor.action.quickFix"],
+    },
   ],
+  // --- END vim ---
 
-  // --- vim end ---
   "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "explorer.confirmDragAndDrop": false,
   "redhat.telemetry.enabled": false,
   // "editor.lineNumbers": "relative",
   "java.saveActions.organizeImports": true,
   "editor.codeActionsOnSave": {
-    "source.addMissingImports": "always"
+    "source.addMissingImports": "always",
   },
   "terraform.codelens.referenceCount": true,
   "terraform.experimentalFeatures.prefillRequiredFields": true,
   "[terraform]": {
     "editor.defaultFormatter": "hashicorp.terraform",
     "editor.formatOnSave": true,
-    "editor.formatOnSaveMode": "file"
+    "editor.formatOnSaveMode": "file",
   },
   "[terraform-vars]": {
     "editor.defaultFormatter": "hashicorp.terraform",
     "editor.formatOnSave": true,
-    "editor.formatOnSaveMode": "file"
+    "editor.formatOnSaveMode": "file",
   },
 
-  // line sepatators
+  // --- BEGIN line sepatators ---
   "separators.maxDepth": 1,
   "separators.classes.borderStyle": "dashed",
   "separators.constructors.borderStyle": "dashed",
@@ -259,19 +260,20 @@
   "separators.methods.borderStyle": "dashed",
   "separators.namespaces.borderStyle": "dashed",
   "separators.structs.borderStyle": "dashed",
+  // ---- END ---
 
   "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "python.analysis.typeCheckingMode": "basic",
   "github.copilot.enable": {
     "*": false,
     "plaintext": false,
     "markdown": false,
-    "scminput": false
+    "scminput": false,
   },
   "[go]": {
-    "editor.formatOnSave": false
+    "editor.formatOnSave": false,
   },
   "terminal.integrated.enableMultiLinePasteWarning": "never",
   "terminal.integrated.tabs.location": "left",
@@ -279,9 +281,9 @@
   "workbench.colorTheme": "JetBrains Darcula Theme",
   "prettier.semi": false,
   "[markdown]": {
-    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
   },
   "markdown.preview.fontSize": 11,
   "markdown.preview.scrollEditorWithPreview": false,
-  "markdown.preview.typographer": true
+  "markdown.preview.typographer": true,
 }
