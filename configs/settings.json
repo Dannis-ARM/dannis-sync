@@ -283,6 +283,5 @@
   },
   "markdown.preview.fontSize": 11,
   "markdown.preview.scrollEditorWithPreview": false,
-  "markdown.preview.typographer": true,
-  "markdown.extension.preview.autoShowPreviewToSide": true
+  "markdown.preview.typographer": true
 }

@@ -54,18 +54,6 @@ git config --global core.pager "less -R -F -X -S"
 ### END
 
 ### BEGIN - [diff tools]
-# 1. 设置默认 diff 工具为 vscode
-git config --global diff.tool vscode
-
-# 2. 配置 VS Code 对比命令（核心）
-git config --global difftool.vscode.cmd "code --wait --diff \$LOCAL \$REMOTE"
-
-# 3. 关闭每次弹出的确认提示（不烦人）
-git config --global difftool.prompt false
-
-# 4. 你之前的 dt 别名（直接用 git dt 打开 VS Code 对比）
-git config --global alias.dt "difftool -y"
-
 git config --global diff.tool vscode
 git config --global difftool.vscode.cmd "code --wait --diff \$LOCAL \$REMOTE"
 git config --global difftool.prompt false
