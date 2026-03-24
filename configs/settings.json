@@ -96,7 +96,7 @@
   "javascript.inlayHints.variableTypes.enabled": true,
   "Key Promoter.suggestKeybindingCreation": false,
 
-  // BEIGIN vim ---
+  // --- BEIGIN vim ---
   "vim.leader": "<space>",
   "vim.easymotion": true,
   "vim.sneak": true,
@@ -153,7 +153,7 @@
       "commands": ["editor.action.outdentLines"]
     }
   ],
-  // --- vim experiment ---
+  // vim experiment
   "vim.normalModeKeyBindings": [
     {
       "before": ["<leader>", "x"],
@@ -171,7 +171,7 @@
       "before": ["<leader>", "q"],
       "commands": ["workbench.action.closeActiveEditor"]
     },
-    // --- not commmon used ---
+    // not commmon used
     {
       "before": ["<leader>", "h"],
       "commands": [":nohl"]
@@ -221,7 +221,7 @@
       "commands": ["editor.action.quickFix"]
     }
   ],
-  // --- END vim ---
+  // --- END ---
 
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
