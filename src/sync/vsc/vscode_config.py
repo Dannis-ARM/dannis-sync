@@ -154,6 +154,7 @@ def cli():
         elif args.command == "softlink":
             if args.src is None or args.symlink is None:
                 create_symlink(REPO_VSCODE_SETTING_PATH, VSCODE_SETTING_PATH)
+                create_symlink(REPO_VSCODE_KEYBINDINGS_PATH, VSCODE_KEYBINDINGS_PATH)
             else:
                 create_symlink(args.src, args.symlink)
     except FileNotFoundError as e:

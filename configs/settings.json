@@ -144,11 +144,11 @@
     "<C-p>": false,
     "<C-x>": false,
     "<C-h>": false,
-    "<C-i>": true,
     "<C-v>": false,
     "<C-w>": false,
     "<C-b>": false,
-    "<C-k>": false
+    "<C-k>": false,
+    "<C-i>": true
   },
 
   "vim.sneakUseIgnorecaseAndSmartcase": true,
@@ -187,6 +187,7 @@
   //   <leader>w* = Window management
   //   <leader>x* = Diagnostics/Quickfix
   //   <leader>u* = UI toggles
+  //   <leader>m* = Markdown Settings
 
   "vim.normalModeKeyBindingsNonRecursive": [
     // ┌────────────────────────────────────────────────────────────────────────────────┐
@@ -208,6 +209,13 @@
     {
       "before": ["K"], // K = show hover documentation (LSP)
       "commands": ["editor.action.showHover"]
+    },
+    {
+      "before": ["<leader>", "m", "p"],
+      "commands": [
+        "markdown.showPreviewToSide" // markdown preview
+      ],
+      "when": "editorLangId == 'markdown'"
     },
 
     // ┌────────────────────────────────────────────────────────────────────────────────┐
@@ -503,16 +511,29 @@
       "commands": ["editor.action.autoFix"]
     }
   ],
+  
   // ──────────────────────────────────────────────────────────────────────────────────────
   // STATUS BAR COLORS - Visual mode indicators (LazyVim-inspired colours)
   // ──────────────────────────────────────────────────────────────────────────────────────
-  "vim.statusBarColorControl": true, // Enable status bar colour changes
-  "vim.statusBarColors.normal": "#519aba", // Blue for normal mode
-  "vim.statusBarColors.insert": "#98c379", // Green for insert mode
-  "vim.statusBarColors.visual": "#c678dd", // Purple for visual mode
-  "vim.statusBarColors.visualline": "#c678dd", // Purple for visual line mode
-  "vim.statusBarColors.visualblock": "#c678dd", // Purple for visual block mode
-  "vim.statusBarColors.replace": "#e06c75", // Red for replace mode
+  // "vim.statusBarColorControl": true, // Enable status bar colour changes
+  "vim.statusBarColorControl": true,
+  // 基础逻辑优化：将 Visual 模式统一，并引入更符合现代开发工具的配色
+  "vim.statusBarColors.normal": "#519aba", // 正常的蓝色 (Nord/OneDark 风格)
+  "vim.statusBarColors.insert": "#98c379", // 插入模式绿色
+  "vim.statusBarColors.replace": "#e06c75", // 替换模式警告红
+  "vim.statusBarColors.commandlineext": "#61afef",
+  // 优化重点：Visual 模式的分组统一
+  // 提示：VS Code Vim 允许对不同 Visual 模式进行细分，但通常视觉反馈应保持一致
+  "vim.statusBarColors.visual": "#c678dd",
+  "vim.statusBarColors.visualline": "#c678dd",
+  "vim.statusBarColors.visualblock": "#c678dd",
+  // 进阶优化：搜索与选择模式的联动
+  "vim.statusBarColors.searchinprogressmode": "#d19a66", // 橙色，用于搜索中
+  "workbench.colorCustomizations": {
+    "statusBar.noFolderBackground": "#98c379",
+    "statusBar.debuggingBackground": "#98c379",
+    "statusBar.background": "#98c379"
+  },
   // --- END VIM ---
 
   "[jsonc]": {
@@ -538,17 +559,14 @@
     "editor.formatOnSaveMode": "file"
   },
 
-  // --- BEGIN line sepatators ---
+  // ──────────────────────────────────────────────────────────────────────────────────────
+  // line sepatators
+  // ──────────────────────────────────────────────────────────────────────────────────────
   "separators.maxDepth": 1,
-  "separators.classes.borderStyle": "dashed",
-  "separators.constructors.borderStyle": "dashed",
-  "separators.enums.borderStyle": "dashed",
-  "separators.functions.borderStyle": "dashed",
-  "separators.interfaces.borderStyle": "dashed",
-  "separators.methods.borderStyle": "dashed",
-  "separators.namespaces.borderStyle": "dashed",
-  "separators.structs.borderStyle": "dashed",
-  // ---- END ---
+  "separators.common.borderStyle": "dashed",
+  "separators.common.borderColor": "editor.lineHighlightBorder",
+  "separators.common.topMargin": 5,
+  "separators.classes.borderStyle": "solid",
 
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -573,14 +591,6 @@
   "markdown.preview.fontSize": 11,
   "markdown.preview.scrollEditorWithPreview": false,
   "markdown.preview.typographer": true,
-  "workbench.colorCustomizations": {
-    "statusBar.background": "#519aba",
-    "statusBar.noFolderBackground": "#519aba",
-    "statusBar.debuggingBackground": "#519aba",
-    "statusBar.foreground": "#ffffff",
-    "statusBar.debuggingForeground": "#ffffff"
-  },
-
   // ──────────────────────────────────────────────────────────────────────────────────────
   // VSCode italic font settings
   // ──────────────────────────────────────────────────────────────────────────────────────
