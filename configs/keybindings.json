@@ -206,49 +206,82 @@
   // VSCode processes keybindings from bottom to top, so more specific contexts
   // (explorerViewletVisible) override more general ones (!terminalFocus).
   //
-  {
-    "key": "ctrl+j",
-    "command": "list.focusDown",
-    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-  },
-  {
-    "key": "ctrl+k",
-    "command": "list.focusUp",
-    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-  },
-  {
-    "key": "ctrl+h",
-    "command": "list.collapse",
-    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-  },
-  {
-    "key": "ctrl+l",
-    "command": "list.select",
-    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-  },
-
-  // Alternative: Use j/k without Ctrl for explorer navigation (more Vim-like)
-  // Uncomment these if you prefer plain j/k in the explorer:
   // {
-  //   "key": "j",
+  //   "key": "ctrl+j",
   //   "command": "list.focusDown",
   //   "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
   // },
   // {
-  //   "key": "k",
+  //   "key": "ctrl+k",
   //   "command": "list.focusUp",
   //   "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
   // },
   // {
-  //   "key": "h",
+  //   "key": "ctrl+h",
   //   "command": "list.collapse",
   //   "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
   // },
   // {
-  //   "key": "l",
+  //   "key": "ctrl+l",
   //   "command": "list.select",
   //   "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
   // },
+
+  // Alternative: Use j/k without Ctrl for explorer navigation (more Vim-like)
+  // Uncomment these if you prefer plain j/k in the explorer:
+  {
+    "key": "j",
+    "command": "list.focusDown",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "k",
+    "command": "list.focusUp",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "h",
+    "command": "list.collapse",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "l",
+    "command": "list.select", // This opens the file AND focuses the editor
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  // 1. FOCUS EXPLORER (Go to Sidebar)
+  // Standard VSCode key, ensures you can always get there.
+  {
+    "key": "ctrl+shift+e",
+    "command": "workbench.view.explorer",
+    "when": "!filesExplorerFocus"
+  },
+  // 2. RETURN TO EDITOR (From Explorer)
+  // Use 'ctrl+l' to move "right" back into the editor group.
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  // 3. ALTERNATIVE RETURN: Escape key
+  // Quickest way to jump back to code without closing the sidebar.
+  {
+    "key": "escape",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  // 5. SIDEBAR VISIBILITY TOGGLE (Optional)
+  // Completely hide/show the sidebar to maximize screen real estate.
+  {
+    "key": "ctrl+b",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "vim.mode == 'Normal'"
+  },
+  {
+    "key": "ctrl+h",
+    "command": "workbench.view.explorer",
+    "when": "editorTextFocus && vim.active && vim.mode != 'Insert'"
+  },
 
   // ┌────────────────────────────────────────────────────────────────────────────────────┐
   // │ SEARCH/PROBLEMS PANEL NAVIGATION - j/k when panel has focus                        │
