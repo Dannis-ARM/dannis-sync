@@ -96,7 +96,6 @@
   "typescript.inlayHints.variableTypes.enabled": true,
   "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
   "javascript.inlayHints.variableTypes.enabled": true,
-  "Key Promoter.suggestKeybindingCreation": false,
 
   // ──────────────────────────────────────────────────────────────────────────────────────
   // VIM EXTENSION CORE SETTINGS - Vim behaviour and plugin emulation
@@ -237,9 +236,9 @@
   // 进阶优化：搜索与选择模式的联动
   "vim.statusBarColors.searchinprogressmode": "#d19a66", // 橙色，用于搜索中
   "workbench.colorCustomizations": {
-    "statusBar.noFolderBackground": "#519aba",
-    "statusBar.debuggingBackground": "#519aba",
-    "statusBar.background": "#519aba",
+    "statusBar.noFolderBackground": "#98c379",
+    "statusBar.debuggingBackground": "#98c379",
+    "statusBar.background": "#98c379",
     "statusBar.foreground": "#ffffff",
     "statusBar.debuggingForeground": "#ffffff"
   },
