@@ -573,9 +573,9 @@
   "markdown.preview.scrollEditorWithPreview": false,
   "markdown.preview.typographer": true,
   "workbench.colorCustomizations": {
-    "statusBar.background": "#519aba",
-    "statusBar.noFolderBackground": "#519aba",
-    "statusBar.debuggingBackground": "#519aba",
+    "statusBar.background": "#98c379",
+    "statusBar.noFolderBackground": "#98c379",
+    "statusBar.debuggingBackground": "#98c379",
     "statusBar.foreground": "#ffffff",
     "statusBar.debuggingForeground": "#ffffff"
   },

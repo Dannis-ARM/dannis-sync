@@ -6,11 +6,20 @@ import shutil
 import sys
 import enum
 
-WD = pathlib.Path().resolve()
+FILE_WD = pathlib.Path(__file__).resolve().parent.parent.parent.parent
+
+logging.info(f"FILE_WD: {FILE_WD}")
 HOME = pathlib.Path.home()
 
-REPO_VSCODE_SETTING_PATH = WD / "configs" / "settings.json"
+# settings.json paths
+REPO_VSCODE_SETTING_PATH = FILE_WD / "configs" / "settings.json"
 VSCODE_SETTING_PATH = HOME / "AppData" / "Roaming" / "Code" / "User" / "settings.json"
+
+# keybindings.json paths
+REPO_VSCODE_KEYBINDINGS_PATH = FILE_WD / "configs" / "keybindings.json"
+VSCODE_KEYBINDINGS_PATH = HOME / "AppData" / "Roaming" / "Code" / "User" / "keybindings.json"
+
+# Ensure VSCode User directory exists
 VSCODE_SETTING_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 class Action(enum.Enum):
@@ -18,7 +27,7 @@ class Action(enum.Enum):
     VSC_LOAD = "load-from-vscode"
     SOFTLINK_CREATE = "softlink-create"
 
-def create_symlink(to: pathlib.Path, symlink: pathlib.Path):
+def create_symlink(point_to: pathlib.Path, symlink: pathlib.Path):
     """
     Creates a symbolic link. If a file, directory, or another symlink already exists
     at the destination, it will be removed before the new symlink is created.
@@ -41,8 +50,8 @@ def create_symlink(to: pathlib.Path, symlink: pathlib.Path):
             symlink.unlink()
             logging.info(f"Removed existing file: {symlink}")
 
-        symlink.symlink_to(to)
-        logging.info(f"Created symlink: {symlink} -> {to}")
+        symlink.symlink_to(point_to)
+        logging.info(f"Created symlink: {symlink} -> {point_to}")
     except Exception as e:
         logging.error(f"Failed to create symlink: {e}")
         sys.exit(1)
@@ -112,14 +121,36 @@ def cli():
 
     args = parser.parse_args()
 
+    def sync_file(src: pathlib.Path, dst: pathlib.Path, file_desc: str):
+        """Sync a single file, handling missing files and symlinks gracefully."""
+        # Resolve symlinks to handle the case where src and dst are the same file
+        src_resolved = src.resolve() if src.exists() else None
+        dst_resolved = dst.resolve() if dst.exists() else None
+        
+        # Skip if both files exist and are the same (e.g., symlink case)
+        if src_resolved and dst_resolved and src_resolved == dst_resolved:
+            logging.info(f"Skipped {file_desc}: source and destination are the same file")
+            return
+            
+        if src.exists():
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(src, dst)
+            logging.info(f"Copied {file_desc} from {src} to {dst}")
+        else:
+            logging.warning(f"Source {file_desc} not found: {src}")
+
     try:
         if args.command == "sync":
             if args.action == Action.REPO_LOAD.value:
-                logging.info(f"Copying settings from {REPO_VSCODE_SETTING_PATH} to {VSCODE_SETTING_PATH}")
-                shutil.copyfile(REPO_VSCODE_SETTING_PATH, VSCODE_SETTING_PATH)
+                # Copy settings.json
+                sync_file(REPO_VSCODE_SETTING_PATH, VSCODE_SETTING_PATH, "settings.json")
+                # Copy keybindings.json
+                sync_file(REPO_VSCODE_KEYBINDINGS_PATH, VSCODE_KEYBINDINGS_PATH, "keybindings.json")
             elif args.action == Action.VSC_LOAD.value:
-                logging.info(f"Copying settings from {VSCODE_SETTING_PATH} to {REPO_VSCODE_SETTING_PATH}")
-                shutil.copyfile(VSCODE_SETTING_PATH, REPO_VSCODE_SETTING_PATH)
+                # Copy settings.json
+                sync_file(VSCODE_SETTING_PATH, REPO_VSCODE_SETTING_PATH, "settings.json")
+                # Copy keybindings.json
+                sync_file(VSCODE_KEYBINDINGS_PATH, REPO_VSCODE_KEYBINDINGS_PATH, "keybindings.json")
         elif args.command == "softlink":
             if args.src is None or args.symlink is None:
                 create_symlink(REPO_VSCODE_SETTING_PATH, VSCODE_SETTING_PATH)
