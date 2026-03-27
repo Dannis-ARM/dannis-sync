@@ -210,7 +210,13 @@
     { "before": [ "<leader>", "u", "w" ], "commands": [ "editor.action.toggleWordWrap" ] },
     { "before": [ "<leader>", "u", "z" ], "commands": [ "workbench.action.toggleZenMode" ] },
     { "before": [ "<C-d>" ], "after": [ "<C-d>", "zz" ] },
-    { "before": [ "<C-u>" ], "after": [ "<C-u>", "zz" ] }
+    { "before": [ "<C-u>" ], "after": [ "<C-u>", "zz" ] },
+
+    // 8. AI / Agents 
+    {
+      "before": [ "<leader>", "a", "i" ], // 设定为 leader + ai (Cline AI)
+      "commands": [ "cline.addToChat" ]
+    },
   ],
 
   /* --- Visual 模式 --- */
