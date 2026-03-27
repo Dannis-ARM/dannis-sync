@@ -141,7 +141,6 @@
 
   /* --- Operator Pending (待定模式) --- */
   "vim.operatorPendingModeKeyBindings": [
-    { "before": [ "{" ], "after": [ "w" ] },
     { "before": [ ">" ], "commands": [ "editor.action.indentLines" ] },
     { "before": [ "<" ], "commands": [ "editor.action.outdentLines" ] }
   ],
@@ -166,11 +165,15 @@
   //   <leader>m* = Markdown Settings
   "vim.normalModeKeyBindingsNonRecursive": [
     // 1. 核心与导航 (General)
-    { "before": [ "z", "z" ], "commands": [ "editor.toggleFold" ] },
+    // { "before": [ "z", "z" ], "commands": [ "editor.toggleFold" ] },
     { "before": [ "<Esc>" ], "commands": [ ":nohl" ] },
     { "before": [ "K" ], "commands": [ "editor.action.showHover" ] },
     { "before": [ "<S-h>" ], "commands": [ "workbench.action.previousEditor" ] },
     { "before": [ "<S-l>" ], "commands": [ "workbench.action.nextEditor" ] },
+    {
+      "before": [ "<leader>", "f", "f" ],
+      "commands": [ "editor.toggleFold" ]
+    },
 
     // 2. 文件操作 (File <leader>f)
     { "before": [ "<leader>", "f", "e" ], "commands": [ "workbench.files.action.showActiveFileInExplorer" ] },
@@ -205,7 +208,9 @@
 
     // 7. UI / 其他 (UI <leader>u)
     { "before": [ "<leader>", "u", "w" ], "commands": [ "editor.action.toggleWordWrap" ] },
-    { "before": [ "<leader>", "u", "z" ], "commands": [ "workbench.action.toggleZenMode" ] }
+    { "before": [ "<leader>", "u", "z" ], "commands": [ "workbench.action.toggleZenMode" ] },
+    { "before": [ "<C-d>" ], "after": [ "<C-d>", "zz" ] },
+    { "before": [ "<C-u>" ], "after": [ "<C-u>", "zz" ] }
   ],
 
   /* --- Visual 模式 --- */
@@ -236,9 +241,9 @@
   // 进阶优化：搜索与选择模式的联动
   "vim.statusBarColors.searchinprogressmode": "#d19a66", // 橙色，用于搜索中
   "workbench.colorCustomizations": {
-    "statusBar.noFolderBackground": "#98c379",
-    "statusBar.debuggingBackground": "#98c379",
-    "statusBar.background": "#98c379",
+    "statusBar.noFolderBackground": "#519aba",
+    "statusBar.debuggingBackground": "#519aba",
+    "statusBar.background": "#519aba",
     "statusBar.foreground": "#ffffff",
     "statusBar.debuggingForeground": "#ffffff"
   },

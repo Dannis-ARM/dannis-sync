@@ -270,6 +270,12 @@
     "command": "workbench.action.focusActiveEditorGroup",
     "when": "filesExplorerFocus && !inputFocus"
   },
+  // When in sidebar search, press Esc to jump back to code editor
+  {
+    "key": "escape",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "searchViewletFocus"
+  },
   // 5. SIDEBAR VISIBILITY TOGGLE (Optional)
   // Completely hide/show the sidebar to maximize screen real estate.
   {
