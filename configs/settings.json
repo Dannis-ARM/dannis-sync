@@ -114,7 +114,7 @@
   "vim.incsearch": true,
   "vim.hlsearch": true,
   "vim.highlightedyank.enable": true,
-  "vim.highlightedyank.duration": 200,
+  "vim.highlightedyank.duration": 100,
 
   /* --- 插件模拟 --- */
   "vim.easymotion": true,
@@ -171,7 +171,7 @@
     { "before": [ "<S-h>" ], "commands": [ "workbench.action.previousEditor" ] },
     { "before": [ "<S-l>" ], "commands": [ "workbench.action.nextEditor" ] },
     {
-      "before": [ "<leader>", "f", "f" ],
+      "before": [ "<leader>", "F" ],
       "commands": [ "editor.toggleFold" ]
     },
 
@@ -181,7 +181,8 @@
     { "before": [ "<leader>", "f", "r" ], "commands": [ "workbench.action.openRecent" ] },
     { "before": [ "<leader>", "e" ], "commands": [ "workbench.action.toggleSidebarVisibility" ] },
     { "before": [ "<leader>", "E" ], "commands": [ "workbench.files.action.focusFilesExplorer" ] }, // <leader>E = focus file explorer
-    { "before": [ "<leader>", "<space>" ], "commands": [ "workbench.action.quickOpen" ] },
+    // { "before": [ "<leader>", "<space>" ], "commands": [ "workbench.action.quickOpen" ] },
+    { "before": [ "<leader>", "f", "f" ], "commands": [ "workbench.action.quickOpen" ] },
 
     // 3. 搜索与查找 (Search <leader>s / <leader>/)
     { "before": [ "<leader>", "/" ], "commands": [ "workbench.action.findInFiles" ] },
