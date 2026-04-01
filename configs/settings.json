@@ -271,9 +271,9 @@
   // 进阶优化：搜索与选择模式的联动
   "vim.statusBarColors.searchinprogressmode": "#d19a66", // 橙色，用于搜索中
   "workbench.colorCustomizations": {
-    "statusBar.noFolderBackground": "#519aba",
-    "statusBar.debuggingBackground": "#519aba",
-    "statusBar.background": "#519aba",
+    "statusBar.noFolderBackground": "#98c379",
+    "statusBar.debuggingBackground": "#98c379",
+    "statusBar.background": "#98c379",
     "statusBar.foreground": "#ffffff",
     "statusBar.debuggingForeground": "#ffffff"
   },
@@ -302,7 +302,7 @@
   "java.saveActions.organizeImports": true,
   "editor.codeActionsOnSave": {
     "source.addMissingImports": "always",
-    "source.organizeImports": true // 保存时自动排序+删除无用导入
+    "source.organizeImports": "explicit"
   },
   "terraform.codelens.referenceCount": true,
   "terraform.experimentalFeatures.prefillRequiredFields": true,
