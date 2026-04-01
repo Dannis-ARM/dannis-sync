@@ -76,34 +76,6 @@
   },
 
   // ┌────────────────────────────────────────────────────────────────────────────────────┐
-  // │ WINDOW RESIZING - Ctrl+Arrow Keys (LazyVim: <C-Up/Down/Left/Right>)                │
-  // └────────────────────────────────────────────────────────────────────────────────────┘
-  //
-  // Resize editor splits using Ctrl+Arrow keys. Only active in Normal mode to avoid
-  // interfering with text editing shortcuts (Ctrl+Left/Right normally jump words).
-  //
-  {
-    "key": "ctrl+up",
-    "command": "workbench.action.increaseViewHeight",
-    "when": "vim.active && vim.mode == 'Normal'"
-  },
-  {
-    "key": "ctrl+down",
-    "command": "workbench.action.decreaseViewHeight",
-    "when": "vim.active && vim.mode == 'Normal'"
-  },
-  {
-    "key": "ctrl+left",
-    "command": "workbench.action.decreaseViewWidth",
-    "when": "vim.active && vim.mode == 'Normal'"
-  },
-  {
-    "key": "ctrl+right",
-    "command": "workbench.action.increaseViewWidth",
-    "when": "vim.active && vim.mode == 'Normal'"
-  },
-
-  // ┌────────────────────────────────────────────────────────────────────────────────────┐
   // │ BUFFER NAVIGATION - Shift+h/l (LazyVim: <S-h>, <S-l>)                              │
   // └────────────────────────────────────────────────────────────────────────────────────┘
   //

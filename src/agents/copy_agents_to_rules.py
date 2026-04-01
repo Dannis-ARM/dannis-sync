@@ -10,7 +10,7 @@ from pathlib import Path
 
 def main():
     # Define source and destination paths
-    source_file = Path(__file__).parent / "src" / "agents" / "AGENTS.md"
+    source_file = Path(__file__).parent / "AGENTS.md"
     dest_dir = Path(os.path.expanduser("~")) / "Documents" / "Cline" / "Rules"
     dest_file = dest_dir / "AGENTS.md"
     
