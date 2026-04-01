@@ -5,6 +5,7 @@
   "editor.cursorBlinking": "solid",
 
   // --- START code-runner ---
+  "code-runner.runInTerminal": true,
   "code-runner.executorMap": {
     "javascript": "node",
     "java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
@@ -66,7 +67,6 @@
   },
   // --- END ---
 
-  "code-runner.runInTerminal": true,
   "files.autoSave": "onFocusChange",
   "aws.telemetry": false,
   "security.workspace.trust.untrustedFiles": "open",
@@ -89,8 +89,31 @@
   },
   "python.analysis.inlayHints.functionReturnTypes": true,
   "python.analysis.inlayHints.variableTypes": true,
+  "python.analysis.autoFormatStrings": true,
 
+  // ========== Python 智能提示最强 ==========
+  "python.analysis.autoImportCompletions": true, // 自动补全导入
+  "python.analysis.completeFunctionParens": true, // 函数自动加()
+  "python.analysis.typeCheckingMode": "basic", // 开启基础类型检查（防bug神器）
+  "python.analysis.autoSearchPaths": true, // 自动识别项目路径
+  "python.analysis.diagnosticMode": "openFilesOnly", // 只检查打开的文件（更快）
+
+  // ========== 自动格式化 + 保存就格式化 ==========
+  "editor.formatOnType": true, // 输入时自动格式化
+  "python.formatting.blackArgs": [ "--line-length", "120" ], // 代码行长度限制
+
+  // ========== Linting 代码检查 ==========
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.linting.flake8Enabled": false,
+
+  // ========== 交互体验优化 ==========
+  "python.terminal.activateEnvironment": true, // 打开终端自动激活虚拟环境
+
+  // ──────────────────────────────────────────────────────────────────────────────────────
   // TS
+  // ──────────────────────────────────────────────────────────────────────────────────────
+
   "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
   "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
   "typescript.inlayHints.variableTypes.enabled": true,
@@ -181,8 +204,8 @@
     { "before": [ "<leader>", "f", "r" ], "commands": [ "workbench.action.openRecent" ] },
     { "before": [ "<leader>", "e" ], "commands": [ "workbench.action.toggleSidebarVisibility" ] },
     { "before": [ "<leader>", "E" ], "commands": [ "workbench.files.action.focusFilesExplorer" ] }, // <leader>E = focus file explorer
-    // { "before": [ "<leader>", "<space>" ], "commands": [ "workbench.action.quickOpen" ] },
-    { "before": [ "<leader>", "f", "f" ], "commands": [ "workbench.action.quickOpen" ] },
+    { "before": [ "<leader>", "<space>" ], "commands": [ "workbench.action.quickOpen" ] },
+    // { "before": [ "<leader>", "f", "f" ], "commands": [ "workbench.action.quickOpen" ] },
 
     // 3. 搜索与查找 (Search <leader>s / <leader>/)
     { "before": [ "<leader>", "/" ], "commands": [ "workbench.action.findInFiles" ] },
@@ -275,10 +298,11 @@
 
   "explorer.confirmDragAndDrop": false,
   "redhat.telemetry.enabled": false,
-  // "editor.lineNumbers": "relative",
+
   "java.saveActions.organizeImports": true,
   "editor.codeActionsOnSave": {
-    "source.addMissingImports": "always"
+    "source.addMissingImports": "always",
+    "source.organizeImports": true // 保存时自动排序+删除无用导入
   },
   "terraform.codelens.referenceCount": true,
   "terraform.experimentalFeatures.prefillRequiredFields": true,
@@ -305,7 +329,6 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "python.analysis.typeCheckingMode": "basic",
   "github.copilot.enable": {
     "*": false,
     "plaintext": false,
@@ -319,12 +342,17 @@
   "terminal.integrated.tabs.location": "left",
   "editor.fontFamily": "JetBrains Mono",
   "workbench.colorTheme": "JetBrains Darcula Theme",
+
+  // ──────────────────────────────────────────────────────────────────────────────────────
+  // markdown setups
+  // ──────────────────────────────────────────────────────────────────────────────────────
   "[markdown]": {
     "editor.defaultFormatter": "yzhang.markdown-all-in-one"
   },
   "markdown.preview.fontSize": 11,
   "markdown.preview.scrollEditorWithPreview": false,
   "markdown.preview.typographer": true,
+
   // ──────────────────────────────────────────────────────────────────────────────────────
   // VSCode italic font settings
   // ──────────────────────────────────────────────────────────────────────────────────────
