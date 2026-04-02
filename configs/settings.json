@@ -1,17 +1,39 @@
 {
+  // ═══════════════════════════════════════════════════════════════════════════════
+  // SECTION 1: CORE SETTINGS - Workbench, Explorer, Editor basics
+  // ═══════════════════════════════════════════════════════════════════════════════
   "workbench.iconTheme": "vscode-icons",
+  "workbench.colorTheme": "JetBrains Darcula Theme",
+
   "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+
   "editor.detectIndentation": true,
   "editor.cursorBlinking": "solid",
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.fontLigatures": true,
 
-  // --- START code-runner ---
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 2: FILE MANAGEMENT & SECURITY
+  // ─────────────────────────────────────────────────────────────────────────────
+  "files.autoSave": "onFocusChange",
+
+  // Security settings
+  "security.workspace.trust.untrustedFiles": "open",
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 3: CODE RUNNER - Execute code directly in VSCode
+  // ─────────────────────────────────────────────────────────────────────────────
   "code-runner.runInTerminal": true,
+  "code-runner.saveFileBeforeRun": true,
+
+  // Command mapping for different languages
   "code-runner.executorMap": {
     "javascript": "node",
     "java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
     "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
-    "zig": "zig run",
     "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "zig": "zig run",
     "objective-c": "cd $dir && gcc -framework Cocoa $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
     "php": "php",
     "python": "python -u",
@@ -65,117 +87,114 @@
     "pkl": "cd $dir && pkl eval -f yaml $fileName -o $fileNameWithoutExt.yaml",
     "gleam": "gleam run -m $fileNameWithoutExt"
   },
-  // --- END ---
 
-  "files.autoSave": "onFocusChange",
-  "aws.telemetry": false,
-  "security.workspace.trust.untrustedFiles": "open",
-
-  // go
-  "gopls": {
-    "ui.semanticTokens": true,
-    "ui.diagnostic.staticcheck": false
-  },
-  "go.goroot": "/snap/go/current",
-  "code-runner.saveFileBeforeRun": true,
-  "go.inlayHints.assignVariableTypes": true,
-  "go.inlayHints.constantValues": true,
-
-  // ──────────────────────────────────────────────────────────────────────────────────────
-  // Python
-  // ──────────────────────────────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 4: PYTHON - Language server, formatting, linting
+  // Reference: https://gist.github.com/wojukasz/d76ca3162debc66d4227b9dc6049789e
+  // ─────────────────────────────────────────────────────────────────────────────
   "[python]": {
     "editor.formatOnType": true
   },
+
+  // Python language analysis (Pylance)
   "python.analysis.inlayHints.functionReturnTypes": true,
   "python.analysis.inlayHints.variableTypes": true,
   "python.analysis.autoFormatStrings": true,
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.completeFunctionParens": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.diagnosticMode": "openFilesOnly",
 
-  // ========== Python 智能提示最强 ==========
-  "python.analysis.autoImportCompletions": true, // 自动补全导入
-  "python.analysis.completeFunctionParens": true, // 函数自动加()
-  "python.analysis.typeCheckingMode": "basic", // 开启基础类型检查（防bug神器）
-  "python.analysis.autoSearchPaths": true, // 自动识别项目路径
-  "python.analysis.diagnosticMode": "openFilesOnly", // 只检查打开的文件（更快）
+  // Python formatting (Black)
+  "python.formatting.blackArgs": ["--line-length", "120"],
 
-  // ========== 自动格式化 + 保存就格式化 ==========
-  "editor.formatOnType": true, // 输入时自动格式化
-  "python.formatting.blackArgs": [ "--line-length", "120" ], // 代码行长度限制
-
-  // ========== Linting 代码检查 ==========
+  // Python linting
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
   "python.linting.flake8Enabled": false,
 
-  // ========== 交互体验优化 ==========
-  "python.terminal.activateEnvironment": true, // 打开终端自动激活虚拟环境
+  // Terminal & environment
+  "python.terminal.activateEnvironment": true,
 
-  // ──────────────────────────────────────────────────────────────────────────────────────
-  // TS
-  // ──────────────────────────────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 5: GO - Language server configuration
+  // ─────────────────────────────────────────────────────────────────────────────
+  "[go]": {
+    "editor.formatOnSave": false
+  },
+  "go.goroot": "/snap/go/current",
+  "go.inlayHints.assignVariableTypes": true,
+  "go.inlayHints.constantValues": true,
 
+  // gopls settings
+  "gopls": {
+    "ui.semanticTokens": true,
+    "ui.diagnostic.staticcheck": false
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 6: TYPESCRIPT & JAVASCRIPT - Inlay hints, formatting
+  // ─────────────────────────────────────────────────────────────────────────────
   "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
   "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
   "typescript.inlayHints.variableTypes.enabled": true,
   "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
   "javascript.inlayHints.variableTypes.enabled": true,
 
-  // ──────────────────────────────────────────────────────────────────────────────────────
-  // VIM EXTENSION CORE SETTINGS - Vim behaviour and plugin emulation
-  // ──────────────────────────────────────────────────────────────────────────────────────
-  // Refernce from https://gist.github.com/wojukasz/d76ca3162debc66d4227b9dc6049789e
-  /* --- 核心行为设置 --- */
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 7: VIM EXTENSION - Core behavior settings
+  // Reference: https://gist.github.com/wojukasz/d76ca3162debc66d4227b9dc6049789e
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  // Core behavior
   "vim.leader": "<space>",
   "vim.useSystemClipboard": true,
   "vim.useCtrlKeys": true,
   "vim.startInInsertMode": false,
-  "vim.smartRelativeLine": true, // Insert mode: absolute; Normal mode: relative
+  "vim.smartRelativeLine": true,
   "vim.cursorStylePerMode.insert": "line",
   "vim.cursorStylePerMode.normal": "block",
 
-  /* --- 搜索与反馈 --- */
+  // Search & feedback
   "vim.incsearch": true,
   "vim.hlsearch": true,
   "vim.highlightedyank.enable": true,
   "vim.highlightedyank.duration": 100,
 
-  /* --- 插件模拟 --- */
+  // Plugin emulation
   "vim.easymotion": true,
   "vim.sneak": true,
   "vim.sneakUseIgnorecaseAndSmartcase": true,
   "vim.surround": true,
   "vim.foldfix": true,
 
-  /* --- 性能与系统冲突处理 --- */
+  // Performance & system conflict handling
   "extensions.experimental.affinity": {
     "vscodevim.vim": 1
   },
+
+  // Handle key conflicts (false = let Vim handle, true = let VSCode handle)
   "vim.handleKeys": {
-    "<C-a>": false, // Select all (VSCode)
-    "<C-f>": false, // Search (VSCode)
-    "<C-c>": false, // Copy (VSCode)
-    "<C-v>": false, // Paste (VSCode)
-    "<C-x>": false, // Paste (VSCode)
-    "<C-p>": false, // Quick Open (VSCode)
-    "<C-k>": false, // Global shortcuts
-    "<C-w>": false, // Close window
-    "<C-i>": true // Jump forward (Vim)
+    "<C-a>": false,
+    "<C-f>": false,
+    "<C-c>": false,
+    "<C-v>": false,
+    "<C-x>": false,
+    "<C-p>": false,
+    "<C-k>": false,
+    "<C-w>": false,
+    "<C-i>": true
   },
 
-  /* --- Operator Pending (待定模式) --- */
+  // Operator pending mode keybindings
   "vim.operatorPendingModeKeyBindings": [
-    { "before": [ ">" ], "commands": [ "editor.action.indentLines" ] },
-    { "before": [ "<" ], "commands": [ "editor.action.outdentLines" ] }
+    { "before": [">"], "commands": ["editor.action.indentLines"] },
+    { "before": ["<"], "commands": ["editor.action.outdentLines"] }
   ],
 
-
-  // ──────────────────────────────────────────────────────────────────────────────────────
-  // NORMAL MODE KEYBINDINGS - Space-leader mappings (LazyVim alignment)
-  // ──────────────────────────────────────────────────────────────────────────────────────
-  //
-  // CRITICAL: All space-leader bindings (<leader>...) MUST be defined here in settings.json,
-  // NOT in keybindings.json. The Vim extension needs to intercept these before VSCode sees them.
-  //
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 8: VIM NORMAL MODE KEYBINDINGS - Space-leader mappings
   // Pattern reference (matches LazyVim):
   //   <leader>f* = File operations
   //   <leader>s* = Search operations
@@ -186,90 +205,78 @@
   //   <leader>x* = Diagnostics/Quickfix
   //   <leader>u* = UI toggles
   //   <leader>m* = Markdown Settings
+  // ─────────────────────────────────────────────────────────────────────────────
   "vim.normalModeKeyBindingsNonRecursive": [
-    // 1. 核心与导航 (General)
-    // { "before": [ "z", "z" ], "commands": [ "editor.toggleFold" ] },
-    { "before": [ "<Esc>" ], "commands": [ ":nohl" ] },
-    { "before": [ "K" ], "commands": [ "editor.action.showHover" ] },
-    { "before": [ "<S-h>" ], "commands": [ "workbench.action.previousEditor" ] },
-    { "before": [ "<S-l>" ], "commands": [ "workbench.action.nextEditor" ] },
-    {
-      "before": [ "<leader>", "F" ],
-      "commands": [ "editor.toggleFold" ]
-    },
+    // General: Navigation & basic
+    { "before": ["<Esc>"], "commands": [":nohl"] },
+    { "before": ["K"], "commands": ["editor.action.showHover"] },
+    { "before": ["<S-h>"], "commands": ["workbench.action.previousEditor"] },
+    { "before": ["<S-l>"], "commands": ["workbench.action.nextEditor"] },
+    { "before": ["<leader>", "F"], "commands": ["editor.toggleFold"] },
 
-    // 2. 文件操作 (File <leader>f)
-    { "before": [ "<leader>", "f", "e" ], "commands": [ "workbench.files.action.showActiveFileInExplorer" ] },
-    { "before": [ "<leader>", "f", "n" ], "commands": [ "workbench.action.files.newUntitledFile" ] },
-    { "before": [ "<leader>", "f", "r" ], "commands": [ "workbench.action.openRecent" ] },
-    { "before": [ "<leader>", "e" ], "commands": [ "workbench.action.toggleSidebarVisibility" ] },
-    { "before": [ "<leader>", "E" ], "commands": [ "workbench.files.action.focusFilesExplorer" ] }, // <leader>E = focus file explorer
-    { "before": [ "<leader>", "<space>" ], "commands": [ "workbench.action.quickOpen" ] },
-    // { "before": [ "<leader>", "f", "f" ], "commands": [ "workbench.action.quickOpen" ] },
+    // File operations (<leader>f)
+    { "before": ["<leader>", "f", "e"], "commands": ["workbench.files.action.showActiveFileInExplorer"] },
+    { "before": ["<leader>", "f", "n"], "commands": ["workbench.action.files.newUntitledFile"] },
+    { "before": ["<leader>", "f", "r"], "commands": ["workbench.action.openRecent"] },
+    { "before": ["<leader>", "e"], "commands": ["workbench.action.toggleSidebarVisibility"] },
+    { "before": ["<leader>", "E"], "commands": ["workbench.files.action.focusFilesExplorer"] },
+    { "before": ["<leader>", "<space>"], "commands": ["workbench.action.quickOpen"] },
 
-    // 3. 搜索与查找 (Search <leader>s / <leader>/)
-    { "before": [ "<leader>", "/" ], "commands": [ "workbench.action.findInFiles" ] },
-    { "before": [ "<leader>", "s", "g" ], "commands": [ "workbench.action.findInFiles" ] },
-    { "before": [ "<leader>", "s", "r" ], "commands": [ "workbench.action.replaceInFiles" ] },
-    { "before": [ "<leader>", "s", "s" ], "commands": [ "workbench.action.gotoSymbol" ] },
+    // Search (<leader>s / <leader>/)
+    { "before": ["<leader>", "/"], "commands": ["workbench.action.findInFiles"] },
+    { "before": ["<leader>", "s", "g"], "commands": ["workbench.action.findInFiles"] },
+    { "before": ["<leader>", "s", "r"], "commands": ["workbench.action.replaceInFiles"] },
+    { "before": ["<leader>", "s", "s"], "commands": ["workbench.action.gotoSymbol"] },
 
-    // 4. 代码动作 (LSP <leader>c / g*)
-    { "before": [ "<leader>", "c", "a" ], "commands": [ "editor.action.quickFix" ] },
-    { "before": [ "<leader>", "c", "f" ], "commands": [ "editor.action.formatDocument" ] },
-    { "before": [ "<leader>", "c", "r" ], "commands": [ "editor.action.rename" ] },
-    { "before": [ "g", "d" ], "commands": [ "editor.action.revealDefinition" ] },
-    { "before": [ "g", "r" ], "commands": [ "editor.action.goToReferences" ] },
+    // Code actions & LSP (<leader>c / g*)
+    { "before": ["<leader>", "c", "a"], "commands": ["editor.action.quickFix"] },
+    { "before": ["<leader>", "c", "f"], "commands": ["editor.action.formatDocument"] },
+    { "before": ["<leader>", "c", "r"], "commands": ["editor.action.rename"] },
+    { "before": ["g", "d"], "commands": ["editor.action.revealDefinition"] },
+    { "before": ["g", "r"], "commands": ["editor.action.goToReferences"] },
 
-    // 5. 缓冲区管理 (Buffer <leader>b)
-    { "before": [ "<leader>", "b", "d" ], "commands": [ "workbench.action.closeActiveEditor" ] },
-    { "before": [ "<leader>", "b", "D" ], "commands": [ "workbench.action.closeOtherEditors" ] },
-    { "before": [ "<leader>", "b", "p" ], "commands": [ "workbench.action.pinEditor" ] },
+    // Buffer management (<leader>b)
+    { "before": ["<leader>", "b", "d"], "commands": ["workbench.action.closeActiveEditor"] },
+    { "before": ["<leader>", "b", "D"], "commands": ["workbench.action.closeOtherEditors"] },
+    { "before": ["<leader>", "b", "p"], "commands": ["workbench.action.pinEditor"] },
 
-    // 6. 窗口管理 (Window <leader>w)
-    { "before": [ "<leader>", "w", "w" ], "commands": [ "workbench.action.focusNextGroup" ] },
-    { "before": [ "<leader>", "|" ], "commands": [ "workbench.action.splitEditorRight" ] },
-    { "before": [ "<leader>", "-" ], "commands": [ "workbench.action.splitEditorDown" ] },
+    // Window management (<leader>w)
+    { "before": ["<leader>", "w", "w"], "commands": ["workbench.action.focusNextGroup"] },
+    { "before": ["<leader>", "|"], "commands": ["workbench.action.splitEditorRight"] },
+    { "before": ["<leader>", "-"], "commands": ["workbench.action.splitEditorDown"] },
 
-    // 7. UI / 其他 (UI <leader>u)
-    { "before": [ "<leader>", "u", "w" ], "commands": [ "editor.action.toggleWordWrap" ] },
-    { "before": [ "<leader>", "u", "z" ], "commands": [ "workbench.action.toggleZenMode" ] },
-    { "before": [ "<C-d>" ], "after": [ "<C-d>", "zz" ] },
-    { "before": [ "<C-u>" ], "after": [ "<C-u>", "zz" ] },
+    // UI toggles (<leader>u)
+    { "before": ["<leader>", "u", "w"], "commands": ["editor.action.toggleWordWrap"] },
+    { "before": ["<leader>", "u", "z"], "commands": ["workbench.action.toggleZenMode"] },
+    { "before": ["<C-d>"], "after": ["<C-d>", "zz"] },
+    { "before": ["<C-u>"], "after": ["<C-u>", "zz"] },
 
-    // 8. AI / Agents 
-    {
-      "before": [ "<leader>", "a", "i" ], // 设定为 leader + ai (Cline AI)
-      "commands": [ "cline.addToChat" ]
-    },
+    // AI/Agents integration
+    { "before": ["<leader>", "a", "i"], "commands": ["cline.addToChat"] }
   ],
 
-  /* --- Visual 模式 --- */
+  // Visual mode keybindings
   "vim.visualModeKeyBindingsNonRecursive": [
-    // 允许在可视化模式下通过 J/K 移动代码块
-    { "before": [ "J" ], "commands": [ "editor.action.moveLinesDownAction" ] },
-    { "before": [ "K" ], "commands": [ "editor.action.moveLinesUpAction" ] },
-    // 连续缩进不会退出可视化模式
-    { "before": [ "<" ], "commands": [ "editor.action.outdentLines" ] },
-    { "before": [ ">" ], "commands": [ "editor.action.indentLines" ] }
+    { "before": ["J"], "commands": ["editor.action.moveLinesDownAction"] },
+    { "before": ["K"], "commands": ["editor.action.moveLinesUpAction"] },
+    { "before": ["<"], "commands": ["editor.action.outdentLines"] },
+    { "before": [">"], "commands": ["editor.action.indentLines"] }
   ],
 
-  // ──────────────────────────────────────────────────────────────────────────────────────
-  // STATUS BAR COLORS - Visual mode indicators (LazyVim-inspired colours)
-  // ──────────────────────────────────────────────────────────────────────────────────────
-  // "vim.statusBarColorControl": true, // Enable status bar colour changes
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 9: VIM STATUS BAR COLORS - Mode indicators (Nord/OneDark style)
+  // ─────────────────────────────────────────────────────────────────────────────
   "vim.statusBarColorControl": true,
-  // 基础逻辑优化：将 Visual 模式统一，并引入更符合现代开发工具的配色
-  "vim.statusBarColors.normal": "#519aba", // 正常的蓝色 (Nord/OneDark 风格)
-  "vim.statusBarColors.insert": "#98c379", // 插入模式绿色
-  "vim.statusBarColors.replace": "#e06c75", // 替换模式警告红
+  "vim.statusBarColors.normal": "#519aba",
+  "vim.statusBarColors.insert": "#98c379",
+  "vim.statusBarColors.replace": "#e06c75",
   "vim.statusBarColors.commandlineext": "#61afef",
-  // 优化重点：Visual 模式的分组统一
-  // 提示：VS Code Vim 允许对不同 Visual 模式进行细分，但通常视觉反馈应保持一致
   "vim.statusBarColors.visual": "#c678dd",
   "vim.statusBarColors.visualline": "#c678dd",
   "vim.statusBarColors.visualblock": "#c678dd",
-  // 进阶优化：搜索与选择模式的联动
-  "vim.statusBarColors.searchinprogressmode": "#d19a66", // 橙色，用于搜索中
+  "vim.statusBarColors.searchinprogressmode": "#d19a66",
+
+  // Workbench status bar customization
   "workbench.colorCustomizations": {
     "statusBar.noFolderBackground": "#98c379",
     "statusBar.debuggingBackground": "#98c379",
@@ -277,33 +284,68 @@
     "statusBar.foreground": "#ffffff",
     "statusBar.debuggingForeground": "#ffffff"
   },
-  // --- END VIM ---
 
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 10: EDITOR APPEARANCE - Token colors, italics
+  // ─────────────────────────────────────────────────────────────────────────────
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          "comment",
+          "entity.name.type.class",
+          "storage.modifier",
+          "storage.type.class",
+          "variable.language.self",
+          "variable.language.this"
+        ],
+        "settings": {
+          "fontStyle": "italic"
+        }
+      },
+      {
+        "scope": [
+          "invalid",
+          "keyword.operator",
+          "constant.numeric.css",
+          "keyword.other.unit.px.css",
+          "constant.numeric.decimal.js",
+          "constant.numeric.json"
+        ],
+        "settings": {
+          "fontStyle": ""
+        }
+      }
+    ]
+  },
 
-  // ──────────────────────────────────────────────────────────────────────────────────────
-  // JSON Configs
-  // ──────────────────────────────────────────────────────────────────────────────────────
-  // 针对 JSON 文件指定使用编辑器内置的格式化程序
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 11: MARKDOWN
+  // ─────────────────────────────────────────────────────────────────────────────
+  "[markdown]": {
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+  },
+  "markdown.preview.fontSize": 11,
+  "markdown.preview.scrollEditorWithPreview": false,
+  "markdown.preview.typographer": true,
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 12: JSON / JSONC
+  // ─────────────────────────────────────────────────────────────────────────────
   "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.defaultFormatter": "vscode.json-language-features"
   },
-  "[jsonc]": { // 带有注释的 JSON (如 settings.json 本身)
-    "editor.defaultFormatter": "vscode.json-language-features",
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
   },
-  // 原生格式化细节控制
   "json.format.enable": true,
-  "json.format.keepLines": true, // 是否保留手动换行
+  "json.format.keepLines": true,
   "json.format.insertSpaces": true,
   "json.format.tabSize": 2,
 
-  "explorer.confirmDragAndDrop": false,
-  "redhat.telemetry.enabled": false,
-
-  "java.saveActions.organizeImports": true,
-  "editor.codeActionsOnSave": {
-    "source.addMissingImports": "always",
-    "source.organizeImports": "explicit"
-  },
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 13: TERRAFORM
+  // ─────────────────────────────────────────────────────────────────────────────
   "terraform.codelens.referenceCount": true,
   "terraform.experimentalFeatures.prefillRequiredFields": true,
   "[terraform]": {
@@ -317,76 +359,50 @@
     "editor.formatOnSaveMode": "file"
   },
 
-  // ──────────────────────────────────────────────────────────────────────────────────────
-  // line sepatators
-  // ──────────────────────────────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 14: TYPESCRIPT REACT
+  // ─────────────────────────────────────────────────────────────────────────────
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 15: JAVA
+  // ─────────────────────────────────────────────────────────────────────────────
+  "java.saveActions.organizeImports": true,
+  "editor.codeActionsOnSave": {
+    "source.addMissingImports": "always",
+    "source.organizeImports": "explicit"
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 16: TERMINAL
+  // ─────────────────────────────────────────────────────────────────────────────
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "terminal.integrated.tabs.location": "left",
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 17: SEPARATORS EXTENSION
+  // ─────────────────────────────────────────────────────────────────────────────
   "separators.maxDepth": 1,
   "separators.common.borderStyle": "dashed",
   "separators.common.borderColor": "editor.lineHighlightBorder",
   "separators.common.topMargin": 5,
   "separators.classes.borderStyle": "solid",
 
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 18: TELEMETRY & PRIVACY
+  // ─────────────────────────────────────────────────────────────────────────────
+  "aws.telemetry": false,
+  "redhat.telemetry.enabled": false,
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 19: AI & COPILOT
+  // ─────────────────────────────────────────────────────────────────────────────
   "github.copilot.enable": {
     "*": false,
     "plaintext": false,
     "markdown": false,
     "scminput": false
-  },
-  "[go]": {
-    "editor.formatOnSave": false
-  },
-  "terminal.integrated.enableMultiLinePasteWarning": "never",
-  "terminal.integrated.tabs.location": "left",
-  "editor.fontFamily": "JetBrains Mono",
-  "workbench.colorTheme": "JetBrains Darcula Theme",
-
-  // ──────────────────────────────────────────────────────────────────────────────────────
-  // markdown setups
-  // ──────────────────────────────────────────────────────────────────────────────────────
-  "[markdown]": {
-    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
-  },
-  "markdown.preview.fontSize": 11,
-  "markdown.preview.scrollEditorWithPreview": false,
-  "markdown.preview.typographer": true,
-
-  // ──────────────────────────────────────────────────────────────────────────────────────
-  // VSCode italic font settings
-  // ──────────────────────────────────────────────────────────────────────────────────────
-  "editor.fontLigatures": true,
-  "editor.tokenColorCustomizations": {
-    "textMateRules": [
-      {
-        "scope": [
-          // following will be in italic
-          "comment",
-          "entity.name.type.class", // class names
-          "storage.modifier", // static, final, public
-          "storage.type.class", // class
-          "variable.language.self", // Python self
-          "variable.language.this" // JS/TS this
-        ],
-        "settings": {
-          "fontStyle": "italic"
-        }
-      },
-      {
-        "scope": [
-          // following will be excluded from italics (VSCode has some defaults for italics)
-          "invalid",
-          "keyword.operator",
-          "constant.numeric.css",
-          "keyword.other.unit.px.css",
-          "constant.numeric.decimal.js",
-          "constant.numeric.json"
-        ],
-        "settings": {
-          "fontStyle": ""
-        }
-      }
-    ]
   }
 }
