@@ -107,7 +107,7 @@
   "python.analysis.diagnosticMode": "openFilesOnly",
 
   // Python formatting (Black)
-  "python.formatting.blackArgs": ["--line-length", "120"],
+  "python.formatting.blackArgs": [ "--line-length", "120" ],
 
   // Python linting
   "python.linting.enabled": true,
@@ -189,8 +189,8 @@
 
   // Operator pending mode keybindings
   "vim.operatorPendingModeKeyBindings": [
-    { "before": [">"], "commands": ["editor.action.indentLines"] },
-    { "before": ["<"], "commands": ["editor.action.outdentLines"] }
+    { "before": [ ">" ], "commands": [ "editor.action.indentLines" ] },
+    { "before": [ "<" ], "commands": [ "editor.action.outdentLines" ] }
   ],
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -208,59 +208,59 @@
   // ─────────────────────────────────────────────────────────────────────────────
   "vim.normalModeKeyBindingsNonRecursive": [
     // General: Navigation & basic
-    { "before": ["<Esc>"], "commands": [":nohl"] },
-    { "before": ["K"], "commands": ["editor.action.showHover"] },
-    { "before": ["<S-h>"], "commands": ["workbench.action.previousEditor"] },
-    { "before": ["<S-l>"], "commands": ["workbench.action.nextEditor"] },
-    { "before": ["<leader>", "F"], "commands": ["editor.toggleFold"] },
+    { "before": [ "<Esc>" ], "commands": [ ":nohl" ] },
+    { "before": [ "K" ], "commands": [ "editor.action.showHover" ] },
+    { "before": [ "<S-h>" ], "commands": [ "workbench.action.previousEditor" ] },
+    { "before": [ "<S-l>" ], "commands": [ "workbench.action.nextEditor" ] },
+    { "before": [ "<leader>", "F" ], "commands": [ "editor.toggleFold" ] },
 
     // File operations (<leader>f)
-    { "before": ["<leader>", "f", "e"], "commands": ["workbench.files.action.showActiveFileInExplorer"] },
-    { "before": ["<leader>", "f", "n"], "commands": ["workbench.action.files.newUntitledFile"] },
-    { "before": ["<leader>", "f", "r"], "commands": ["workbench.action.openRecent"] },
-    { "before": ["<leader>", "e"], "commands": ["workbench.action.toggleSidebarVisibility"] },
-    { "before": ["<leader>", "E"], "commands": ["workbench.files.action.focusFilesExplorer"] },
-    { "before": ["<leader>", "<space>"], "commands": ["workbench.action.quickOpen"] },
+    { "before": [ "<leader>", "f", "e" ], "commands": [ "workbench.files.action.showActiveFileInExplorer" ] },
+    { "before": [ "<leader>", "f", "n" ], "commands": [ "workbench.action.files.newUntitledFile" ] },
+    { "before": [ "<leader>", "f", "r" ], "commands": [ "workbench.action.openRecent" ] },
+    { "before": [ "<leader>", "e" ], "commands": [ "workbench.action.toggleSidebarVisibility" ] },
+    { "before": [ "<leader>", "E" ], "commands": [ "workbench.files.action.focusFilesExplorer" ] },
+    { "before": [ "<leader>", "<space>" ], "commands": [ "workbench.action.quickOpen" ] },
 
     // Search (<leader>s / <leader>/)
-    { "before": ["<leader>", "/"], "commands": ["workbench.action.findInFiles"] },
-    { "before": ["<leader>", "s", "g"], "commands": ["workbench.action.findInFiles"] },
-    { "before": ["<leader>", "s", "r"], "commands": ["workbench.action.replaceInFiles"] },
-    { "before": ["<leader>", "s", "s"], "commands": ["workbench.action.gotoSymbol"] },
+    { "before": [ "<leader>", "/" ], "commands": [ "workbench.action.findInFiles" ] },
+    { "before": [ "<leader>", "s", "g" ], "commands": [ "workbench.action.findInFiles" ] },
+    { "before": [ "<leader>", "s", "r" ], "commands": [ "workbench.action.replaceInFiles" ] },
+    { "before": [ "<leader>", "s", "s" ], "commands": [ "workbench.action.gotoSymbol" ] },
 
     // Code actions & LSP (<leader>c / g*)
-    { "before": ["<leader>", "c", "a"], "commands": ["editor.action.quickFix"] },
-    { "before": ["<leader>", "c", "f"], "commands": ["editor.action.formatDocument"] },
-    { "before": ["<leader>", "c", "r"], "commands": ["editor.action.rename"] },
-    { "before": ["g", "d"], "commands": ["editor.action.revealDefinition"] },
-    { "before": ["g", "r"], "commands": ["editor.action.goToReferences"] },
+    { "before": [ "<leader>", "c", "a" ], "commands": [ "editor.action.quickFix" ] },
+    { "before": [ "<leader>", "c", "f" ], "commands": [ "editor.action.formatDocument" ] },
+    { "before": [ "<leader>", "c", "r" ], "commands": [ "editor.action.rename" ] },
+    { "before": [ "g", "d" ], "commands": [ "editor.action.revealDefinition" ] },
+    { "before": [ "g", "r" ], "commands": [ "editor.action.goToReferences" ] },
 
     // Buffer management (<leader>b)
-    { "before": ["<leader>", "b", "d"], "commands": ["workbench.action.closeActiveEditor"] },
-    { "before": ["<leader>", "b", "D"], "commands": ["workbench.action.closeOtherEditors"] },
-    { "before": ["<leader>", "b", "p"], "commands": ["workbench.action.pinEditor"] },
+    { "before": [ "<leader>", "b", "d" ], "commands": [ "workbench.action.closeActiveEditor" ] },
+    { "before": [ "<leader>", "b", "D" ], "commands": [ "workbench.action.closeOtherEditors" ] },
+    { "before": [ "<leader>", "b", "p" ], "commands": [ "workbench.action.pinEditor" ] },
 
     // Window management (<leader>w)
-    { "before": ["<leader>", "w", "w"], "commands": ["workbench.action.focusNextGroup"] },
-    { "before": ["<leader>", "|"], "commands": ["workbench.action.splitEditorRight"] },
-    { "before": ["<leader>", "-"], "commands": ["workbench.action.splitEditorDown"] },
+    { "before": [ "<leader>", "w", "w" ], "commands": [ "workbench.action.focusNextGroup" ] },
+    { "before": [ "<leader>", "|" ], "commands": [ "workbench.action.splitEditorRight" ] },
+    { "before": [ "<leader>", "-" ], "commands": [ "workbench.action.splitEditorDown" ] },
 
     // UI toggles (<leader>u)
-    { "before": ["<leader>", "u", "w"], "commands": ["editor.action.toggleWordWrap"] },
-    { "before": ["<leader>", "u", "z"], "commands": ["workbench.action.toggleZenMode"] },
-    { "before": ["<C-d>"], "after": ["<C-d>", "zz"] },
-    { "before": ["<C-u>"], "after": ["<C-u>", "zz"] },
+    { "before": [ "<leader>", "u", "w" ], "commands": [ "editor.action.toggleWordWrap" ] },
+    { "before": [ "<leader>", "u", "z" ], "commands": [ "workbench.action.toggleZenMode" ] },
+    { "before": [ "<C-d>" ], "after": [ "<C-d>", "zz" ] },
+    { "before": [ "<C-u>" ], "after": [ "<C-u>", "zz" ] },
 
     // AI/Agents integration
-    { "before": ["<leader>", "a", "i"], "commands": ["cline.addToChat"] }
+    { "before": [ "<leader>", "a", "i" ], "commands": [ "cline.addToChat" ] }
   ],
 
   // Visual mode keybindings
   "vim.visualModeKeyBindingsNonRecursive": [
-    { "before": ["J"], "commands": ["editor.action.moveLinesDownAction"] },
-    { "before": ["K"], "commands": ["editor.action.moveLinesUpAction"] },
-    { "before": ["<"], "commands": ["editor.action.outdentLines"] },
-    { "before": [">"], "commands": ["editor.action.indentLines"] }
+    { "before": [ "J" ], "commands": [ "editor.action.moveLinesDownAction" ] },
+    { "before": [ "K" ], "commands": [ "editor.action.moveLinesUpAction" ] },
+    { "before": [ "<" ], "commands": [ "editor.action.outdentLines" ] },
+    { "before": [ ">" ], "commands": [ "editor.action.indentLines" ] }
   ],
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -278,9 +278,9 @@
 
   // Workbench status bar customization
   "workbench.colorCustomizations": {
-    "statusBar.noFolderBackground": "#98c379",
-    "statusBar.debuggingBackground": "#98c379",
-    "statusBar.background": "#98c379",
+    "statusBar.noFolderBackground": "#c678dd",
+    "statusBar.debuggingBackground": "#c678dd",
+    "statusBar.background": "#c678dd",
     "statusBar.foreground": "#ffffff",
     "statusBar.debuggingForeground": "#ffffff"
   },
@@ -404,5 +404,71 @@
     "plaintext": false,
     "markdown": false,
     "scminput": false
-  }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 20: YAML - Custom tags for AWS CloudFormation
+  // Reference: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html
+  // ─────────────────────────────────────────────────────────────────────────────
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.formatOnSave": false,
+    "editor.tabSize": 2
+  },
+  "yaml.schemas": {
+    "file:///c:/Users/lenovo/.vscode/extensions/aws-toolkit.vscode-aws-toolkit-core-*/package.json": [ "**/cfn*.yaml", "**/cloudformation*.yaml" ]
+  },
+  "yaml.customTags": [
+    // CloudFormation intrinsic functions
+    "!And",
+    "!Base64",
+    "!Cidr",
+    "!Equals",
+    "!FindInMap",
+    "!GetAtt",
+    "!GetAZs",
+    "!If",
+    "!ImportValue",
+    "!Join",
+    "!Length",
+    "!Not",
+    "!Or",
+    "!Ref",
+    "!Select",
+    "!Split",
+    "!Sub",
+    "!Transform",
+    "!And sequence",
+    "!If sequence",
+    "!Not sequence",
+    "!Or sequence"
+  ],
+  "yaml.format.enable": true,
+  "yaml.format.bracketSameLine": false,
+  "yaml.format.proseWrap": "preserve",
+  "yaml.validate": true,
+  "yaml.hover": true,
+  "yaml.completion": true,
+  "yaml.styling.linter": true,
+  "yaml.suggest.awsScalarSchemas": true,
+
+  // 强制本地下载 VS Code Server 并通过 SSH 传到远程（内网必备）
+  "remote.SSH.localServerDownload": "always",
+
+  // 关闭新版 exec server 避免离线环境兼容问题
+  "remote.SSH.useExecServer": false,
+
+  // 关闭自动下载更新，避免在内网报错
+  "remote.SSH.downloadServerAutomatically": false,
+
+  // 关闭连接时自动检查服务器版本
+  "remote.SSH.autoCheckServerVersion": false,
+
+  // 禁用远程扩展自动更新（内网无法下载）
+  "remote.extensionKind": {
+    "ms-vscode-remote.remote-ssh": [ "ui" ]
+  },
+  "extensions.autoUpdate": false,
+  "extensions.autoCheckUpdates": false,
+
 }
