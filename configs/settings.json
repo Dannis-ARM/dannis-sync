@@ -2,6 +2,7 @@
   // ═══════════════════════════════════════════════════════════════════════════════
   // SECTION 1: CORE SETTINGS - Workbench, Explorer, Editor basics
   // ═══════════════════════════════════════════════════════════════════════════════
+  "window.zoomLevel": 0,
   "workbench.iconTheme": "vscode-icons",
   "workbench.colorTheme": "JetBrains Darcula Theme",
 
