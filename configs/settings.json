@@ -12,6 +12,12 @@
   "editor.cursorBlinking": "solid",
   "editor.fontFamily": "JetBrains Mono",
   "editor.fontLigatures": true,
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.addMissingImports": "always",
+    "source.organizeImports": "never",
+    "source.fixAll": "explicit"
+  },
 
   // ─────────────────────────────────────────────────────────────────────────────
   // SECTION 2: FILE MANAGEMENT & SECURITY
@@ -105,14 +111,6 @@
   "python.analysis.typeCheckingMode": "basic",
   "python.analysis.autoSearchPaths": true,
   "python.analysis.diagnosticMode": "openFilesOnly",
-
-  // Python formatting (Black)
-  "python.formatting.blackArgs": [ "--line-length", "120" ],
-
-  // Python linting
-  "python.linting.enabled": true,
-  "python.linting.pylintEnabled": true,
-  "python.linting.flake8Enabled": false,
 
   // Terminal & environment
   "python.terminal.activateEnvironment": true,
@@ -278,9 +276,9 @@
 
   // Workbench status bar customization
   "workbench.colorCustomizations": {
-    "statusBar.noFolderBackground": "#c678dd",
-    "statusBar.debuggingBackground": "#c678dd",
-    "statusBar.background": "#c678dd",
+    "statusBar.noFolderBackground": "#519aba",
+    "statusBar.debuggingBackground": "#519aba",
+    "statusBar.background": "#519aba",
     "statusBar.foreground": "#ffffff",
     "statusBar.debuggingForeground": "#ffffff"
   },
@@ -340,8 +338,6 @@
   },
   "json.format.enable": true,
   "json.format.keepLines": true,
-  "json.format.insertSpaces": true,
-  "json.format.tabSize": 2,
 
   // ─────────────────────────────────────────────────────────────────────────────
   // SECTION 13: TERRAFORM
@@ -364,15 +360,6 @@
   // ─────────────────────────────────────────────────────────────────────────────
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-
-  // ─────────────────────────────────────────────────────────────────────────────
-  // SECTION 15: JAVA
-  // ─────────────────────────────────────────────────────────────────────────────
-  "java.saveActions.organizeImports": true,
-  "editor.codeActionsOnSave": {
-    "source.addMissingImports": "always",
-    "source.organizeImports": "explicit"
   },
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -444,13 +431,8 @@
     "!Or sequence"
   ],
   "yaml.format.enable": true,
-  "yaml.format.bracketSameLine": false,
-  "yaml.format.proseWrap": "preserve",
-  "yaml.validate": true,
   "yaml.hover": true,
   "yaml.completion": true,
-  "yaml.styling.linter": true,
-  "yaml.suggest.awsScalarSchemas": true,
 
   // 强制本地下载 VS Code Server 并通过 SSH 传到远程（内网必备）
   "remote.SSH.localServerDownload": "always",
@@ -470,5 +452,4 @@
   },
   "extensions.autoUpdate": false,
   "extensions.autoCheckUpdates": false,
-
 }
