@@ -262,19 +262,6 @@
     { "before": [ ">" ], "commands": [ "editor.action.indentLines" ] }
   ],
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // SECTION 9: VIM STATUS BAR COLORS - Mode indicators (Nord/OneDark style)
-  // ─────────────────────────────────────────────────────────────────────────────
-  "vim.statusBarColorControl": true,
-  "vim.statusBarColors.normal": "#519aba",
-  "vim.statusBarColors.insert": "#98c379",
-  "vim.statusBarColors.replace": "#e06c75",
-  "vim.statusBarColors.commandlineext": "#61afef",
-  "vim.statusBarColors.visual": "#c678dd",
-  "vim.statusBarColors.visualline": "#c678dd",
-  "vim.statusBarColors.visualblock": "#c678dd",
-  "vim.statusBarColors.searchinprogressmode": "#d19a66",
-
   // Workbench status bar customization
   "workbench.colorCustomizations": {
     "statusBar.noFolderBackground": "#519aba",
@@ -453,4 +440,12 @@
   },
   "extensions.autoUpdate": false,
   "extensions.autoCheckUpdates": false,
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 21: Bash
+  // ─────────────────────────────────────────────────────────────────────────────
+  "[shellscript]": {
+    "files.eol": "\n",
+    // "editor.defaultFormatter": "foxundermoon.shell-format",
+  }
 }
