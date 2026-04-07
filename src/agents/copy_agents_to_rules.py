@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Copy AGENTS.md to Documents\Cline\Rules directory.
 """
