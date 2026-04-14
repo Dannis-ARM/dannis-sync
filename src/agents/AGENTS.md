@@ -21,7 +21,7 @@ Please use Chinese to reply unless I say 'use en' / 'use english'.
 - Keep README.md in sync with new capabilities
 
 ## Coding Style
-日志,注释用英文与emoji,让代码可以复用,简练的命名,需要异常处理。使用日志输出.
+日志,注释用英文与emoji,让代码可以复用,简练的命名,需要异常处理。使用日志输出.注意幂等.
 
 ### For Gemini
 Please don't use canvas unless I allow it.
@@ -35,3 +35,6 @@ Please don't use canvas unless I allow it.
 
 ### For Deployments
 对于Linux部署脚本，应当上传到机器上的"~/activate/<intention>"目录
+
+### For Linux
+尽量使用普通用户的权限
