@@ -1,3 +1,4 @@
+from posixpath import sep
 import shutil
 import platform
 import logging
@@ -45,10 +46,15 @@ class PathInstaller:
             return
 
         self.dst.mkdir(parents=True, exist_ok=True)
-        
+
         # Generator for valid files
-        scripts = (f for f in self.src.rglob('*') 
-                  if f.is_file() and f.suffix.lower() in {'.py', '.bat'})
+        scripts = (
+            f
+            for f in self.src.rglob("*")
+            if f.is_file() and f.suffix.lower() in {".py", ".bat"}
+        )
+
+        scripts = filter(lambda f: str((f.absolute())) != __file__, scripts)
 
         count = 0
         for script in scripts:
@@ -69,5 +75,5 @@ class PathInstaller:
 if __name__ == "__main__":
     # Usage
     project_root = Path(__file__).parent.absolute()
-    installer = PathInstaller(str(project_root / 'src' / 'utils'))
+    installer = PathInstaller(str(project_root))
     installer.run()

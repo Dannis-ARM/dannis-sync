@@ -2,6 +2,9 @@
 # Tmux 基本配置 - 要求 Tmux >= 2.3
 # 如果不想使用插件，只需要将此节的内容写入 ~/.tmux.conf 即可
 # -----------------------------------------------------------------------------
+
+cat <<'EOF' > ~/.tmux.conf
+
 set -g default-terminal xterm   # Fix .vimrc not working issue
 set -g base-index         1     # 窗口编号从 1 开始计数
 set -g display-panes-time 10000 # PREFIX-Q 显示编号的驻留时长，单位 ms
@@ -20,3 +23,5 @@ bind j select-pane -D
 bind k select-pane -U
 bind l select-pane -R
 bind r source-file ~/.tmux.conf \; display "Configuration reloaded"
+
+EOF

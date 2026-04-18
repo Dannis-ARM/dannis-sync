@@ -1,3 +1,5 @@
+#!/bin/bash
+
 mkdir -p ~/.cfgs
 
 user_bashrc=~/.cfgs/.bashrc
@@ -19,12 +21,9 @@ alias ....='cd ./../../..'
 # others
 
 # set PS1
+# 跨平台稳健版：绿色用户主机名 + 蓝色路径 + 成功/失败状态提示
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 set -o vi
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
 
 # Editor setup
 # sudo update-alternatives --config editor

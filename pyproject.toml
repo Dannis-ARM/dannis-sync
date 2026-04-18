@@ -1,20 +1,15 @@
 [project]
-name = "sync"
+name = "vsc-refresh"  # 或者 vsc-refresh
 version = "0.1.0"
-description = "Add your description here"
+description = "Automated VSCode configuration management and rebuild tool"
 readme = "README.md"
 authors = [
     { name = "Dannis", email = "hzzhanyuyang@gmail.com" }
 ]
 requires-python = ">=3.10"
-dependencies = []
 
 [project.scripts]
-vsc-sync = "src.sync.vsc.vscode_config:cli"
-
-[build-system]
-requires = ["uv_build>=0.8.11,<0.9.0"]
-build-backend = "uv_build"
+vsc-refresh = "src.sync.vsc.vscode_config:cli"
 
 [dependency-groups]
 dev = [
@@ -23,3 +18,6 @@ dev = [
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+
+[tool.uv]
+package = true
