@@ -1,4 +1,3 @@
-from posixpath import sep
 import shutil
 import platform
 import logging
@@ -27,17 +26,6 @@ class PathInstaller:
                     logging.info("Windows PATH updated.")
         except Exception as e:
             logging.error(f"Windows Registry error: {e}")
-
-    def _update_unix_path(self):
-        """Update Linux/macOS PATH in shell config files."""
-        export_line = f'\nexport PATH="$PATH:{self.dst}"\n'
-        configs = [Path.home() / f for f in [".bashrc", ".zshrc", ".profile"]]
-        
-        for config in filter(lambda p: p.exists(), configs):
-            if self.dst.as_posix() not in config.read_text():
-                with config.open("a") as f:
-                    f.write(export_line)
-                logging.info(f"Updated: {config.name}")
 
     def sync_scripts(self):
         """Flatten and copy scripts, then set permissions."""
@@ -70,7 +58,7 @@ class PathInstaller:
     def run(self):
         """Execute installation and PATH update."""
         self.sync_scripts()
-        self._update_windows_path() if self.is_windows else self._update_unix_path()
+        self._update_windows_path()
 
 if __name__ == "__main__":
     # Usage
