@@ -148,7 +148,7 @@
   // Core behavior
   "vim.leader": "<space>",
   "vim.useSystemClipboard": true,
-  "vim.useCtrlKeys": true,
+  "vim.useCtrlKeys": false,
   "vim.startInInsertMode": false,
   "vim.smartRelativeLine": true,
   "vim.cursorStylePerMode.insert": "line",
