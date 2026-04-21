@@ -27,7 +27,6 @@ set -o vi
 
 # Editor setup
 # sudo update-alternatives --config editor
-
 EOF
 
 echo 'user_bashrc=~/.cfgs/.bashrc && . $user_bashrc' >> ~/.bashrc
