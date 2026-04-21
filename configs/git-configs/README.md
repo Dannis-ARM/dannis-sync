@@ -1,12 +1,6 @@
 # This is Dannis's Syncing Project
 
-### git clone
-```cmd
-git remote remove origin 
-git remote add origin git@github.com:Dannis-ARM/dannis-sync.git
-```
-
-### git tokens
+## git tokens
 windows
 `git config --global credential.helper manager` 
 # linux
