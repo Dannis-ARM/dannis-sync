@@ -1,53 +1,53 @@
 [
   // ╔══════════════════════════════════════════════════════════════════════════════════╗
-  // ║                   VSCODE VIM LAZYVIM KEYBINDINGS                                  ║
-  // ║                   Modifier Key Bindings (Ctrl, Alt, Shift)                        ║
+  // ║                            VSCode Vim Keybindings                                ║
+  // ║                     Modifier Key & Special Character Bindings                     ║
   // ╚══════════════════════════════════════════════════════════════════════════════════╝
   //
   // This file contains keybindings that use modifier keys (Ctrl, Alt, Shift) and special
-  // characters that need VSCode's key binding system (not Vim's).
+  // characters that need VSCode's native key binding system (not Vim's internal mappings).
   //
-  // IMPORTANT: DO NOT put space-leader bindings here (<leader>...)
+  // 📌 IMPORTANT: DO NOT put space-leader bindings here (<leader>...)
   // Those belong in settings.json under vim.normalModeKeyBindingsNonRecursive
   //
-  // FILE ORGANIZATION:
-  // - Window navigation (Ctrl+h/j/k/l)
-  // - Buffer navigation (Shift+h/l, [b, ]b)
-  // - Diagnostic navigation ([d, ]d, [e, ]e)
-  // - Quickfix navigation ([q, ]q)
-  // - Git hunk navigation ([h, ]h)
-  // - Suggestion/autocomplete navigation
-  // - File explorer navigation
-  // - Terminal toggle
-  // - Line movement (Alt+j/k)
+  // 📂 FILE ORGANIZATION:
+  // ├─ Window navigation (Ctrl+h/j/k/l)
+  // ├─ Buffer navigation (Shift+h/l, [b, ]b)
+  // ├─ Diagnostic navigation ([d, ]d, [e, ]e)
+  // ├─ Quickfix navigation ([q, ]q)
+  // ├─ Git hunk navigation ([h, ]h)
+  // ├─ Suggestion/autocomplete navigation
+  // ├─ File explorer navigation
+  // ├─ Terminal toggle & navigation
+  // ├─ Line movement (Alt+j/k)
+  // └─ Editor group shortcuts (Ctrl+1/2/3/4/5)
   //
-  // SPECIAL KEY CODES:
-  // - oem_4 = [ (left bracket)
-  // - oem_6 = ] (right bracket)
-  // - oem_2 = / (forward slash)
-  // - oem_1 = ; (semicolon)
+  // 🔑 SPECIAL KEY CODES:
+  // ├─ oem_4 = [ (left bracket)
+  // ├─ oem_6 = ] (right bracket)
+  // ├─ oem_2 = / (forward slash)
+  // └─ oem_1 = ; (semicolon)
   //
   // For keyboard layout independence, you can use scan codes instead:
-  // - [BracketLeft] instead of oem_4
-  // - [BracketRight] instead of oem_6
-  // - [Slash] instead of oem_2
+  // ├─ [BracketLeft] instead of oem_4
+  // ├─ [BracketRight] instead of oem_6
+  // └─ [Slash] instead of oem_2
   //
-  // WHEN CLAUSES:
+  // ⚙️ WHEN CLAUSES:
   // The "when" field controls when a binding is active. Common contexts:
-  // - editorTextFocus: cursor is in an editor
-  // - vim.active: Vim extension is active
-  // - vim.mode: current Vim mode (Normal, Insert, Visual)
-  // - suggestWidgetVisible: autocomplete menu is open
-  // - inQuickOpen: Quick Open (Ctrl+P) is open
-  // - terminalFocus: terminal is focused
-  // - listFocus: a list (explorer, search) has focus
+  // ├─ editorTextFocus: cursor is in an editor
+  // ├─ vim.active: Vim extension is active
+  // ├─ vim.mode: current Vim mode (Normal, Insert, Visual)
+  // ├─ suggestWidgetVisible: autocomplete menu is open
+  // ├─ inQuickOpen: Quick Open (Ctrl+P) is open
+  // ├─ terminalFocus: terminal is focused
+  // └─ listFocus: a list (explorer, search) has focus
   //
   // ══════════════════════════════════════════════════════════════════════════════════════
 
   // ┌────────────────────────────────────────────────────────────────────────────────────┐
-  // │ WINDOW NAVIGATION - Ctrl+h/j/k/l (LazyVim: <C-h/j/k/l>)                            │
+  // │ 1. WINDOW NAVIGATION - Ctrl+h/j/k/l (LazyVim: <C-h/j/k/l>)                        │
   // └────────────────────────────────────────────────────────────────────────────────────┘
-  //
   // Navigate between editor splits using Vim-style hjkl keys with Ctrl modifier.
   // These work in Normal mode and are disabled when:
   // - Terminal is focused (so Ctrl+h/j/k/l work normally in terminal)
@@ -76,9 +76,8 @@
   },
 
   // ┌────────────────────────────────────────────────────────────────────────────────────┐
-  // │ BUFFER NAVIGATION - Shift+h/l (LazyVim: <S-h>, <S-l>)                              │
+  // │ 2. BUFFER NAVIGATION - Shift+h/l (LazyVim: <S-h>, <S-l>)                          │
   // └────────────────────────────────────────────────────────────────────────────────────┘
-  //
   // Switch between open editor tabs using Shift+H (previous) and Shift+L (next).
   // Only active in Normal/Visual modes to avoid conflicts with text selection.
   // Alternative: Use [b and ]b (defined below) for the same functionality.
@@ -95,9 +94,8 @@
   },
 
   // ┌────────────────────────────────────────────────────────────────────────────────────┐
-  // │ SAVE FILE - Ctrl+s (LazyVim: <C-s>)                                                │
+  // │ 3. SAVE FILE - Ctrl+s (LazyVim: <C-s>)                                            │
   // └────────────────────────────────────────────────────────────────────────────────────┘
-  //
   // Standard save shortcut. Works in all modes.
   //
   {
@@ -107,9 +105,8 @@
   },
 
   // ┌────────────────────────────────────────────────────────────────────────────────────┐
-  // │ TERMINAL NAVIGATION - Ctrl+; (bidirectional toggle)                                │
+  // │ 4. TERMINAL NAVIGATION - Ctrl+; (Bidirectional Toggle)                            │
   // └────────────────────────────────────────────────────────────────────────────────────┘
-  //
   // Use Ctrl+; to jump between editor and terminal without closing it:
   // - When in editor: jumps to terminal (opens if closed)
   // - When in terminal: jumps back to editor
@@ -124,10 +121,10 @@
     "command": "workbench.action.focusActiveEditorGroup",
     "when": "terminalFocus"
   },
+
   // ┌────────────────────────────────────────────────────────────────────────────────────┐
-  // │ SUGGESTION WIDGET NAVIGATION - Ctrl+j/k when autocomplete is visible               │
+  // │ 5. SUGGESTION WIDGET NAVIGATION - Ctrl+j/k when autocomplete is visible           │
   // └────────────────────────────────────────────────────────────────────────────────────┘
-  //
   // Navigate autocomplete suggestions using Vim-style j/k keys.
   // These override the window navigation when suggestion widget is visible.
   //
@@ -148,9 +145,8 @@
   },
 
   // ┌────────────────────────────────────────────────────────────────────────────────────┐
-  // │ QUICK OPEN NAVIGATION - Ctrl+j/k when file picker is open                          │
+  // │ 6. QUICK OPEN NAVIGATION - Ctrl+j/k when file picker is open                      │
   // └────────────────────────────────────────────────────────────────────────────────────┘
-  //
   // Navigate Quick Open (Ctrl+P) file list using Vim-style j/k keys.
   //
   {
@@ -165,9 +161,8 @@
   },
 
   // ┌────────────────────────────────────────────────────────────────────────────────────┐
-  // │ FILE EXPLORER NAVIGATION - Ctrl+h/j/k/l when explorer is focused                   │
+  // │ 7. FILE EXPLORER NAVIGATION & CONTROL                                             │
   // └────────────────────────────────────────────────────────────────────────────────────┘
-  //
   // Navigate file explorer using Vim keys when it has focus:
   // - j/k = down/up
   // - h = collapse folder or go to parent
@@ -176,30 +171,9 @@
   // IMPORTANT: These must come AFTER the window navigation bindings above.
   // VSCode processes keybindings from bottom to top, so more specific contexts
   // (explorerViewletVisible) override more general ones (!terminalFocus).
-  //
-  // {
-  //   "key": "ctrl+j",
-  //   "command": "list.focusDown",
-  //   "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-  // },
-  // {
-  //   "key": "ctrl+k",
-  //   "command": "list.focusUp",
-  //   "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-  // },
-  // {
-  //   "key": "ctrl+h",
-  //   "command": "list.collapse",
-  //   "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-  // },
-  // {
-  //   "key": "ctrl+l",
-  //   "command": "list.select",
-  //   "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-  // },
 
-  // Alternative: Use j/k without Ctrl for explorer navigation (more Vim-like)
-  // Uncomment these if you prefer plain j/k in the explorer:
+
+  // Plain j/k navigation in explorer (more Vim-like)
   {
     "key": "j",
     "command": "list.focusDown",
@@ -220,39 +194,24 @@
     "command": "list.select", // This opens the file AND focuses the editor
     "when": "filesExplorerFocus && !inputFocus"
   },
-  // 1. FOCUS EXPLORER (Go to Sidebar)
-  // Standard VSCode key, ensures you can always get there.
+
+  // Focus explorer (Go to Sidebar)
   {
     "key": "ctrl+shift+e",
     "command": "workbench.view.explorer",
     "when": "!filesExplorerFocus"
   },
-  // 2. RETURN TO EDITOR (From Explorer)
-  // Use 'ctrl+l' to move "right" back into the editor group.
+
+  // Return to editor from explorer
   {
     "key": "ctrl+l",
     "command": "workbench.action.focusActiveEditorGroup",
     "when": "filesExplorerFocus && !inputFocus"
   },
-  // 3. ALTERNATIVE RETURN: Escape key
-  // Quickest way to jump back to code without closing the sidebar.
   {
     "key": "escape",
     "command": "workbench.action.focusActiveEditorGroup",
     "when": "filesExplorerFocus && !inputFocus"
-  },
-  // When in sidebar search, press Esc to jump back to code editor
-  {
-    "key": "escape",
-    "command": "workbench.action.focusActiveEditorGroup",
-    "when": "searchViewletFocus"
-  },
-  // 5. SIDEBAR VISIBILITY TOGGLE (Optional)
-  // Completely hide/show the sidebar to maximize screen real estate.
-  {
-    "key": "ctrl+b",
-    "command": "workbench.action.toggleSidebarVisibility",
-    "when": "vim.mode == 'Normal'"
   },
   {
     "key": "ctrl+h",
@@ -260,11 +219,24 @@
     "when": "editorTextFocus && vim.active && vim.mode != 'Insert'"
   },
 
+  // Sidebar visibility toggle
+  {
+    "key": "ctrl+b",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "vim.mode == 'Normal'"
+  },
+
+  // Return to editor from search view
+  {
+    "key": "escape",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "searchViewletFocus"
+  },
+
   // ┌────────────────────────────────────────────────────────────────────────────────────┐
-  // │ SEARCH/PROBLEMS PANEL NAVIGATION - j/k when panel has focus                        │
+  // │ 8. LIST/PANEL NAVIGATION - j/k when panel has focus                                │
   // └────────────────────────────────────────────────────────────────────────────────────┘
-  //
-  // Navigate lists in search results and problems panel using j/k.
+  // Navigate lists in search results, problems panel, and other list views using j/k.
   //
   {
     "key": "j",
@@ -277,7 +249,7 @@
     "when": "listFocus && !inputFocus"
   },
 
-  // Navigate in panels with Ctrl+j/k as alternative
+  // Alternative Ctrl+j/k navigation for panels
   {
     "key": "ctrl+j",
     "command": "list.focusDown",
@@ -290,11 +262,10 @@
   },
 
   // ┌────────────────────────────────────────────────────────────────────────────────────┐
-  // │ FOCUS EDITOR GROUPS - Ctrl+1/2/3                                                   │
+  // │ 9. EDITOR GROUP SHORTCUTS - Ctrl+1/2/3/4/5                                        │
   // └────────────────────────────────────────────────────────────────────────────────────┘
-  //
-  // Quickly jump to specific editor groups/splits.
-  // Useful when you have multiple splits and want to jump directly to one.
+  // Quickly jump to specific editor groups/splits directly.
+  // Useful when you have multiple splits and want to jump directly to a target.
   //
   {
     "key": "ctrl+1",
@@ -318,7 +289,7 @@
   },
 
   // ══════════════════════════════════════════════════════════════════════════════════════
-  // TROUBLESHOOTING NOTES
+  // 🛠️ TROUBLESHOOTING NOTES
   // ══════════════════════════════════════════════════════════════════════════════════════
   //
   // BRACKET KEYS NOT WORKING ([d, ]d, etc.):
@@ -361,11 +332,11 @@
   // □ Ctrl+j/k navigates suggestions when autocomplete is open
   // □ Ctrl+j/k navigates file list when Quick Open is active
   // □ Alt+j/k moves lines up/down
-  // □ Ctrl+/ toggles terminal
+  // □ Ctrl+; toggles terminal focus
   //
   // ══════════════════════════════════════════════════════════════════════════════════════
 
   // ══════════════════════════════════════════════════════════════════════════════════════
-  // MyOwn Settings
+  // 🔧 CUSTOM USER SETTINGS
   // ══════════════════════════════════════════════════════════════════════════════════════
 ]
