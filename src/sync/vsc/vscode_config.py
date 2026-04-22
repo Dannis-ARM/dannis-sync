@@ -1,172 +1,70 @@
-
 import argparse
 import logging
 import pathlib
 import shutil
 import sys
-import enum
 
-FILE_WD = pathlib.Path(__file__).resolve().parent.parent.parent.parent
+# 基础路径配置
+ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent.parent.parent
+HOME_DIR = pathlib.Path.home()
+VSCODE_USER_DIR = HOME_DIR / "AppData" / "Roaming" / "Code" / "User"
+REPO_VSCODE_CONFIG_DIR = ROOT_DIR / "configs" / "vsc-configs"
 
-logging.info(f"FILE_WD: {FILE_WD}")
-HOME = pathlib.Path.home()
+# VSCode配置文件映射：仓库路径 -> 本地VSCode路径
+VSCODE_CONFIG_MAPPING = [
+    (REPO_VSCODE_CONFIG_DIR / "settings.json", VSCODE_USER_DIR / "settings.json"),
+    (REPO_VSCODE_CONFIG_DIR / "keybindings.json", VSCODE_USER_DIR / "keybindings.json"),
+]
 
-# settings.json paths
-REPO_VSCODE_SETTING_PATH = FILE_WD / "configs" / "settings.json"
-VSCODE_SETTING_PATH = HOME / "AppData" / "Roaming" / "Code" / "User" / "settings.json"
+# 确保目录存在
+VSCODE_USER_DIR.mkdir(parents=True, exist_ok=True)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
-# keybindings.json paths
-REPO_VSCODE_KEYBINDINGS_PATH = FILE_WD / "configs" / "keybindings.json"
-VSCODE_KEYBINDINGS_PATH = HOME / "AppData" / "Roaming" / "Code" / "User" / "keybindings.json"
 
-# Ensure VSCode User directory exists
-VSCODE_SETTING_PATH.parent.mkdir(parents=True, exist_ok=True)
-
-class Action(enum.Enum):
-    REPO_LOAD = "load-from-repo"
-    VSC_LOAD = "load-from-vscode"
-    SOFTLINK_CREATE = "softlink-create"
-
-def create_symlink(point_to: pathlib.Path, symlink: pathlib.Path):
+def create_symlink(source: pathlib.Path, symlink_path: pathlib.Path) -> None:
     """
-    Creates a symbolic link. If a file, directory, or another symlink already exists
-    at the destination, it will be removed before the new symlink is created.
-    Args:
-        to (pathlib.Path): The path to which the symlink should point.
-        symlink (pathlib.Path): The path where the symlink will be created.
-    Raises:
-        SystemExit: If an exception occurs during the process, the program exits with status 1.
+    创建软链接，自动处理目标路径已存在的情况
+    :param source: 源文件/目录路径
+    :param symlink_path: 软链接路径
     """
     try:
-        # The is_symlink() check must come first, as a symlink to a directory
-        # will also return True for is_dir().
-        if symlink.is_symlink():
-            symlink.unlink()
-            logging.info(f"Removed existing symlink: {symlink}")
-        elif symlink.is_dir():
-            shutil.rmtree(symlink)
-            logging.info(f"Removed existing directory: {symlink}")
-        elif symlink.exists():
-            symlink.unlink()
-            logging.info(f"Removed existing file: {symlink}")
+        if symlink_path.is_symlink():
+            symlink_path.unlink()
+            logging.info(f"🔗 已移除旧软链接: {symlink_path}")
+        elif symlink_path.is_dir():
+            shutil.rmtree(symlink_path)
+            logging.info(f"📂 已移除旧目录: {symlink_path}")
+        elif symlink_path.exists():
+            symlink_path.unlink()
+            logging.info(f"📄 已移除旧文件: {symlink_path}")
 
-        symlink.symlink_to(point_to)
-        logging.info(f"Created symlink: {symlink} -> {point_to}")
+        symlink_path.symlink_to(source)
+        logging.info(f"✅ 创建软链接成功: {symlink_path} -> {source}")
     except Exception as e:
-        logging.error(f"Failed to create symlink: {e}")
+        logging.error(f"❌ 创建软链接失败: {str(e)}")
         sys.exit(1)
 
-def cli():
+
+def main() -> None:
     parser = argparse.ArgumentParser(
-        description="""
-        A command-line utility to manage VSCode settings synchronization and symbolic links.
-
-        Use 'sync' to synchronize your VSCode settings between a repository and your local user configuration.
-        Use 'softlink' to create symbolic links for files or directories.
-        """,
+        description="📦 VSCode配置软链接创建工具",
         formatter_class=argparse.RawTextHelpFormatter
     )
-    subparsers = parser.add_subparsers(dest="command", help="Available commands")
-
-    # Subparser for sync actions
-    sync_parser = subparsers.add_parser(
-        "sync",
-        help="""
-        Synchronize VSCode settings.
-
-        Examples:
-          python vscode_config.py sync load-from-repo   # Copy settings from repo to VSCode
-          python vscode_config.py sync load-from-vscode # Copy settings from VSCode to repo
-        """,
-        formatter_class=argparse.RawTextHelpFormatter
-    )
-    sync_parser.add_argument(
-        "action",
-        choices=[Action.REPO_LOAD.value, Action.VSC_LOAD.value],
-        help="""
-        Action to perform:
-          load-from-repo: Copies settings from the repository to your VSCode user settings.
-          load-from-vscode: Copies settings from your VSCode user settings to the repository.
-        """
-    )
-
-    # Subparser for softlink creation
-    softlink_parser = subparsers.add_parser(
-        "softlink",
-        help="""
-        Create a symbolic link.
-
-        If --src and --symlink are provided, creates a symlink from --symlink to --src.
-        If no arguments are provided, creates a default symlink for VSCode settings:
-        (REPO_VSCODE_SETTING_PATH -> VSCODE_SETTING_PATH)
-
-        Examples: (Please be aware you need to be Admin on Windows)
-          python vscode_config.py softlink --src C:/path/to/source --symlink C:/path/to/destination
-          python vscode_config.py softlink # Creates default symlink for VSCode settings 
-        """,
-        formatter_class=argparse.RawTextHelpFormatter
-    )
-    softlink_parser.add_argument(
-        "--src",
-        type=pathlib.Path,
-        required=False,
-        help="The source path (file or directory) to which the symlink should point."
-    )
-    softlink_parser.add_argument(
-        "--symlink",
-        type=pathlib.Path,
-        required=False,
-        help="The destination path where the symlink will be created."
-    )
-
+    parser.add_argument("--src", type=pathlib.Path, help="源文件/目录路径")
+    parser.add_argument("--symlink", type=pathlib.Path, help="软链接目标路径")
     args = parser.parse_args()
 
-    def sync_file(src: pathlib.Path, dst: pathlib.Path, file_desc: str):
-        """Sync a single file, handling missing files and symlinks gracefully."""
-        # Resolve symlinks to handle the case where src and dst are the same file
-        src_resolved = src.resolve() if src.exists() else None
-        dst_resolved = dst.resolve() if dst.exists() else None
-        
-        # Skip if both files exist and are the same (e.g., symlink case)
-        if src_resolved and dst_resolved and src_resolved == dst_resolved:
-            logging.info(f"Skipped {file_desc}: source and destination are the same file")
-            return
-            
-        if src.exists():
-            dst.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(src, dst)
-            logging.info(f"Copied {file_desc} from {src} to {dst}")
-        else:
-            logging.warning(f"Source {file_desc} not found: {src}")
-
     try:
-        if args.command == "sync":
-            if args.action == Action.REPO_LOAD.value:
-                # Copy settings.json
-                sync_file(REPO_VSCODE_SETTING_PATH, VSCODE_SETTING_PATH, "settings.json")
-                # Copy keybindings.json
-                sync_file(REPO_VSCODE_KEYBINDINGS_PATH, VSCODE_KEYBINDINGS_PATH, "keybindings.json")
-            elif args.action == Action.VSC_LOAD.value:
-                # Copy settings.json
-                sync_file(VSCODE_SETTING_PATH, REPO_VSCODE_SETTING_PATH, "settings.json")
-                # Copy keybindings.json
-                sync_file(VSCODE_KEYBINDINGS_PATH, REPO_VSCODE_KEYBINDINGS_PATH, "keybindings.json")
-        elif args.command == "softlink":
-            if args.src is None or args.symlink is None:
-                create_symlink(REPO_VSCODE_SETTING_PATH, VSCODE_SETTING_PATH)
-                create_symlink(REPO_VSCODE_KEYBINDINGS_PATH, VSCODE_KEYBINDINGS_PATH)
-            else:
-                create_symlink(args.src, args.symlink)
-    except FileNotFoundError as e:
-        logging.error(f"File not found: {e}")
-        sys.exit(1)
+        if args.src and args.symlink:
+            create_symlink(args.src, args.symlink)
+        else:
+            # 默认创建所有VSCode配置软链接
+            for src, dst in VSCODE_CONFIG_MAPPING:
+                create_symlink(src, dst)
     except Exception as e:
-        logging.error(f"An error occurred: {e}")
+        logging.error(f"❌ 执行失败: {str(e)}")
         sys.exit(1)
 
-def main():
-    cli()
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     main()
