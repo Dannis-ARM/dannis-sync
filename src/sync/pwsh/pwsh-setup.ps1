@@ -23,5 +23,10 @@ if ($LASTEXITCODE -ne 0) {
 
 Write-Host "✅ PowerShell installed successfully via Scoop" -ForegroundColor Green
 
-# Configure PSReadLine
-# Set-PSReadLineOption -PredictionSource History
+# Configure PSReadLine with the newly installed pwsh
+pwsh -Command "Set-PSReadLineOption -PredictionSource History"
+if ($LASTEXITCODE -eq 0) {
+    Write-Host "✅ PSReadLine prediction enabled successfully" -ForegroundColor Green
+} else {
+    Write-Host "⚠️ Failed to configure PSReadLine, you may need to configure it manually" -ForegroundColor Yellow
+}

@@ -177,12 +177,12 @@
   {
     "key": "j",
     "command": "list.focusDown",
-    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus && !terminalFocus"
   },
   {
     "key": "k",
     "command": "list.focusUp",
-    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus && !terminalFocus"
   },
   {
     "key": "h",
@@ -241,12 +241,12 @@
   {
     "key": "j",
     "command": "list.focusDown",
-    "when": "listFocus && !inputFocus"
+    "when": "listFocus && !inputFocus && !terminalFocus"
   },
   {
     "key": "k",
     "command": "list.focusUp",
-    "when": "listFocus && !inputFocus"
+    "when": "listFocus && !inputFocus && !terminalFocus"
   },
 
   // Alternative Ctrl+j/k navigation for panels
@@ -287,7 +287,16 @@
     "key": "ctrl+5",
     "command": "workbench.action.focusFifthEditorGroup"
   },
-
+  // My Custom
+  {
+    "key": "ctrl+r",
+    "command": "editor.action.startFindReplaceAction",
+    "when": "editorFocus || editorTextFocus"
+  },
+  {
+    "key": "ctrl+r",
+    "command": "-workbench.action.openRecent"
+  }
   // ══════════════════════════════════════════════════════════════════════════════════════
   // 🛠️ TROUBLESHOOTING NOTES
   // ══════════════════════════════════════════════════════════════════════════════════════
