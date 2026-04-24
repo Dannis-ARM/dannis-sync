@@ -1,5 +1,5 @@
 [project]
-name = "vsc-refresh"  # 或者 vsc-refresh
+name = "vsc-sync"  # 或者 vsc-refresh
 version = "0.1.0"
 description = "Automated VSCode configuration management and rebuild tool"
 readme = "README.md"
@@ -9,7 +9,7 @@ authors = [
 requires-python = ">=3.10"
 
 [project.scripts]
-vsc-refresh = "src.sync.vsc.vscode_config:cli"
+vsc-sync = "sync.vsc.vscode_config:main"
 
 [dependency-groups]
 dev = [
