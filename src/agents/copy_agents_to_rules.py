@@ -7,7 +7,7 @@ import shutil
 from pathlib import Path
 
 
-def main():
+def agent_sync():
     # Define source and destination paths
     source_file = Path(__file__).parent / "AGENTS.md"
     dest_dir = Path(os.path.expanduser("~")) / "Documents" / "Cline" / "Rules"
@@ -28,5 +28,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    agent_sync()
 

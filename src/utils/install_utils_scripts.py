@@ -27,7 +27,7 @@ class PathInstaller:
         except Exception as e:
             logging.error(f"Windows Registry error: {e}")
 
-    def sync_scripts(self):
+    def _sync_scripts(self):
         """Flatten and copy scripts, then set permissions."""
         if not self.src.is_dir():
             logging.error(f"Source missing: {self.src}")
@@ -39,7 +39,7 @@ class PathInstaller:
         scripts = (
             f
             for f in self.src.rglob("*")
-            if f.is_file() and f.suffix.lower() in {".py", ".bat"}
+            if f.is_file() and f.suffix.lower() in {".py", ".bat", ".ps1"}
         )
 
         scripts = filter(lambda f: str((f.absolute())) != __file__, scripts)
@@ -57,7 +57,7 @@ class PathInstaller:
 
     def run(self):
         """Execute installation and PATH update."""
-        self.sync_scripts()
+        self._sync_scripts()
         self._update_windows_path()
 
 if __name__ == "__main__":

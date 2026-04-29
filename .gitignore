@@ -96,3 +96,4 @@ test.*
 .venv
 .pytest_cache
 test/
+sandbox/
