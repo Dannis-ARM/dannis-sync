@@ -2,6 +2,7 @@
 .SYNOPSIS
     自动化安装并锁定特定版本的 pwsh，并配置持久化 PSReadLine 预测。
 #>
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 # 1. 统一代理配置 (修正变量名错误)
 $proxyAddr = "http://127.0.0.1:7890"
