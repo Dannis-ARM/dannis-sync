@@ -148,7 +148,7 @@
   // Core behavior
   "vim.leader": "<space>",
   "vim.useSystemClipboard": true,
-  "vim.useCtrlKeys": false,
+  "vim.useCtrlKeys": true,
   "vim.startInInsertMode": false,
   "vim.smartRelativeLine": true,
   "vim.cursorStylePerMode.insert": "line",
@@ -182,6 +182,7 @@
     "<C-p>": false,
     "<C-k>": false,
     "<C-w>": false,
+    "<C-h>": false,
     "<C-i>": true
   },
 
@@ -207,7 +208,6 @@
   "vim.normalModeKeyBindingsNonRecursive": [
     // General: Navigation & basic
     { "before": [ "<Esc>" ], "commands": [ ":nohl" ] },
-    { "before": [ "K" ], "commands": [ "editor.action.showHover" ] },
     { "before": [ "<S-h>" ], "commands": [ "workbench.action.previousEditor" ] },
     { "before": [ "<S-l>" ], "commands": [ "workbench.action.nextEditor" ] },
     { "before": [ "<leader>", "F" ], "commands": [ "editor.toggleFold" ] },
@@ -239,18 +239,19 @@
     { "before": [ "<leader>", "b", "p" ], "commands": [ "workbench.action.pinEditor" ] },
 
     // Window management (<leader>w)
-    { "before": [ "<leader>", "w", "w" ], "commands": [ "workbench.action.focusNextGroup" ] },
+    { "before": [ "<leader>", "n", "g" ], "commands": [ "workbench.action.focusNextGroup" ] },
     { "before": [ "<leader>", "|" ], "commands": [ "workbench.action.splitEditorRight" ] },
     { "before": [ "<leader>", "-" ], "commands": [ "workbench.action.splitEditorDown" ] },
 
     // UI toggles (<leader>u)
-    { "before": [ "<leader>", "u", "w" ], "commands": [ "editor.action.toggleWordWrap" ] },
-    { "before": [ "<leader>", "u", "z" ], "commands": [ "workbench.action.toggleZenMode" ] },
+    { "before": [ "<leader>", "w", "w" ], "commands": [ "editor.action.toggleWordWrap" ] },
+    { "before": [ "<leader>", "Z" ], "commands": [ "workbench.action.toggleZenMode" ] },
     { "before": [ "<C-d>" ], "after": [ "<C-d>", "zz" ] },
     { "before": [ "<C-u>" ], "after": [ "<C-u>", "zz" ] },
 
     // AI/Agents integration
     { "before": [ "<leader>", "a", "i" ], "commands": [ "cline.addToChat" ] }
+    // { "before": [ "<leader>", "a", "i" ], "commands": [ "workbench.action.focusSideBar" ] }
   ],
 
   // Visual mode keybindings
@@ -473,5 +474,4 @@
     // "editor.defaultFormatter": "foxundermoon.shell-format",
   },
   "claudeCode.preferredLocation": "panel",
-
 }

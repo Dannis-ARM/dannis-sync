@@ -54,11 +54,11 @@
   // - Suggestion widget is visible (so Ctrl+j/k navigate suggestions)
   // - Quick Open is active (so Ctrl+j/k navigate file list)
   //
-  {
-    "key": "ctrl+h",
-    "command": "workbench.action.focusLeftGroup",
-    "when": "!terminalFocus && vim.active && vim.mode != 'Insert' && !isEmbeddedEditor"
-  },
+  // {
+  //   "key": "ctrl+h",
+  //   "command": "workbench.action.focusLeftGroup",
+  //   "when": "!terminalFocus && vim.active && vim.mode != 'Insert' && !isEmbeddedEditor"
+  // },
   {
     "key": "ctrl+l",
     "command": "workbench.action.focusRightGroup",
@@ -85,12 +85,12 @@
   {
     "key": "shift+h",
     "command": "workbench.action.previousEditor",
-    "when": "vim.active && vim.mode != 'Insert' && !isEmbeddedEditor"
+    "when": "vim.active && vim.mode != 'Insert' && !isEmbeddedEditor && !terminalFocus"
   },
   {
     "key": "shift+l",
     "command": "workbench.action.nextEditor",
-    "when": "vim.active && vim.mode != 'Insert' && !isEmbeddedEditor"
+    "when": "vim.active && vim.mode != 'Insert' && !isEmbeddedEditor && !terminalFocus"
   },
 
   // ┌────────────────────────────────────────────────────────────────────────────────────┐
@@ -213,11 +213,11 @@
     "command": "workbench.action.focusActiveEditorGroup",
     "when": "filesExplorerFocus && !inputFocus"
   },
-  {
-    "key": "ctrl+h",
-    "command": "workbench.view.explorer",
-    "when": "editorTextFocus && vim.active && vim.mode != 'Insert'"
-  },
+  // {
+  //   "key": "ctrl+h",
+  //   "command": "workbench.view.explorer",
+  //   "when": "editorTextFocus && vim.active && vim.mode != 'Insert'"
+  // },
 
   // Sidebar visibility toggle
   {
@@ -288,11 +288,11 @@
     "command": "workbench.action.focusFifthEditorGroup"
   },
   // My Custom
-  {
-    "key": "ctrl+r",
-    "command": "editor.action.startFindReplaceAction",
-    "when": "editorFocus || editorTextFocus"
-  },
+  // {
+  //   "key": "ctrl+r",
+  //   "command": "editor.action.startFindReplaceAction",
+  //   "when": "editorTextFocus && vim.mode == 'Insert'"
+  // },
   {
     "key": "ctrl+r",
     "command": "-workbench.action.openRecent"
