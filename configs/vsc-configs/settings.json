@@ -183,6 +183,7 @@
     "<C-k>": false,
     "<C-w>": false,
     "<C-h>": false,
+    "<C-e>": false,
     "<C-i>": true
   },
 
