@@ -1,55 +1,33 @@
-<#
-.SYNOPSIS
-    自动化安装并锁定特定版本的 pwsh，并配置持久化 PSReadLine 预测。
-#>
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+# 1. 环境与代理 (一行流)
+$env:HTTP_PROXY = $env:HTTPS_PROXY = "http://127.0.0.1:7890"
+if (!(Get-Command scoop -ErrorAction SilentlyContinue)) { throw "Scoop missing" }
 
-# 1. 统一代理配置 (修正变量名错误)
-$proxyAddr = "http://127.0.0.1:7890"
-$env:HTTP_PROXY  = $proxyAddr
-$env:HTTPS_PROXY = $proxyAddr
-[System.Net.WebRequest]::DefaultWebProxy = New-Object System.Net.WebProxy($proxyAddr)
-
-Write-Host "🌐 Configured proxy: $proxyAddr" -ForegroundColor Green
-
-# 2. 环境检查
-if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
-    Write-Host "❌ Scoop is not installed." -ForegroundColor Red
-    exit 1
-}
-
-# 3. Scoop 配置与安装
-Write-Host "🔍 Installing PowerShell 7.6.1 via Scoop..." -ForegroundColor Cyan
-scoop config proxy "127.0.0.1:7890"
-
-# 增加 --global 提示或显式指定 bucket (如果需要 versions)
-# 注意：如果 7.6.1 不在 main bucket，请先 scoop bucket add versions
-scoop install pwsh@7.6.1
-if ($LASTEXITCODE -eq 0) {
+# 2. 安装并锁定版本
+# 使用 -s (skip) 检查是否已安装且版本匹配，避免重复安装
+if (!(scoop list pwsh | Select-String "7.6.1")) {
+    Write-Host "🔍 Installing pwsh 7.6.1..." -ForegroundColor Cyan
+    scoop config proxy 127.0.0.1:7890
+    scoop install pwsh@7.6.1
     scoop hold pwsh
-    Write-Host "✅ PowerShell 7.6.1 installed and held." -ForegroundColor Green
-} else {
-    Write-Error "❌ Failed to install pwsh@7.6.1"
-    exit 1
 }
 
-# 4. 持久化配置 PSReadLine (核心优化)
-Write-Host "📝 Configuring PSReadLine prediction in Profile..." -ForegroundColor Cyan
+# 3. 幂等配置 PSReadLine (核心优化)
+# 预计算路径，避免调用 pwsh.exe 产生的额外开销
+$profilePath = "$Home\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
+$configBlock = @"
 
-# 定义要注入 Profile 的配置行
-$profileConfig = "`nImport-Module PSReadLine`nSet-PSReadLineOption -PredictionSource History"
+# PSReadLine Optimization
+Import-Module PSReadLine -ErrorAction SilentlyContinue
+Set-PSReadLineOption -PredictionSource History
+"@
 
-# 针对新安装的 pwsh (PowerShell Core) 的 Profile 路径
-$pwshProfilePath = pwsh -Command "echo `$PROFILE"
+# 确保目录存在
+$null = New-Item -Path (Split-Path $profilePath) -ItemType Directory -Force
 
-if ($null -ne $pwshProfilePath) {
-    $profileDir = Split-Path $pwshProfilePath
-    if (-not (Test-Path $profileDir)) { New-Item -ItemType Directory -Path $profileDir -Force }
-    if (-not (Test-Path $pwshProfilePath)) { New-Item -ItemType File -Path $pwshProfilePath -Force }
-    
-    # 避免重复追加
-    if ((Get-Content $pwshProfilePath) -notcontains "Set-PSReadLineOption -PredictionSource History") {
-        Add-Content -Path $pwshProfilePath -Value $profileConfig
-        Write-Host "✅ Persistent configuration added to $pwshProfilePath" -ForegroundColor Green
-    }
+# 幂等写入：如果文件中不包含配置，则追加
+if (!(Test-Path $profilePath) -or !(Select-String "PredictionSource History" $profilePath -SimpleMatch)) {
+    $configBlock | Add-Content -Path $profilePath
+    Write-Host "✅ Profile updated: $profilePath" -ForegroundColor Green
+} else {
+    Write-Host "✨ Profile already configured." -ForegroundColor Gray
 }

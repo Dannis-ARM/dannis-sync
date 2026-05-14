@@ -2,41 +2,73 @@ from utils.install_utils_scripts import PathInstaller
 from pathlib import Path
 import subprocess
 import logging
+import shutil
+
+# Custom Exceptions
+class ScriptNotFoundError(Exception):
+    """Raised when a script file is not found"""
+    pass
+
+class ScriptExecutionError(Exception):
+    """Raised when a script execution fails"""
+    pass
+
+class InvalidDirectoryError(Exception):
+    """Raised when a directory is not found or not a valid directory"""
+    pass
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s | %(levelname)-8s | %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
+
+pwsh_path = shutil.which("pwsh") or "powershell.exe"
 
 def run_powershell_script(script_path: Path) -> None:
     """Run a PowerShell script with execution policy bypass.
     
     Args:
         script_path: Path to the .ps1 script file
+        
+    Raises:
+        ScriptNotFoundError: If the script file does not exist
+        ScriptExecutionError: If the script execution fails
     """
     if not script_path.exists():
-        logging.warning(f"⚠️ PowerShell script not found: {script_path}")
-        return
+        error_msg = f"⚠️ PowerShell script not found: {script_path}"
+        logging.warning(error_msg)
+        raise ScriptNotFoundError(error_msg)
         
     logging.info(f"🚀 Running PowerShell script: {script_path}")
     try:
         subprocess.run(
-            ["powershell.exe", "-ExecutionPolicy", "Bypass", "-File", str(script_path)],
+            [pwsh_path, "-ExecutionPolicy", "Bypass", "-File", str(script_path)],
             check=True,
             capture_output=False,
             text=True
         )
         logging.info(f"✅ PowerShell script completed successfully: {script_path.name}")
     except subprocess.CalledProcessError as e:
-        logging.error(f"❌ PowerShell script failed: {script_path.name}, error: {e}")
+        error_msg = f"❌ PowerShell script failed: {script_path.name}, error: {e}"
+        logging.error(error_msg)
+        raise ScriptExecutionError(error_msg) from e
 
 def run_batch_script(script_path: Path) -> None:
     """Run a Windows batch (.bat/.cmd) script.
     
     Args:
         script_path: Path to the .bat/.cmd script file
+        
+    Raises:
+        ScriptNotFoundError: If the script file does not exist
+        ScriptExecutionError: If the script execution fails
     """
     if not script_path.exists():
-        logging.warning(f"⚠️ Batch script not found: {script_path}")
-        return
+        error_msg = f"⚠️ Batch script not found: {script_path}"
+        logging.warning(error_msg)
+        raise ScriptNotFoundError(error_msg)
         
     logging.info(f"🚀 Running batch script: {script_path}")
     try:
@@ -48,7 +80,9 @@ def run_batch_script(script_path: Path) -> None:
         )
         logging.info(f"✅ Batch script completed successfully: {script_path.name}")
     except subprocess.CalledProcessError as e:
-        logging.error(f"❌ Batch script failed: {script_path.name}, error: {e}")
+        error_msg = f"❌ Batch script failed: {script_path.name}, error: {e}"
+        logging.error(error_msg)
+        raise ScriptExecutionError(error_msg) from e
 
 def run_all_scripts_in_directory(dir_path: Path, recursive: bool = True) -> None:
     """Recursively find and run all .ps1, .bat, .cmd scripts in a directory.
@@ -56,10 +90,15 @@ def run_all_scripts_in_directory(dir_path: Path, recursive: bool = True) -> None
     Args:
         dir_path: Path to the directory to search for scripts
         recursive: Whether to search subdirectories recursively, default True
+        
+    Raises:
+        InvalidDirectoryError: If the directory does not exist or is not a directory
+        ScriptExecutionError: If any script execution fails
     """
     if not dir_path.exists() or not dir_path.is_dir():
-        logging.warning(f"⚠️ Directory not found or not a directory: {dir_path}")
-        return
+        error_msg = f"⚠️ Directory not found or not a directory: {dir_path}"
+        logging.warning(error_msg)
+        raise InvalidDirectoryError(error_msg)
     
     logging.info(f"🔍 Scanning for scripts in directory: {dir_path} (recursive={recursive})")
     
@@ -86,13 +125,30 @@ def run_all_scripts_in_directory(dir_path: Path, recursive: bool = True) -> None
     
     logging.info(f"✅ All scripts in directory {dir_path.name} have been processed")
 
-# Run utils installation first
-utils_root = Path(__file__).parent.absolute() / "utils"
-utils_installer = PathInstaller(str(utils_root))
-utils_installer.run()
+if __name__ == "__main__":
+    # Get project root
+    project_root = Path(__file__).parent.parent.absolute()
 
-# Get project root
-project_root = Path(__file__).parent.parent.absolute()
+    # Enable dev mode (need Admin)
+    # run_powershell_script(project_root / "src" / "enable-dev-mode.ps1")
+
+    # Install scoop
+    run_powershell_script(project_root / "src" / "install-scoop.ps1")
+
+    # Run utils installation first
+    utils_root = Path(__file__).parent.absolute() / "utils"
+    utils_installer = PathInstaller(str(utils_root))
+    utils_installer.run()
+
+    # Install sdks
+    sdk_dir = project_root / "src" / "sdk"
+    run_all_scripts_in_directory(sdk_dir / "java")
+    run_all_scripts_in_directory(sdk_dir / "python")
+
+    # Install tools
+    tools_dir = project_root / "src" / "tools"
+    run_all_scripts_in_directory(tools_dir)
+
 
 # Example 1: Run individual scripts (original approach)
 # run_powershell_script(project_root / "src" / "sdk" / "install-choco.ps1")
@@ -101,6 +157,3 @@ project_root = Path(__file__).parent.parent.absolute()
 # Example 2: Run all scripts in sdk directory recursively
 # sdk_dir = project_root / "src" / "sdk"
 # run_all_scripts_in_directory(sdk_dir)
-
-sdk_dir = project_root / "src" / "pwsh"
-run_all_scripts_in_directory(sdk_dir)
