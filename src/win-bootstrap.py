@@ -149,6 +149,9 @@ if __name__ == "__main__":
     tools_dir = project_root / "src" / "tools"
     run_all_scripts_in_directory(tools_dir)
 
+    # Install Agents
+    import agents.copy_agents_to_rules as agent
+    agent.agent_sync()
 
 # Example 1: Run individual scripts (original approach)
 # run_powershell_script(project_root / "src" / "sdk" / "install-choco.ps1")
