@@ -4,6 +4,7 @@ mkdir -p ~/.cfgs
 
 user_bashrc=~/.cfgs/.bashrc
 
+# Write user bashrc (always update to latest version)
 cat <<'EOF' > ${user_bashrc}
 # Dannis Personal Settings
 alias ls='ls --color=auto'
@@ -29,5 +30,16 @@ set -o vi
 # sudo update-alternatives --config editor
 EOF
 
-echo 'user_bashrc=~/.cfgs/.bashrc && . $user_bashrc' >> ~/.bashrc
-. ~/.bashrc
+# Source line to add to ~/.bashrc
+source_line='user_bashrc=~/.cfgs/.bashrc && . $user_bashrc'
+
+# Check if already in ~/.bashrc (idempotent - only add if not present)
+if ! grep -qF "${source_line}" ~/.bashrc 2>/dev/null; then
+    echo "${source_line}" >> ~/.bashrc
+fi
+
+# Source the config if not already sourced
+if [ -z "${BASHRC_SOURCED}" ]; then
+    . ~/.bashrc
+    export BASHRC_SOURCED=1
+fi

@@ -32,6 +32,7 @@ Dannis, professional Software Developer.
 - **Error handling**: Always included
 - **Logging**: Structured output
 - **Scripts**: Must be idempotent
+- **Style**: Concise yet readable
 
 ### For Gemini
 - No canvas elements unless allowed.
@@ -40,9 +41,8 @@ Dannis, professional Software Developer.
 - Standard syntax, dark mode friendly, high contrast, low saturation
 - Output **only** Mermaid code block.
 
-### Bash Scripts
+### Continuous Deployment onto Linux
 - Upload to `~/.activate/<intention>` on target
-- Concise yet readable.
 
 ### Linux
 - Prefer regular user permissions.
