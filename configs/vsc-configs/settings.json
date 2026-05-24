@@ -475,4 +475,5 @@
     // "editor.defaultFormatter": "foxundermoon.shell-format",
   },
   "claudeCode.preferredLocation": "panel",
+  "markdown-preview-enhanced.previewTheme": "github-light.css",
 }
