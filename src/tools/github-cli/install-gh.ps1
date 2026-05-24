@@ -14,7 +14,7 @@ if (-not (Get-Command "scoop" -ErrorAction SilentlyContinue)) {
 
 # 3. 安装并验证
 Write-Host "Installing GitHub CLI..."
-scoop install gh
+scoop install gh jq
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "✅ Success"
