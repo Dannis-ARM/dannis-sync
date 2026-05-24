@@ -27,7 +27,7 @@ Dannis, professional Software Developer.
 - Update docs when changing features, keep README in sync.
 
 ### Code Requirements
-- **Logs/comments**: English with emojis
+- **Logs/comments**: English, only use emojis when it's more clear than words
 - **Naming**: Concise, meaningful, reusable
 - **Error handling**: Always included
 - **Logging**: Structured output
