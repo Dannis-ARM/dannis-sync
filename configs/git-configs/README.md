@@ -1,23 +1,24 @@
-# This is Dannis's Syncing Project
+# Git Configuration
 
-## git tokens
-windows
-`git config --global credential.helper manager` 
-# linux
-Token 以明文形式保存在 ~/.git-credentials
-`git config --global credential.helper store`
+## Credential Helpers
 
-### Fix
-https://stackoverflow.com/questions/15589682/how-to-fix-ssh-connect-to-host-github-com-port-22-connection-timed-out-for-g
-
-`edit ~/.ssh/config`
-added following
-```
-Host github.com
- Hostname ssh.github.com
- Port 443
+### Windows
+Use Windows Credential Manager:
+```powershell
+git config --global credential.helper manager
 ```
 
+### Linux
+Store credentials in plain text at `~/.git-credentials`:
+```bash
+git config --global credential.helper store
+```
+
+## SSH over HTTPS (Port 443)
+
+Fix "Connection timed out" for GitHub on port 22 by using port 443 instead.
+
+### Quick Setup
 ```bash
 mkdir -p ~/.ssh
 cat <<'EOF' > ~/.ssh/config
@@ -27,4 +28,19 @@ Host github.com
 EOF
 ```
 
+### Manual Setup
+Edit `~/.ssh/config` and add:
+```
+Host github.com
+  Hostname ssh.github.com
+  Port 443
+```
+
+### Verify
+```bash
 ssh -Tv git@github.com
+```
+
+## Reference
+- [Stack Overflow: Fix SSH connection timeout](https://stackoverflow.com/questions/15589682/how-to-fix-ssh-connect-to-host-github-com-port-22-connection-timed-out-for-g)
+
