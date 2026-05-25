@@ -1,6 +1,6 @@
 # 1. 强制内存代理（无视环境变量缓存）
 $proxyAddr = "http://127.0.0.1:7890"
-$env:HTTP_PROXY = $proxyUri
+$env:HTTP_PROXY = $proxyAddr
 $env:HTTPS_PROXY=$proxyAddr
 [System.Net.WebRequest]::DefaultWebProxy = New-Object System.Net.WebProxy($proxyAddr)
 
