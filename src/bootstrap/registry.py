@@ -109,13 +109,18 @@ def register_software() -> list[Software]:
 
     claude_cli = Software(
         name="Claude CLI",
-        description="Anthropic Claude Code CLI",
+        description="Anthropic Claude Code CLI + CC Switch",
     ).add_task(Task(
         name="Install Claude CLI",
         script_path=src_dir / "agents" / "claude" / "install-claude-cli.ps1",
-    )).add_task(Task(
-        name="Install CC Switch",
-        script_path=src_dir / "agents" / "claude" / "install-cc-switch.ps1",
+    ))
+
+    claude_skills = Software(
+        name="Claude Skills",
+        description="Claude Code skills (tdd, grill-with-docs, handoff, etc.)",
+    ).depends_on(claude_cli, node_pnpm).add_task(Task(
+        name="Setup Skills",
+        script_path=src_dir / "agents" / "setup-skills.bat",
     ))
 
     # ------------------------------
@@ -136,6 +141,7 @@ def register_software() -> list[Software]:
         windows_terminal,
         # Agents
         claude_cli,
+        claude_skills,
     ]
 
     return INSTALL_ORDER

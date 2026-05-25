@@ -31,7 +31,7 @@ class Software:
         self.tasks.append(task)
         return self
 
-    def depends_on(self, *software_names: str) -> "Software":
-        self.dependencies.extend(software_names)
+    def depends_on(self, *software: "Software") -> "Software":
+        self.dependencies.extend(s.name for s in software)
         return self
 

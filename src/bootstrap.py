@@ -10,20 +10,35 @@ Sets up the entire Windows development environment:
 
 VSCode Sync is in src/sync/vsc/ and NOT modified here.
 """
+import argparse
 import logging
 from pathlib import Path
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s | %(levelname)-8s | %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-)
+
+def setup_logging(verbose: bool):
+    """Configure logging based on verbose flag."""
+    # Always show INFO for our own logs, only script output capture is controlled by verbose
+    level = logging.INFO
+    logging.basicConfig(
+        level=level,
+        format='%(asctime)s | %(levelname)-8s | %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+    # Store verbose flag globally for runner to access
+    import bootstrap.runner as runner
+    runner._VERBOSE = verbose
+
 
 logger = logging.getLogger(__name__)
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Bootstrap development environment")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Show all logs")
+    args = parser.parse_args()
+
+    setup_logging(args.verbose)
+
     project_root = Path(__file__).parent.parent.resolve()
     logger.info(f"📍 Project root: {project_root}")
     logger.info("🚀 Starting full bootstrap...\n")

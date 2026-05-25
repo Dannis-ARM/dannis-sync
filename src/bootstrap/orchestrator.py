@@ -29,26 +29,15 @@ class BootstrapOrchestrator:
             logger.info(f"⏭️ Skipping disabled software: {software.name}")
             return
 
-        logger.info(f"{'='*60}")
-        logger.info(f"📦 Installing: {software.name}")
-        if software.description:
-            logger.info(f"   {software.description}")
-        logger.info(f"{'='*60}")
-
         for task in software.tasks:
             logger.info(f"🔹 Task: {task.name}")
-            if task.description and task.description != task.name:
-                logger.info(f"   {task.description}")
             run_script(task.script_path)
 
         self.installed.add(software.name)
-        logger.info(f"✅ Completed: {software.name}\n")
+        logger.info(f"✅ Completed: {software.name}")
 
     def run(self) -> None:
         """Run the entire bootstrap process."""
-        logger.info("🚀 Starting bootstrap process...")
-        logger.info(f"📋 Total software to install: {len(self.software_list)}\n")
-
         # Simple linear installation (order respects dependencies)
         for software in self.software_list:
             if not self._can_install(software):
@@ -57,10 +46,6 @@ class BootstrapOrchestrator:
                 continue
 
             self._install_software(software)
-
-        logger.info(f"{'='*60}")
-        logger.info(f"🎉 Bootstrap complete! Installed: {len(self.installed)}")
-        logger.info(f"{'='*60}")
 
 
 def run_bootstrap() -> None:

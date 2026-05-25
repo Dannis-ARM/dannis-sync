@@ -5,7 +5,7 @@
 set HTTPS_PROXY=http://localhost:7890
 
 set mattSkillsGithub=https://github.com/mattpocock/skills
-npx skills add %mattSkillsGithub% --list
+: npx skills add %mattSkillsGithub% --list
 npx skills add %mattSkillsGithub% --skill ^
     tdd ^
     grill-with-docs ^

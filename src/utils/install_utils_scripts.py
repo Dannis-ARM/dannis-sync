@@ -5,7 +5,7 @@ import winreg
 import ctypes
 from pathlib import Path
 
-logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+logger = logging.getLogger(__name__)
 
 class PathInstaller:
     def __init__(self, source_dir: str, dest_dir: Path = Path.home() / '.bin'):
@@ -23,14 +23,14 @@ class PathInstaller:
                     winreg.SetValueEx(key, "Path", 0, winreg.REG_EXPAND_SZ, new_path)
                     # Notify system to refresh environment
                     ctypes.windll.user32.SendMessageW(0xFFFF, 0x1A, 0, "Environment")
-                    logging.info("Windows PATH updated.")
+                    logger.info("Windows PATH updated.")
         except Exception as e:
-            logging.error(f"Windows Registry error: {e}")
+            logger.error(f"Windows Registry error: {e}")
 
     def _sync_scripts(self):
         """Flatten and copy scripts, then set permissions."""
         if not self.src.is_dir():
-            logging.error(f"Source missing: {self.src}")
+            logger.error(f"Source missing: {self.src}")
             return
 
         self.dst.mkdir(parents=True, exist_ok=True)
@@ -51,9 +51,9 @@ class PathInstaller:
             if not self.is_windows:
                 target.chmod(target.stat().st_mode | 0o111)
             count += 1
-            logging.info(f"Installed: {script.name}")
+            logger.info(f"Installed: {script.name}")
         
-        logging.info(f"Sync complete. Total: {count}")
+        logger.info(f"Sync complete. Total: {count}")
 
     def run(self):
         """Execute installation and PATH update."""
@@ -61,6 +61,8 @@ class PathInstaller:
         self._update_windows_path()
 
 if __name__ == "__main__":
+    # Setup logging when running standalone
+    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
     # Usage
     project_root = Path(__file__).parent.absolute()
     installer = PathInstaller(str(project_root))
