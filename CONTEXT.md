@@ -10,6 +10,9 @@ A single software/tool to be installed (e.g., Java, Python, GitHub CLI, PowerShe
 ### Task
 A single installation step that executes a script (`.ps1`, `.bat`, or `.cmd`). A Software may consist of one or more Tasks.
 
+### Pre-check
+A lightweight check that runs in Python **before** spawning any external processes. Returns `True` if the Software is already installed (skip execution), `False` otherwise. Avoids expensive PowerShell startup overhead for already-installed Software.
+
 ### Dependency
 A relationship where one Software requires another Software to be installed first.
 

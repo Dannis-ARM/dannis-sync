@@ -8,6 +8,7 @@ from typing import List, Set
 from .models import Software, Task
 from .runner import run_script
 from .registry import register_software
+from .precheck import run_pre_check
 
 logger = logging.getLogger(__name__)
 
@@ -28,6 +29,14 @@ class BootstrapOrchestrator:
         if not software.enabled:
             logger.info(f"⏭️ Skipping disabled software: {software.name}")
             return
+
+        # Run pre-check first (in Python, no PowerShell spawned yet)
+        if software.pre_check is not None:
+            logger.debug(f"🔍 Running pre-check for: {software.name}")
+            if run_pre_check(software.pre_check):
+                logger.info(f"✨ {software.name} already installed, skipping")
+                self.installed.add(software.name)
+                return
 
         for task in software.tasks:
             logger.info(f"🔹 Task: {task.name}")
