@@ -11,4 +11,6 @@ npx skills add %mattSkillsGithub% --skill ^
     grill-with-docs ^
     handoff ^
     improve-codebase-architecture ^
+    diagnose ^
+    improve-codebase-architecture ^
     -g -a claude-code -y
