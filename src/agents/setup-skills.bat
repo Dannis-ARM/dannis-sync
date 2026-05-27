@@ -12,5 +12,4 @@ npx skills add %mattSkillsGithub% --skill ^
     handoff ^
     improve-codebase-architecture ^
     diagnose ^
-    improve-codebase-architecture ^
     -g -a claude-code -y
