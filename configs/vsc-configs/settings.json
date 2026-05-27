@@ -42,7 +42,7 @@
     "zig": "zig run",
     "objective-c": "cd $dir && gcc -framework Cocoa $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
     "php": "php",
-    "python": "python -u",
+    "python": "uv run",
     "perl": "perl",
     "perl6": "perl6",
     "ruby": "ruby",
@@ -312,7 +312,7 @@
   "[markdown]": {
     "editor.defaultFormatter": "yzhang.markdown-all-in-one"
   },
-  "markdown.preview.fontSize": 11,
+  "markdown.preview.fontSize": 12,
   "markdown.preview.scrollEditorWithPreview": false,
   "markdown.preview.typographer": true,
 
