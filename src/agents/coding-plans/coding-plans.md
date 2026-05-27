@@ -20,3 +20,8 @@ Doc:
 base_url: https://api.deepseek.com/anthropic
 model: deepseek-v4-pro
 secret: bws sercet list | jq ...
+
+## Claude
+
+Learn:
+  - hooks learn https://github.com/disler/claude-code-hooks-mastery

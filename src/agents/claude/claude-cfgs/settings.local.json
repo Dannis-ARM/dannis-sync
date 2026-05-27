@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(*)",
+      "PowerShell(*)",
+      "Skill(*)",
+      "WebFetch(*)"
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "uv run $CLAUDE_PROJECT_DIR/.claude/status_lines/status_line.py",
+    "padding": 0
+  }
+}
