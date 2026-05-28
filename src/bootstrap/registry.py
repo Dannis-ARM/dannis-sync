@@ -112,6 +112,15 @@ def register_software() -> list[Software]:
         script_path=src_dir / "tools" / "windows-terminal" / "install-terminal.ps1",
     ))
 
+    jq = Software(
+        name="jq",
+        description="Lightweight and flexible command-line JSON processor",
+        pre_check=check_command("jq"),
+    ).add_task(Task(
+        name="Install jq",
+        script_path=src_dir / "tools" / "jq" / "install-jq.ps1",
+    ))
+
     # ------------------------------
     # Agents
     # ------------------------------
@@ -138,7 +147,7 @@ def register_software() -> list[Software]:
     claude_statusline = Software(
         name="Claude Statusline",
         description="Claude Statusline (token usage, model selection)",
-    ).depends_on(claude_cli).add_task(Task(
+    ).depends_on(claude_cli, jq).add_task(Task(
         name="Claude Statusline",
         script_path=src_dir / "agents" / "claude" / "install-cc-statusline.ps1",
     ))
@@ -159,6 +168,7 @@ def register_software() -> list[Software]:
         powershell,
         github_cli,
         windows_terminal,
+        jq,
         # Agents
         claude_cli,
         claude_skills,
