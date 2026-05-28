@@ -17,10 +17,11 @@ def find_repo_root(start_path: pathlib.Path) -> pathlib.Path:
 
 
 # 基础路径配置
-REPO_ROOT = find_repo_root(pathlib.Path.cwd())
+SCRIPT_DIR = pathlib.Path(__file__).resolve().parent
+REPO_ROOT = find_repo_root(SCRIPT_DIR)
 HOME_DIR = pathlib.Path.home()
 VSCODE_USER_DIR = HOME_DIR / "AppData" / "Roaming" / "Code" / "User"
-REPO_VSCODE_CONFIG_DIR = REPO_ROOT / "configs" / "vsc-configs"
+REPO_VSCODE_CONFIG_DIR = SCRIPT_DIR / "vsc-configs"
 BACKUP_DIR = VSCODE_USER_DIR / "backups"
 
 # VSCode配置文件映射：仓库路径 -> 本地VSCode路径

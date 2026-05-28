@@ -10,8 +10,8 @@ Use the `sync` command to synchronize your VSCode settings between a repository 
 
 **Actions:**
 
--   `load-from-repo`: Copies settings from the repository (`configs/settings.json`) to your VSCode user settings (`%APPDATA%/Code/User/settings.json`).
--   `load-from-vscode`: Copies settings from your VSCode user settings (`%APPDATA%/Code/User/settings.json`) to the repository (`configs/settings.json`).
+-   `load-from-repo`: Copies settings from the repository (`vsc-configs/settings.json`) to your VSCode user settings (`%APPDATA%/Code/User/settings.json`).
+-   `load-from-vscode`: Copies settings from your VSCode user settings (`%APPDATA%/Code/User/settings.json`) to the repository (`vsc-configs/settings.json`).
 
 **Examples:**
 
@@ -29,7 +29,7 @@ Please be aware that creating symbolic links on Windows typically requires Admin
 
 **Usage:**
 
--   **Default Symlink for VSCode Settings**: If no arguments are provided, it creates a default symlink where your VSCode user settings file (`%APPDATA%/Code/User/settings.json`) points to the repository's settings file (`configs/settings.json`).
+-   **Default Symlink for VSCode Settings**: If no arguments are provided, it creates a default symlink where your VSCode user settings file (`%APPDATA%/Code/User/settings.json`) points to the repository's settings file (`vsc-configs/settings.json`).
 -   **Custom Symlink**: If `--src` and `--symlink` are provided, it creates a symlink from `--symlink` to `--src`.
 
 **Arguments:**

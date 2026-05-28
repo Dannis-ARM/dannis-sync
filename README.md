@@ -12,7 +12,7 @@
 - Creates symbolic links for VSCode `settings.json` and `keybindings.json`
 - Automatic backup of existing configurations
 - Synchronization between repository and local VSCode user settings
-- Located in [configs/vsc-configs/](configs/vsc-configs/)
+- Located in [src/sync/vsc/vsc-configs/](src/sync/vsc/vsc-configs/)
 
 ### 📦 SDK & Tool Installation
 Automated installation scripts for:
@@ -86,12 +86,12 @@ python src/win-bootstrap.py
 dannis-sync/
 ├── configs/              # Configuration files
 │   ├── git-configs/     # Git configurations
-│   ├── unix-configs/    # Unix-style configs
-│   └── vsc-configs/     # VSCode settings
+│   └── unix-configs/    # Unix-style configs
 ├── src/
 │   ├── agents/          # Claude Code agents & skills
 │   ├── sdk/             # SDK installation scripts
 │   ├── sync/            # Synchronization utilities
+│   │   └── vsc/         # VSCode config sync & settings
 │   ├── tools/           # Development tools
 │   └── utils/           # Helper utilities
 ├── pyproject.toml       # Project configuration
@@ -100,8 +100,8 @@ dannis-sync/
 
 ## Configuration Files
 
-- **VSCode Settings**: [configs/vsc-configs/settings.json](configs/vsc-configs/settings.json)
-- **VSCode Keybindings**: [configs/vsc-configs/keybindings.json](configs/vsc-configs/keybindings.json)
+- **VSCode Settings**: [src/sync/vsc/vsc-configs/settings.json](src/sync/vsc/vsc-configs/settings.json)
+- **VSCode Keybindings**: [src/sync/vsc/vsc-configs/keybindings.json](src/sync/vsc/vsc-configs/keybindings.json)
 
 ## Development
 
