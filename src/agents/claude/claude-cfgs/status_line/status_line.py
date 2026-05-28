@@ -93,19 +93,17 @@ def generate_status_line(input_data):
     # Build status line
     parts = []
 
-    # Model name with max token
-    max_tokens_str = format_tokens(context_window_size)
-    parts.append(f"{CYAN}[{model_name} {max_tokens_str}]{RESET}")
+    # Model name
+    parts.append(f"{CYAN}[{model_name}]{RESET}")
 
     # Progress bar
     parts.append(create_progress_bar(used_percentage))
 
-    # Used percentage
-    parts.append(f"{usage_color}{used_percentage:.1f}%{RESET}")
-
-    # Tokens left
-    tokens_left_str = format_tokens(remaining_tokens)
-    parts.append(f"{BLUE}{tokens_left_str} left{RESET}")
+    # Used percentage with token counts
+    used_tokens = int(context_window_size * (used_percentage / 100))
+    used_str = format_tokens(used_tokens)
+    total_str = format_tokens(context_window_size)
+    parts.append(f"{usage_color}{used_percentage:.1f}%{RESET} ({usage_color}{used_str}{RESET}/{total_str})")
 
     return " | ".join(parts)
 
