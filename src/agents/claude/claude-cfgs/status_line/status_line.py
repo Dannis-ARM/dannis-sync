@@ -47,15 +47,14 @@ def get_usage_color(percentage):
         return "\033[91m"  # Bright red for critical
 
 
-def create_progress_bar(percentage, width=15):
-    """Create a visual progress bar."""
+def create_progress_bar(percentage, width=20):
+    """Create a visual progress bar using block characters."""
     filled = int((percentage / 100) * width)
     empty = width - filled
 
     color = get_usage_color(percentage)
 
-    # Use block characters for the bar
-    bar = f"{color}{'#' * filled}{DIM}{'-' * empty}{RESET}"
+    bar = f"{color}{'█' * filled}{DIM}{'░' * empty}{RESET}"
     return f"[{bar}]"
 
 
@@ -94,28 +93,27 @@ def generate_status_line(input_data):
     # Build status line
     parts = []
 
-    # Model name in cyan
-    parts.append(f"{CYAN}[{model_name}]{RESET}")
+    # Model name with max token
+    max_tokens_str = format_tokens(context_window_size)
+    parts.append(f"{CYAN}[{model_name} {max_tokens_str}]{RESET}")
 
-    # Progress bar with hash indicator
-    progress_bar = create_progress_bar(used_percentage)
-    parts.append(f"{MAGENTA}#{RESET} {progress_bar}")
+    # Progress bar
+    parts.append(create_progress_bar(used_percentage))
 
     # Used percentage
-    parts.append(f"{usage_color}{used_percentage:.1f}%{RESET} used")
+    parts.append(f"{usage_color}{used_percentage:.1f}%{RESET}")
 
     # Tokens left
     tokens_left_str = format_tokens(remaining_tokens)
-    parts.append(f"{BLUE}~{tokens_left_str} left{RESET}")
-
-    # Session ID (rightmost)
-    parts.append(f"{DIM}{session_id}{RESET}")
+    parts.append(f"{BLUE}{tokens_left_str} left{RESET}")
 
     return " | ".join(parts)
 
 
 def main():
     try:
+        sys.stdout.reconfigure(encoding='utf-8')
+
         # Read JSON input from stdin
         input_data = json.loads(sys.stdin.read())
 
