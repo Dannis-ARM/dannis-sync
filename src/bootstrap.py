@@ -8,7 +8,7 @@ Sets up the entire Windows development environment:
 4. Installs Claude Code CLI
 5. Deploys utility scripts to ~/.bin
 
-VSCode Sync is in src/sync/vsc/ and NOT modified here.
+VSCode Sync is in src/sync/vsc/ — config files live at src/sync/vsc/vsc-configs/.
 """
 import argparse
 import logging
@@ -73,6 +73,21 @@ def main():
 
     import agents.copy_agents_to_rules as agent
     agent.agent_sync()
+
+    # ------------------------------
+    # Step 4: Sync VSCode configs (symlinks)
+    # ------------------------------
+    logger.info("\n" + "="*60)
+    logger.info("🔗 Syncing VSCode configs")
+    logger.info("="*60)
+
+    from sync.vsc import vscode_config
+
+    for src, dst in vscode_config.VSCODE_CONFIG_MAPPING:
+        try:
+            vscode_config.create_symlink(src, dst)
+        except Exception as e:
+            logger.warning("VSCode symlink failed for %s -> %s: %s", src, dst, e)
 
     logger.info("\n" + "="*60)
     logger.info("✅ All done!")
