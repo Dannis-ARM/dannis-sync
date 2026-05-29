@@ -1,0 +1,41 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-python-web
+  labels:
+    env: staging
+    owner: devops-team
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: python-web
+  template:
+    metadata:
+      labels:
+        app: python-web
+        layer: backend
+    spec:
+      containers:
+      - name: web-container
+        # ⚠️ 必须提供一个有效的镜像！
+        image: gcr.io/google-samples/node-hello:1.0 
+        ports:
+        - containerPort: 8080 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-python-service
+spec:
+  type: NodePort
+  # ✅ 关键修正：Service 必须通过 Pod 上的标签来匹配 Pod！
+  # 这里的标签必须是 Pod 模板中 metadata.labels 定义的标签。
+  selector:
+    app: python-web
+    # layer: backend  # 如果您只需要 app: python-web 这一层筛选，可以省略 layer: backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+      nodePort: 30080
