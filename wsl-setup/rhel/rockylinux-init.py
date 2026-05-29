@@ -21,26 +21,32 @@ def distro_exists(name: str) -> bool:
     """Check if WSL distro exists."""
     result = subprocess.run(
         ["wsl", "--list", "--quiet"],
-        capture_output=True,
-        text=True,
-        errors="ignore"
+        capture_output=True
     )
     if result.returncode != 0:
         return False
-    return name in result.stdout.splitlines()
+    # Try multiple encodings (utf-16-le is common on Windows)
+    for encoding in ["utf-16-le", "utf-8", "gbk"]:
+        try:
+            stdout = result.stdout.decode(encoding).rstrip("\0")
+            if name in stdout.splitlines():
+                return True
+        except UnicodeDecodeError:
+            continue
+    return False
 
 
 def read_script(filename: str) -> str:
     """Read script content from init directory."""
-    script_path = os.path.join(os.path.dirname(__file__), "init", filename)
+    script_path = os.path.join(os.path.dirname(__file__), "init-scirpts", filename)
     with open(script_path, "r", encoding="utf-8") as f:
         return f.read()
 
 
 def run_wsl_script(distro: str, script_content: str, user: str = "root"):
-    """Run a bash script in WSL."""
-    cmd = ["wsl", "-d", distro, "-u", user, "bash", "-c", script_content]
-    result = subprocess.run(cmd)
+    """Run a bash script in WSL via stdin."""
+    cmd = ["wsl", "-d", distro, "-u", user, "bash", "-c", "set -euo pipefail; exec bash"]
+    result = subprocess.run(cmd, input=script_content.encode("utf-8"))
     if result.returncode != 0:
         sys.exit(result.returncode)
 
@@ -65,25 +71,15 @@ def main():
     # Run setup-clash.sh first
     print("Setting up clash proxy functions...")
     clash_script = read_script("setup-clash.sh")
-    run_wsl_script(args.distro, f"""
-cat > /tmp/setup-clash.sh << 'EOF'
-{clash_script}
-EOF
-chmod +x /tmp/setup-clash.sh
-/tmp/setup-clash.sh
-rm -f /tmp/setup-clash.sh
-""")
+    run_wsl_script(args.distro, clash_script)
 
     # Run install-packages.sh
     packages_script = read_script("install-packages.sh")
     run_wsl_script(args.distro, f"""
-cat > /tmp/install-packages.sh << 'EOF'
-{packages_script}
-EOF
+# Source proxy functions before running
+. /usr/local/bin/proxy-functions.sh
 clashon
-chmod +x /tmp/install-packages.sh
-/tmp/install-packages.sh
-rm -f /tmp/install-packages.sh
+{packages_script}
 """)
 
     print("Done!")
