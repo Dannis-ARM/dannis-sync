@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Initialize WSL Rocky Linux distro with install-packages.sh and setup-clash.sh."""
 
 import argparse
@@ -56,11 +55,6 @@ def main():
     parser.add_argument("-d", "--distro", default="Rocky-9", help="Distro name (default: Rocky-9)")
     args = parser.parse_args()
 
-    # Check admin
-    if not check_admin():
-        print("Error: This script requires administrator privileges.", file=sys.stderr)
-        sys.exit(1)
-
     # Check distro exists
     if not distro_exists(args.distro):
         print(f"Error: Distro '{args.distro}' not found.", file=sys.stderr)
@@ -78,7 +72,7 @@ def main():
     run_wsl_script(args.distro, f"""
 # Source proxy functions before running
 . /usr/local/bin/proxy-functions.sh
-clashon
+clashon || exit 1
 {packages_script}
 """)
 

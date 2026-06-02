@@ -38,8 +38,9 @@ clashon() {
     if curl -s --connect-timeout 3 https://www.google.com >/dev/null; then
         echo "✓ Proxy enabled: $HTTPS_PROXY"
     else
-        echo "✗ Proxy enabled but connection test failed"
-        echo "  Check if Clash is running on Windows port 7890"
+        echo "✗ Proxy enabled but connection test failed" >&2
+        echo "  Check if Clash is running on Windows port 7890" >&2
+        return 1
     fi
 }
 
