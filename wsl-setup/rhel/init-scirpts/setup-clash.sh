@@ -1,13 +1,15 @@
 #!/bin/bash
 # =============================================================================
 # Clash Proxy Toggle - Install clashon and clashoff as shell functions
+# Version: 1.1
 # =============================================================================
-
-set -euo pipefail
 
 PROXY_FUNC_PATH="/usr/local/bin/proxy-functions.sh"
 
-cat > "$PROXY_FUNC_PATH" <<'FUNC_EOF'
+install_proxy_functions() {
+    log "Installing proxy functions to $PROXY_FUNC_PATH..."
+
+    cat > "$PROXY_FUNC_PATH" <<'FUNC_EOF'
 # Clash proxy functions - source this file in your ~/.bashrc
 
 get_win_ip() {
@@ -55,30 +57,45 @@ clashoff() {
 }
 FUNC_EOF
 
-chmod +x "$PROXY_FUNC_PATH"
+    chmod +x "$PROXY_FUNC_PATH"
+}
 
-# Add to current user's .bashrc if not already there
-if [ -n "${SUDO_USER:-}" ]; then
-    USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
-else
-    USER_HOME="$HOME"
-fi
+configure_bashrc() {
+    # Add to current user's .bashrc if not already there
+    if [ -n "${SUDO_USER:-}" ]; then
+        USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
+    else
+        USER_HOME="$HOME"
+    fi
 
-USER_BASHRC="$USER_HOME/.bashrc"
-if [ -f "$USER_BASHRC" ] && ! grep -q "proxy-functions.sh" "$USER_BASHRC"; then
-    echo "# Load proxy functions" >> "$USER_BASHRC"
-    echo "[ -f $PROXY_FUNC_PATH ] && . $PROXY_FUNC_PATH" >> "$USER_BASHRC"
-    echo "Added to $USER_BASHRC"
-fi
+    USER_BASHRC="$USER_HOME/.bashrc"
+    if [ -f "$USER_BASHRC" ] && ! grep -q "proxy-functions.sh" "$USER_BASHRC"; then
+        log "Adding to $USER_BASHRC..."
+        echo "# Load proxy functions" >> "$USER_BASHRC"
+        echo "[ -f $PROXY_FUNC_PATH ] && . $PROXY_FUNC_PATH" >> "$USER_BASHRC"
+    fi
 
-# Add to skel for new users
-mkdir -p /etc/skel
-if ! grep -q "proxy-functions.sh" /etc/skel/.bashrc 2>/dev/null; then
-    echo "# Load proxy functions" >> /etc/skel/.bashrc
-    echo "[ -f $PROXY_FUNC_PATH ] && . $PROXY_FUNC_PATH" >> /etc/skel/.bashrc
-fi
+    # Add to skel for new users
+    mkdir -p /etc/skel
+    if ! grep -q "proxy-functions.sh" /etc/skel/.bashrc 2>/dev/null; then
+        log "Adding to /etc/skel/.bashrc..."
+        echo "# Load proxy functions" >> /etc/skel/.bashrc
+        echo "[ -f $PROXY_FUNC_PATH ] && . $PROXY_FUNC_PATH" >> /etc/skel/.bashrc
+    fi
+}
 
-echo ""
-echo "Then use:"
-echo "  clashon  - Enable proxy"
-echo "  clashoff - Disable proxy"
+main() {
+    log "Starting Clash proxy setup..."
+
+    check_root
+    install_proxy_functions
+    configure_bashrc
+
+    log "Proxy functions installed!"
+    echo ""
+    echo "Then use:"
+    echo "  clashon  - Enable proxy"
+    echo "  clashoff - Disable proxy"
+}
+
+main "$@"

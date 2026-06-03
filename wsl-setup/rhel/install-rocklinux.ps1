@@ -4,8 +4,7 @@ param(
     [string]$DistroName = "Rocky-9",
     [string]$InstallDir = "$env:LOCALAPPDATA\WSL\$DistroName",
     [string]$DownloadDir = "$env:LOCALAPPDATA\WSL",
-    [string]$ImageUrl = "https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-WSL-Base.latest.x86_64.wsl",
-    [string]$DefaultUser = "admin_dannis"
+    [string]$ImageUrl = "https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-WSL-Base.latest.x86_64.wsl"
 )
 
 $ErrorActionPreference = "Stop"
@@ -50,7 +49,7 @@ if (Test-DistroExists $DistroName) {
     exit 0
 }
 
-# Import and configure
+# Import distro
 Write-Host "Importing $DistroName..."
 wsl --import $DistroName $InstallDir $imagePath
 if ($LASTEXITCODE -ne 0) {
@@ -58,27 +57,6 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
-# Enable systemd and create user
-wsl -d $DistroName -u root bash -c @"
-cat > /etc/wsl.conf << 'EOF'
-[boot]
-systemd=true
-EOF
-if ! id '$DefaultUser' &>/dev/null; then
-    useradd -m -c 'Admin Dannis' -s /bin/bash -G wheel '$DefaultUser'
-    echo '%wheel ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/wheel-nopasswd
-    chmod 0440 /etc/sudoers.d/wheel-nopasswd
-fi
-"@
-if ($LASTEXITCODE -ne 0) {
-    Write-Error "Configuration failed (code $LASTEXITCODE)"
-    exit 1
-}
-
-# Restart and set default user
-wsl -t $DistroName
-Start-Sleep -Seconds 2
-wsl --manage $DistroName --set-default-user $DefaultUser
-
-Write-Host "Done! Use 'wsl -d $DistroName' to start."
+Write-Host "Done! Distro '$DistroName' imported."
+Write-Host "Next step: run .\rockylinux-init.ps1 to initialize."
 wsl --list --verbose

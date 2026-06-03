@@ -1,33 +1,10 @@
 #!/bin/bash
 # =============================================================================
-# Rocky Linux 9 System Initialization Script
-# Version: 2.2
+# Install packages with proxy enabled
+# Version: 2.4
 # =============================================================================
 
-set -euo pipefail
-
-# Constants for terminal colors
-readonly GREEN='\033[0;32m'
-readonly RED='\033[0;31m'
-readonly NC='\033[0m'
-
-# Error handling hook for unexpected exits
-trap 'error_exit "Script interrupted or failed at line $LINENO"' SIGINT SIGTERM
-
-log() {
-    echo -e "${GREEN}[$(date +'%Y-%m-%dT%H:%M:%S')] INFO:${NC} $1"
-}
-
-error_exit() {
-    echo -e "${RED}[$(date +'%Y-%m-%dT%H:%M:%S')] ERROR:${NC} $1" >&2
-    exit 1
-}
-
-check_root() {
-    if [[ $EUID -ne 0 ]]; then
-        error_exit "This script must be run as root/sudo."
-    fi
-}
+. "$(dirname "$0")/common.sh"
 
 enable_repos() {
     # Ensure dnf-plugins-core is installed before using config-manager
@@ -61,7 +38,7 @@ install_tools() {
         mtr
         fuse-overlayfs podman podman-docker
     )
-    
+
     log "Installing system, network, and container tools..."
     dnf install -y "${packages[@]}" || error_exit "Failed to install tools."
 }
@@ -86,17 +63,23 @@ cleanup() {
 }
 
 main() {
-    log "Starting system initialization..."
-
     check_root
+
+    # Source proxy functions
+    if [ -f /usr/local/bin/proxy-functions.sh ]; then
+        . /usr/local/bin/proxy-functions.sh
+        clashon || exit 1
+    else
+        warn "Proxy functions not found, proceeding without proxy"
+    fi
+
+    log "Starting system initialization..."
     enable_repos
     update_packages
     install_tools
     config_system
     cleanup
-
     log "System initialization completed successfully!"
 }
 
-# Execute main function
 main "$@"

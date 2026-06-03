@@ -1,4 +1,4 @@
-"""Initialize WSL Rocky Linux distro with install-packages.sh and setup-clash.sh."""
+"""Initialize WSL Rocky Linux distro with wsl.conf, user creation, and init-scripts."""
 
 import argparse
 import os
@@ -35,17 +35,31 @@ def distro_exists(name: str) -> bool:
     return False
 
 
-def read_script(filename: str) -> str:
-    """Read script content from init directory."""
-    script_path = os.path.join(os.path.dirname(__file__), "init-scirpts", filename)
-    with open(script_path, "r", encoding="utf-8") as f:
-        return f.read()
+def copy_to_wsl(distro: str, src_dir: str, dest: str):
+    """Copy a directory from Windows to WSL."""
+    # Convert src_dir to WSL path
+    result = subprocess.run(
+        ["wsl", "-d", distro, "-u", "root", "wslpath", "-a", src_dir],
+        capture_output=True,
+        text=True
+    )
+    if result.returncode != 0:
+        print(f"Error: Failed to convert path {src_dir}", file=sys.stderr)
+        sys.exit(1)
+    wsl_src = result.stdout.strip()
+
+    # Copy in WSL
+    subprocess.run(
+        ["wsl", "-d", distro, "-u", "root", "bash", "-c",
+         f"rm -rf {dest} && mkdir -p $(dirname {dest}) && cp -r {wsl_src} {dest}"],
+        check=True
+    )
 
 
-def run_wsl_script(distro: str, script_content: str, user: str = "root"):
-    """Run a bash script in WSL via stdin."""
-    cmd = ["wsl", "-d", distro, "-u", user, "bash", "-c", "set -euo pipefail; exec bash"]
-    result = subprocess.run(cmd, input=script_content.encode("utf-8"))
+def run_wsl_script(distro: str, script_path: str, user: str = "root", env: dict | None = None):
+    """Run a bash script in WSL by path."""
+    cmd = ["wsl", "-d", distro, "-u", user, "bash", script_path]
+    result = subprocess.run(cmd, env=env)
     if result.returncode != 0:
         sys.exit(result.returncode)
 
@@ -53,6 +67,7 @@ def run_wsl_script(distro: str, script_content: str, user: str = "root"):
 def main():
     parser = argparse.ArgumentParser(description="Initialize WSL Rocky Linux distro.")
     parser.add_argument("-d", "--distro", default="Rocky-9", help="Distro name (default: Rocky-9)")
+    parser.add_argument("-u", "--user", default="admin_dannis", help="Default user (default: admin_dannis)")
     args = parser.parse_args()
 
     # Check distro exists
@@ -62,21 +77,39 @@ def main():
 
     print(f"Initializing {args.distro}...")
 
-    # Run setup-clash.sh first
+    # Copy init-scripts to WSL
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    init_src = os.path.join(script_dir, "init-scirpts")
+    init_dest = "/tmp/init-scirpts"
+    print(f"Copying {init_src} to {args.distro}:{init_dest}...")
+    copy_to_wsl(args.distro, init_src, init_dest)
+
+    # Step 1: Configure wsl.conf (systemd + disable Windows PATH)
+    print("Configuring wsl.conf...")
+    run_wsl_script(args.distro, f"{init_dest}/configure-wslconf.sh")
+
+    # Step 2: Create default user
+    print(f"Creating user {args.user}...")
+    env = os.environ.copy()
+    env["WSLENV"] = "CREATE_USER"
+    env["CREATE_USER"] = args.user
+    run_wsl_script(args.distro, f"{init_dest}/create-user.sh", env=env)
+
+    # Step 3: Setup clash proxy functions
     print("Setting up clash proxy functions...")
-    clash_script = read_script("setup-clash.sh")
-    run_wsl_script(args.distro, clash_script)
+    run_wsl_script(args.distro, f"{init_dest}/setup-clash.sh")
 
-    # Run install-packages.sh
-    packages_script = read_script("install-packages.sh")
-    run_wsl_script(args.distro, f"""
-# Source proxy functions before running
-. /usr/local/bin/proxy-functions.sh
-clashon || exit 1
-{packages_script}
-""")
+    # Step 4: Install packages (with proxy enabled)
+    print("Installing packages...")
+    run_wsl_script(args.distro, f"{init_dest}/install-with-proxy.sh")
 
-    print("Done!")
+    # Step 5: Shutdown to apply wsl.conf changes
+    print("Shutting down distro to apply wsl.conf...")
+    subprocess.run(["wsl", "-t", args.distro], check=False)
+    subprocess.run(["wsl", "--manage", args.distro, "--set-default-user", args.user], check=False)
+
+    print("\nDone!")
+    print(f"Use 'wsl -d {args.distro}' to start.")
 
 
 if __name__ == "__main__":
