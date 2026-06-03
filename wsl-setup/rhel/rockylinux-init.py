@@ -5,17 +5,6 @@ import os
 import subprocess
 import sys
 
-
-def check_admin() -> bool:
-    """Check if running as administrator (Windows only)."""
-    try:
-        import ctypes
-        return ctypes.windll.shell32.IsUserAnAdmin() != 0
-    except AttributeError:
-        # Non-Windows systems - assume root if uid 0
-        return getattr(os, "getuid", lambda: 1000)() == 0
-
-
 def distro_exists(name: str) -> bool:
     """Check if WSL distro exists."""
     result = subprocess.run(
