@@ -1,8 +1,10 @@
 #!/bin/bash
 # =============================================================================
 # Clash Proxy Toggle - Install clashon and clashoff as shell functions
-# Version: 1.1
+# Version: 1.2
 # =============================================================================
+
+. "$(dirname "$0")/common.sh"
 
 PROXY_FUNC_PATH="/usr/local/bin/proxy-functions.sh"
 

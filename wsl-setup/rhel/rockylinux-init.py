@@ -37,16 +37,11 @@ def distro_exists(name: str) -> bool:
 
 def copy_to_wsl(distro: str, src_dir: str, dest: str):
     """Copy a directory from Windows to WSL."""
-    # Convert src_dir to WSL path
-    result = subprocess.run(
-        ["wsl", "-d", distro, "-u", "root", "wslpath", "-a", src_dir],
-        capture_output=True,
-        text=True
-    )
-    if result.returncode != 0:
-        print(f"Error: Failed to convert path {src_dir}", file=sys.stderr)
-        sys.exit(1)
-    wsl_src = result.stdout.strip()
+    # Convert Windows path to WSL path manually: C:\... -> /mnt/c/...
+    wsl_src = src_dir.replace("\\", "/")
+    if ":" in wsl_src:
+        drive, rest = wsl_src.split(":", 1)
+        wsl_src = f"/mnt/{drive.lower()}{rest}"
 
     # Copy in WSL
     subprocess.run(
