@@ -98,3 +98,7 @@ test.*
 test/
 sandbox/
 .claude
+
+# Shadowrocket configs (contains subscription tokens)
+configs/shadowsockets/*.conf
+!configs/shadowsockets/*.conf.example

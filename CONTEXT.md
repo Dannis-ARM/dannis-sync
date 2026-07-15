@@ -25,3 +25,18 @@ Independent utility scripts that are deployed to `~/.bin` directory and added to
 ### VSCode Sync
 (Not to be modified) Module for synchronizing VSCode configurations (`settings.json`, `keybindings.json`) via symbolic links.
 
+### Proxy Configuration
+Shadowrocket or similar proxy rule configuration files that define routing policies for network traffic.
+
+### Stocks Broker
+Securities trading platforms. The project maintains proxy routing rules for:
+- **IBKR** (Interactive Brokers): routes DIRECT
+- **Schwab** (Charles Schwab): routes DIRECT
+- **Firstrade**: routes via 美国硅谷 (US Silicon Valley proxy)
+
+### DIRECT
+Proxy policy meaning traffic connects directly without going through any proxy.
+
+### 美国硅谷 (US Silicon Valley)
+A specific proxy group/node in the proxy configuration for routing traffic through Silicon Valley, USA.
+
