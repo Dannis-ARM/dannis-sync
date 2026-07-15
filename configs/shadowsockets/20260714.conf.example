@@ -122,22 +122,6 @@ DOMAIN-SUFFIX,trkn.us,GHELPER
 DOMAIN-SUFFIX,cedexis.com,GHELPER
 DOMAIN-SUFFIX,ip.sb,GHELPER
 DOMAIN-SUFFIX,ip.net,GHELPER
-# DOMAIN-SUFFIX,openai.com,GHELPER
-# DOMAIN-SUFFIX,auth0.com,GHELPER
-# DOMAIN-SUFFIX,featuregates.org,GHELPER
-# DOMAIN-SUFFIX,statsigapi.net,GHELPER
-# DOMAIN-SUFFIX,intercom.io,GHELPER
-# DOMAIN-SUFFIX,intercomcdn.com,GHELPER
-# DOMAIN-SUFFIX,sentry.io,GHELPER
-# DOMAIN-SUFFIX,sentry.dev,GHELPER
-# DOMAIN-SUFFIX,oaistatic.com,GHELPER
-# DOMAIN-SUFFIX,oaiusercontent.com,GHELPER
-# DOMAIN-SUFFIX,chatgpt.com,GHELPER
-# DOMAIN-SUFFIX,chatgpt-async-webps-prod-southcentralus-6.webpubsub.azure.com,GHELPER
-# DOMAIN-SUFFIX,claude.ai,GHELPER
-# DOMAIN-SUFFIX,anthropic.com,GHELPER
-# DOMAIN-SUFFIX,intercomcdn.com,GHELPER
-# DOMAIN-SUFFIX,intercom.io,GHELPER
 DOMAIN-SUFFIX,bing.com,GHELPER
 DOMAIN-SUFFIX,microsoftonline.com,GHELPER
 DOMAIN-SUFFIX,live.com,GHELPER
