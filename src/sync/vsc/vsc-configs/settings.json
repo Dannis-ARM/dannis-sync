@@ -1,0 +1,479 @@
+{
+  // ═══════════════════════════════════════════════════════════════════════════════
+  // SECTION 1: CORE SETTINGS - Workbench, Explorer, Editor basics
+  // ═══════════════════════════════════════════════════════════════════════════════
+  "window.zoomLevel": 0,
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.colorTheme": "JetBrains Darcula Theme",
+
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+
+  "editor.detectIndentation": true,
+  "editor.cursorBlinking": "solid",
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.fontLigatures": true,
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.addMissingImports": "always",
+    "source.organizeImports": "never"
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 2: FILE MANAGEMENT & SECURITY
+  // ─────────────────────────────────────────────────────────────────────────────
+  "files.autoSave": "onFocusChange",
+
+  // Security settings
+  "security.workspace.trust.untrustedFiles": "open",
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 3: CODE RUNNER - Execute code directly in VSCode
+  // ─────────────────────────────────────────────────────────────────────────────
+  "code-runner.runInTerminal": true,
+  "code-runner.saveFileBeforeRun": true,
+
+  // Command mapping for different languages
+  "code-runner.executorMap": {
+    "javascript": "node",
+    "java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
+    "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "zig": "zig run",
+    "objective-c": "cd $dir && gcc -framework Cocoa $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "php": "php",
+    "python": "uv run",
+    "perl": "perl",
+    "perl6": "perl6",
+    "ruby": "ruby",
+    "go": "go run",
+    "lua": "lua",
+    "groovy": "groovy",
+    "powershell": "powershell -ExecutionPolicy ByPass -File",
+    "bat": "cmd /c",
+    "shellscript": "bash",
+    "fsharp": "fsi",
+    "csharp": "cd $dir && dotnet run $fileName",
+    "vbscript": "cscript //Nologo",
+    "typescript": "ts-node",
+    "coffeescript": "coffee",
+    "scala": "scala",
+    "swift": "swift",
+    "julia": "julia",
+    "crystal": "crystal",
+    "ocaml": "ocaml",
+    "r": "Rscript",
+    "applescript": "osascript",
+    "clojure": "lein exec",
+    "haxe": "haxe --cwd $dirWithoutTrailingSlash --run $fileNameWithoutExt",
+    "rust": "cd $dir && rustc $fileName && $dir$fileNameWithoutExt",
+    "racket": "racket",
+    "scheme": "csi -script",
+    "ahk": "autohotkey",
+    "autoit": "autoit3",
+    "dart": "dart",
+    "pascal": "cd $dir && fpc $fileName && $dir$fileNameWithoutExt",
+    "d": "cd $dir && dmd $fileName && $dir$fileNameWithoutExt",
+    "haskell": "runghc",
+    "nim": "nim compile --verbosity:0 --hints:off --run",
+    "lisp": "sbcl --script",
+    "kit": "kitc --run",
+    "v": "v run",
+    "sass": "sass --style expanded",
+    "scss": "scss --style expanded",
+    "less": "cd $dir && lessc $fileName $fileNameWithoutExt.css",
+    "FortranFreeForm": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "fortran-modern": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "fortran_fixed-form": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "fortran": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "sml": "cd $dir && sml $fileName",
+    "mojo": "mojo run",
+    "erlang": "escript",
+    "spwn": "spwn build",
+    "pkl": "cd $dir && pkl eval -f yaml $fileName -o $fileNameWithoutExt.yaml",
+    "gleam": "gleam run -m $fileNameWithoutExt"
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 4: PYTHON - Language server, formatting, linting
+  // Reference: https://gist.github.com/wojukasz/d76ca3162debc66d4227b9dc6049789e
+  // ─────────────────────────────────────────────────────────────────────────────
+  "[python]": {
+    "editor.formatOnType": true
+  },
+
+  // Python language analysis (Pylance)
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  "python.analysis.autoFormatStrings": true,
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.completeFunctionParens": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.diagnosticMode": "openFilesOnly",
+
+  // Terminal & environment
+  "python.terminal.activateEnvironment": true,
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 5: GO - Language server configuration
+  // ─────────────────────────────────────────────────────────────────────────────
+  "[go]": {
+    "editor.formatOnSave": false
+  },
+  "go.goroot": "/snap/go/current",
+  "go.inlayHints.assignVariableTypes": true,
+  "go.inlayHints.constantValues": true,
+
+  // gopls settings
+  "gopls": {
+    "ui.semanticTokens": true,
+    "ui.diagnostic.staticcheck": false
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 6: TYPESCRIPT & JAVASCRIPT - Inlay hints, formatting
+  // ─────────────────────────────────────────────────────────────────────────────
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "typescript.inlayHints.variableTypes.enabled": true,
+  "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "javascript.inlayHints.variableTypes.enabled": true,
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 7: VIM EXTENSION - Core behavior settings
+  // Reference: https://gist.github.com/wojukasz/d76ca3162debc66d4227b9dc6049789e
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  // Core behavior
+  "vim.leader": "<space>",
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.startInInsertMode": false,
+  "vim.smartRelativeLine": true,
+  "vim.cursorStylePerMode.insert": "line",
+  "vim.cursorStylePerMode.normal": "block",
+
+  // Search & feedback
+  "vim.incsearch": true,
+  "vim.hlsearch": true,
+  "vim.highlightedyank.enable": true,
+  "vim.highlightedyank.duration": 100,
+
+  // Plugin emulation
+  "vim.easymotion": true,
+  "vim.sneak": true,
+  "vim.sneakUseIgnorecaseAndSmartcase": true,
+  "vim.surround": true,
+  "vim.foldfix": true,
+
+  // Performance & system conflict handling
+  "extensions.experimental.affinity": {
+    "vscodevim.vim": 1
+  },
+
+  // Handle key conflicts (false = let Vim handle, true = let VSCode handle)
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false,
+    "<C-c>": false,
+    "<C-v>": false,
+    "<C-x>": false,
+    "<C-p>": false,
+    "<C-k>": false,
+    "<C-w>": false,
+    "<C-h>": false,
+    "<C-e>": false,
+    "<C-i>": true
+  },
+
+  // Operator pending mode keybindings
+  "vim.operatorPendingModeKeyBindings": [
+    { "before": [ ">" ], "commands": [ "editor.action.indentLines" ] },
+    { "before": [ "<" ], "commands": [ "editor.action.outdentLines" ] }
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 8: VIM NORMAL MODE KEYBINDINGS - Space-leader mappings
+  // Pattern reference (matches LazyVim):
+  //   <leader>f* = File operations
+  //   <leader>s* = Search operations
+  //   <leader>c* = Code actions (LSP)
+  //   <leader>b* = Buffer management
+  //   <leader>g* = Git operations
+  //   <leader>w* = Window management
+  //   <leader>x* = Diagnostics/Quickfix
+  //   <leader>u* = UI toggles
+  //   <leader>m* = Markdown Settings
+  // ─────────────────────────────────────────────────────────────────────────────
+  "vim.normalModeKeyBindingsNonRecursive": [
+    // General: Navigation & basic
+    { "before": [ "<Esc>" ], "commands": [ ":nohl" ] },
+    { "before": [ "<S-h>" ], "commands": [ "workbench.action.previousEditor" ] },
+    { "before": [ "<S-l>" ], "commands": [ "workbench.action.nextEditor" ] },
+    { "before": [ "<leader>", "F" ], "commands": [ "editor.toggleFold" ] },
+
+    // File operations (<leader>f)
+    { "before": [ "<leader>", "f", "e" ], "commands": [ "workbench.files.action.showActiveFileInExplorer" ] },
+    { "before": [ "<leader>", "f", "n" ], "commands": [ "workbench.action.files.newUntitledFile" ] },
+    { "before": [ "<leader>", "f", "r" ], "commands": [ "workbench.action.openRecent" ] },
+    { "before": [ "<leader>", "e" ], "commands": [ "workbench.action.toggleSidebarVisibility" ] },
+    { "before": [ "<leader>", "E" ], "commands": [ "workbench.files.action.focusFilesExplorer" ] },
+    { "before": [ "<leader>", "<space>" ], "commands": [ "workbench.action.quickOpen" ] },
+
+    // Search (<leader>s / <leader>/)
+    { "before": [ "<leader>", "/" ], "commands": [ "workbench.action.findInFiles" ] },
+    { "before": [ "<leader>", "s", "g" ], "commands": [ "workbench.action.findInFiles" ] },
+    { "before": [ "<leader>", "s", "r" ], "commands": [ "workbench.action.replaceInFiles" ] },
+    { "before": [ "<leader>", "s", "s" ], "commands": [ "workbench.action.gotoSymbol" ] },
+
+    // Code actions & LSP (<leader>c / g*)
+    { "before": [ "<leader>", "c", "a" ], "commands": [ "editor.action.quickFix" ] },
+    { "before": [ "<leader>", "c", "f" ], "commands": [ "editor.action.formatDocument" ] },
+    { "before": [ "<leader>", "c", "r" ], "commands": [ "editor.action.rename" ] },
+    { "before": [ "g", "d" ], "commands": [ "editor.action.revealDefinition" ] },
+    { "before": [ "g", "r" ], "commands": [ "editor.action.goToReferences" ] },
+
+    // Buffer management (<leader>b)
+    { "before": [ "<leader>", "b", "d" ], "commands": [ "workbench.action.closeActiveEditor" ] },
+    { "before": [ "<leader>", "b", "D" ], "commands": [ "workbench.action.closeOtherEditors" ] },
+    { "before": [ "<leader>", "b", "p" ], "commands": [ "workbench.action.pinEditor" ] },
+
+    // Window management (<leader>w)
+    { "before": [ "<leader>", "n", "g" ], "commands": [ "workbench.action.focusNextGroup" ] },
+    { "before": [ "<leader>", "|" ], "commands": [ "workbench.action.splitEditorRight" ] },
+    { "before": [ "<leader>", "-" ], "commands": [ "workbench.action.splitEditorDown" ] },
+
+    // UI toggles (<leader>u)
+    { "before": [ "<leader>", "w", "w" ], "commands": [ "editor.action.toggleWordWrap" ] },
+    { "before": [ "<leader>", "Z" ], "commands": [ "workbench.action.toggleZenMode" ] },
+    { "before": [ "<C-d>" ], "after": [ "<C-d>", "zz" ] },
+    { "before": [ "<C-u>" ], "after": [ "<C-u>", "zz" ] },
+
+    // AI/Agents integration
+    { "before": [ "<leader>", "a", "i" ], "commands": [ "cline.addToChat" ] }
+    // { "before": [ "<leader>", "a", "i" ], "commands": [ "workbench.action.focusSideBar" ] }
+  ],
+
+  // Visual mode keybindings
+  "vim.visualModeKeyBindingsNonRecursive": [
+    { "before": [ "J" ], "commands": [ "editor.action.moveLinesDownAction" ] },
+    { "before": [ "K" ], "commands": [ "editor.action.moveLinesUpAction" ] },
+    { "before": [ "<" ], "commands": [ "editor.action.outdentLines" ] },
+    { "before": [ ">" ], "commands": [ "editor.action.indentLines" ] }
+  ],
+
+  // Workbench status bar customization
+  "workbench.colorCustomizations": {
+    "statusBar.noFolderBackground": "#519aba",
+    "statusBar.debuggingBackground": "#519aba",
+    "statusBar.background": "#519aba",
+    "statusBar.foreground": "#ffffff",
+    "statusBar.debuggingForeground": "#ffffff"
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 10: EDITOR APPEARANCE - Token colors, italics
+  // ─────────────────────────────────────────────────────────────────────────────
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          "comment",
+          "entity.name.type.class",
+          "storage.modifier",
+          "storage.type.class",
+          "variable.language.self",
+          "variable.language.this"
+        ],
+        "settings": {
+          "fontStyle": "italic"
+        }
+      },
+      {
+        "scope": [
+          "invalid",
+          "keyword.operator",
+          "constant.numeric.css",
+          "keyword.other.unit.px.css",
+          "constant.numeric.decimal.js",
+          "constant.numeric.json"
+        ],
+        "settings": {
+          "fontStyle": ""
+        }
+      }
+    ]
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 11: MARKDOWN
+  // ─────────────────────────────────────────────────────────────────────────────
+  "[markdown]": {
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+  },
+  "markdown.preview.fontSize": 12,
+  "markdown.preview.scrollEditorWithPreview": false,
+  "markdown.preview.typographer": true,
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 12: JSON / JSONC
+  // ─────────────────────────────────────────────────────────────────────────────
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "json.format.enable": true,
+  "json.format.keepLines": true,
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 13: TERRAFORM
+  // ─────────────────────────────────────────────────────────────────────────────
+  "terraform.codelens.referenceCount": true,
+  "terraform.experimentalFeatures.prefillRequiredFields": true,
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
+  },
+  "[terraform-vars]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 14: TYPESCRIPT REACT
+  // ─────────────────────────────────────────────────────────────────────────────
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 16: TERMINAL
+  // ─────────────────────────────────────────────────────────────────────────────
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "terminal.integrated.tabs.location": "left",
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell"
+    },
+    "Command Prompt": {
+      "path": [
+        "${env:windir}\\Sysnative\\cmd.exe",
+        "${env:windir}\\System32\\cmd.exe"
+      ],
+      "args": [ ],
+      "icon": "terminal-cmd"
+    },
+    "Git Bash": {
+      "source": "Git Bash",
+      "icon": "terminal-git-bash"
+    },
+    "pwsh": {
+      "path": "pwsh.exe",
+      "args": [ ]
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "pwsh",
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 17: SEPARATORS EXTENSION
+  // ─────────────────────────────────────────────────────────────────────────────
+  "separators.maxDepth": 1,
+  "separators.common.borderStyle": "dashed",
+  "separators.common.borderColor": "editor.lineHighlightBorder",
+  "separators.common.topMargin": 5,
+  "separators.classes.borderStyle": "solid",
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 18: TELEMETRY & PRIVACY
+  // ─────────────────────────────────────────────────────────────────────────────
+  "aws.telemetry": false,
+  "redhat.telemetry.enabled": false,
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 19: AI & COPILOT
+  // ─────────────────────────────────────────────────────────────────────────────
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 20: YAML - Custom tags for AWS CloudFormation
+  // Reference: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html
+  // ─────────────────────────────────────────────────────────────────────────────
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.formatOnSave": false,
+    "editor.tabSize": 2
+  },
+  "yaml.schemas": {
+    "file:///c:/Users/lenovo/.vscode/extensions/aws-toolkit.vscode-aws-toolkit-core-*/package.json": [ "**/cfn*.yaml", "**/cloudformation*.yaml" ]
+  },
+  "yaml.customTags": [
+    // CloudFormation intrinsic functions
+    "!And",
+    "!Base64",
+    "!Cidr",
+    "!Equals",
+    "!FindInMap",
+    "!GetAtt",
+    "!GetAZs",
+    "!If",
+    "!ImportValue",
+    "!Join",
+    "!Length",
+    "!Not",
+    "!Or",
+    "!Ref",
+    "!Select",
+    "!Split",
+    "!Sub",
+    "!Transform",
+    "!And sequence",
+    "!If sequence",
+    "!Not sequence",
+    "!Or sequence"
+  ],
+  "yaml.format.enable": true,
+  "yaml.hover": true,
+  "yaml.completion": true,
+
+  // 强制本地下载 VS Code Server 并通过 SSH 传到远程（内网必备）
+  "remote.SSH.localServerDownload": "always",
+
+  // 关闭新版 exec server 避免离线环境兼容问题
+  "remote.SSH.useExecServer": false,
+
+  // 关闭自动下载更新，避免在内网报错
+  "remote.SSH.downloadServerAutomatically": false,
+
+  // 关闭连接时自动检查服务器版本
+  "remote.SSH.autoCheckServerVersion": false,
+
+  // 禁用远程扩展自动更新（内网无法下载）
+  "remote.extensionKind": {
+    "ms-vscode-remote.remote-ssh": [ "ui" ]
+  },
+  "extensions.autoUpdate": false,
+  "extensions.autoCheckUpdates": false,
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SECTION 21: Bash
+  // ─────────────────────────────────────────────────────────────────────────────
+  "[shellscript]": {
+    "files.eol": "\n",
+    // "editor.defaultFormatter": "foxundermoon.shell-format",
+  },
+  "claudeCode.preferredLocation": "panel",
+  "markdown-preview-enhanced.previewTheme": "github-light.css",
+}

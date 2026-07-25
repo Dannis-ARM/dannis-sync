@@ -1,0 +1,69 @@
+import shutil
+import platform
+import logging
+import winreg
+import ctypes
+from pathlib import Path
+
+logger = logging.getLogger(__name__)
+
+class PathInstaller:
+    def __init__(self, source_dir: str, dest_dir: Path = Path.home() / '.bin'):
+        self.src = Path(source_dir)
+        self.dst = Path(dest_dir)
+        self.is_windows = platform.system() == "Windows"
+
+    def _update_windows_path(self):
+        """Update Windows User PATH via Registry."""
+        try:
+            with winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Environment", 0, winreg.KEY_ALL_ACCESS) as key:
+                current_path, _ = winreg.QueryValueEx(key, "Path")
+                if str(self.dst) not in current_path:
+                    new_path = f"{current_path};{self.dst}" if current_path else str(self.dst)
+                    winreg.SetValueEx(key, "Path", 0, winreg.REG_EXPAND_SZ, new_path)
+                    # Notify system to refresh environment
+                    ctypes.windll.user32.SendMessageW(0xFFFF, 0x1A, 0, "Environment")
+                    logger.info("Windows PATH updated.")
+        except Exception as e:
+            logger.error(f"Windows Registry error: {e}")
+
+    def _sync_scripts(self):
+        """Flatten and copy scripts, then set permissions."""
+        if not self.src.is_dir():
+            logger.error(f"Source missing: {self.src}")
+            return
+
+        self.dst.mkdir(parents=True, exist_ok=True)
+
+        # Generator for valid files
+        scripts = (
+            f
+            for f in self.src.rglob("*")
+            if f.is_file() and f.suffix.lower() in {".py", ".bat", ".ps1"}
+        )
+
+        scripts = filter(lambda f: str((f.absolute())) != __file__, scripts)
+
+        count = 0
+        for script in scripts:
+            target = self.dst / script.name
+            shutil.copy2(script, target)
+            if not self.is_windows:
+                target.chmod(target.stat().st_mode | 0o111)
+            count += 1
+            logger.info(f"Installed: {script.name}")
+        
+        logger.info(f"Sync complete. Total: {count}")
+
+    def run(self):
+        """Execute installation and PATH update."""
+        self._sync_scripts()
+        self._update_windows_path()
+
+if __name__ == "__main__":
+    # Setup logging when running standalone
+    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    # Usage
+    project_root = Path(__file__).parent.absolute()
+    installer = PathInstaller(str(project_root))
+    installer.run()
