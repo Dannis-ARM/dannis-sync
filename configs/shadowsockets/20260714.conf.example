@@ -1,4 +1,6 @@
 # Shadowrocket: 2026-07-14 23:37:48
+# ============================================================
+
 [General]
 yaml = true
 udp-policy-not-supported-behaviour = REJECT
@@ -7,42 +9,53 @@ tun-excluded-routes = 239.255.255.250/32,224.0.0.251/32, ff02::fb/128
 dns-server = 119.29.29.29, 223.5.5.5
 update-url = https://ghelper.me/clash/YOUR_TOKEN_HERE
 
+# ============================================================
+
 [Proxy Group]
 Ghelper = select,🌐 全球智能,美国西雅图,美国西雅图2,美国洛杉矶[CM],美国硅谷,美国硅谷2,美国硅谷3,美国圣何塞,美国洛杉矶,美国洛杉矶2,美国ISP,🇭🇰 香港智能,🇭🇰香港中转[CM],🇭🇰香港精品4,🇭🇰香港精品3,🇭🇰香港精品2,🇬🇧 英国,🇫🇷 法国,🇩🇪 德国,🇲🇾 马来西亚,🇹🇭 泰国[CM],🇰🇷韩國,🇨🇳 台湾,🇯🇵 日本,🇮🇩 印尼,🇯🇵 日本4,🇸🇬 新加坡[CM],🇸🇬 新加坡,🇸🇬 新加坡3,AI专用,线路少请更换软件看公告
 🌐 全球智能 = url-test,美国西雅图,美国西雅图2,美国洛杉矶[CM],美国硅谷,美国硅谷2,美国圣何塞,美国洛杉矶,美国洛杉矶2,🇭🇰 香港智能,🇭🇰香港中转[CM],🇭🇰香港精品4,🇭🇰香港精品3,🇭🇰香港精品2,🇬🇧 英国,🇫🇷 法国,🇯🇵 日本4,🇸🇬 新加坡,🇸🇬 新加坡3,线路少请更换软件看公告
 🇭🇰 香港智能 = url-test,🇭🇰香港中转[CM],🇭🇰香港精品4,🇭🇰香港精品3,🇭🇰香港精品2
 AI专用 = url-test,美国西雅图,美国西雅图2,美国洛杉矶[CM],美国硅谷,美国硅谷2,美国硅谷3,美国圣何塞,美国洛杉矶,美国洛杉矶2,🇬🇧 英国,🇫🇷 法国,🇯🇵 日本,🇯🇵 日本4,🇸🇬 新加坡[CM],🇸🇬 新加坡,🇸🇬 新加坡3
 
+# ============================================================
+
 [Rule]
+# ------------------------------------------------------------
+# IP 查询工具
+# ------------------------------------------------------------
 DOMAIN-SUFFIX,ip-api.com,DIRECT
 DOMAIN-SUFFIX,ipip.net,DIRECT
 DOMAIN-SUFFIX,ip138.com,DIRECT
+
+# ------------------------------------------------------------
+# Skype / 微软
+# ------------------------------------------------------------
 DOMAIN-SUFFIX,skype.com,DIRECT
-DOMAIN-SUFFIX,skype.comedge.skype.net,DIRECT
 DOMAIN-SUFFIX,skypeassets.com,DIRECT
 DOMAIN-SUFFIX,skypeforbusiness.com,DIRECT
+
+# ------------------------------------------------------------
+# 华为 / 快手
+# ------------------------------------------------------------
 DOMAIN-SUFFIX,cdnkuaisou.com,DIRECT
 DOMAIN-SUFFIX,cnkuaishou.com,DIRECT
 DOMAIN-SUFFIX,cmhuawei.com,DIRECT
-DOMAIN-SUFFIX,cmhuawei.com,DIRECT
 DOMAIN-SUFFIX,cdnhuawei.com,DIRECT
 DOMAIN-SUFFIX,viphuawei.com,DIRECT
+
+# ------------------------------------------------------------
+# Chrome API / 工具
+# ------------------------------------------------------------
 DOMAIN-SUFFIX,chromeapi.com,DIRECT
-DOMAIN-SUFFIX,paypal.com,DIRECT
-DOMAIN-SUFFIX,alipay.com,DIRECT
-DOMAIN-SUFFIX,airwallex.com,DIRECT
-DOMAIN-SUFFIX,stripe.com,DIRECT
-DOMAIN-SUFFIX,wooshpay.com,DIRECT
-DOMAIN-SUFFIX,payssion.com,DIRECT
+DOMAIN-SUFFIX,chromeapi.net,DIRECT
+DOMAIN-SUFFIX,browserapi.net,DIRECT
 DOMAIN-SUFFIX,chrapi.com,DIRECT
 DOMAIN-SUFFIX,firapi.com,DIRECT
 DOMAIN-SUFFIX,gheapi.com,DIRECT
 DOMAIN-SUFFIX,broapi.com,DIRECT
 DOMAIN-SUFFIX,edgapi.com,DIRECT
-DOMAIN-SUFFIX,browserapi.net,DIRECT
 DOMAIN-SUFFIX,cnsync.com,DIRECT
 DOMAIN-SUFFIX,on1t.com,DIRECT
-DOMAIN-SUFFIX,chromeapi.net,DIRECT
 DOMAIN-SUFFIX,copydesign.net,DIRECT
 DOMAIN-SUFFIX,jy3p.com,DIRECT
 DOMAIN-SUFFIX,p5pv.com,DIRECT
@@ -50,11 +63,20 @@ DOMAIN-SUFFIX,z7zi.com,DIRECT
 DOMAIN-SUFFIX,j2ai.com,DIRECT
 DOMAIN-SUFFIX,alrihla.net,DIRECT
 DOMAIN-SUFFIX,sphinxsearch.net,DIRECT
-DOMAIN-SUFFIX,skype.com,DIRECT
-DOMAIN-SUFFIX,cdnhuawei.com,DIRECT
-DOMAIN-SUFFIX,cdnkuaishou.com,DIRECT
-DOMAIN-SUFFIX,chromeapi.net,DIRECT
-# HK
+
+# ------------------------------------------------------------
+# 支付 / 支付网关
+# ------------------------------------------------------------
+DOMAIN-SUFFIX,paypal.com,DIRECT
+DOMAIN-SUFFIX,alipay.com,DIRECT
+DOMAIN-SUFFIX,airwallex.com,DIRECT
+DOMAIN-SUFFIX,stripe.com,DIRECT
+DOMAIN-SUFFIX,wooshpay.com,DIRECT
+DOMAIN-SUFFIX,payssion.com,DIRECT
+
+# ------------------------------------------------------------
+# 香港银行
+# ------------------------------------------------------------
 DOMAIN-SUFFIX,hsbc.com.hk,DIRECT
 DOMAIN-SUFFIX,standardchartered.com.hk,DIRECT
 DOMAIN-SUFFIX,bochk.com,DIRECT
@@ -65,14 +87,91 @@ DOMAIN-SUFFIX,cib.com.hk,DIRECT
 DOMAIN-SUFFIX,wlb.com.hk,DIRECT
 DOMAIN-SUFFIX,icbcasia.com,DIRECT
 DOMAIN-SUFFIX,shacombank.com.hk,DIRECT
-# GS
+
+# ------------------------------------------------------------
+# 国内银行 - Mainland Banks
+# ------------------------------------------------------------
+DOMAIN-SUFFIX,icbc.com.cn,DIRECT
+DOMAIN-SUFFIX,abchina.com,DIRECT
+DOMAIN-SUFFIX,boc.cn,DIRECT
+DOMAIN-SUFFIX,ccb.com,DIRECT
+DOMAIN-SUFFIX,ccb.com.cn,DIRECT
+DOMAIN-SUFFIX,bankcomm.com,DIRECT
+DOMAIN-SUFFIX,cmbchina.com,DIRECT
+DOMAIN-SUFFIX,spdb.com.cn,DIRECT
+DOMAIN-SUFFIX,citicbank.com,DIRECT
+DOMAIN-SUFFIX,cebbank.com,DIRECT
+DOMAIN-SUFFIX,cmbc.com.cn,DIRECT
+DOMAIN-SUFFIX,pingan.com,DIRECT
+DOMAIN-SUFFIX,hxb.com.cn,DIRECT
+DOMAIN-SUFFIX,cib.com.cn,DIRECT
+DOMAIN-SUFFIX,cgbchina.com.cn,DIRECT
+DOMAIN-SUFFIX,hfbank.com.cn,DIRECT
+DOMAIN-SUFFIX,czbank.com,DIRECT
+DOMAIN-SUFFIX,bohbank.com,DIRECT
+DOMAIN-SUFFIX,psbc.com,DIRECT
+DOMAIN-SUFFIX,psbc.com.cn,DIRECT
+DOMAIN-SUFFIX,bccb.com.cn,DIRECT
+DOMAIN-SUFFIX,bosc.cn,DIRECT
+DOMAIN-SUFFIX,njcb.com.cn,DIRECT
+DOMAIN-SUFFIX,nbbank.com.cn,DIRECT
+DOMAIN-SUFFIX,jsbchina.com,DIRECT
+DOMAIN-SUFFIX,hzbank.com.cn,DIRECT
+DOMAIN-SUFFIX,gzcb.com.cn,DIRECT
+DOMAIN-SUFFIX,beijingbank.com.cn,DIRECT
+DOMAIN-SUFFIX,shbank.com,DIRECT
+DOMAIN-SUFFIX,cqcbank.com,DIRECT
+DOMAIN-SUFFIX,tccb.com.cn,DIRECT
+DOMAIN-SUFFIX,hrbank.com.cn,DIRECT
+DOMAIN-SUFFIX,dlbank.com.cn,DIRECT
+DOMAIN-SUFFIX,csrcbank.com,DIRECT
+DOMAIN-SUFFIX,zjbank.com.cn,DIRECT
+DOMAIN-SUFFIX,xmbankonline.com,DIRECT
+DOMAIN-SUFFIX,bankofdandong.com,DIRECT
+DOMAIN-SUFFIX,jncb.com.cn,DIRECT
+DOMAIN-SUFFIX,zzbank.cn,DIRECT
+DOMAIN-SUFFIX,linshangbank.com,DIRECT
+DOMAIN-SUFFIX,hsbank.com.cn,DIRECT
+DOMAIN-SUFFIX,tsbank.cn,DIRECT
+DOMAIN-SUFFIX,hzcb.com.cn,DIRECT
+DOMAIN-SUFFIX,nbcb.com.cn,DIRECT
+DOMAIN-SUFFIX,wzcb.com.cn,DIRECT
+DOMAIN-SUFFIX,czcbank.com,DIRECT
+DOMAIN-SUFFIX,hsbank.cn,DIRECT
+DOMAIN-SUFFIX,hsbchina.com,DIRECT
+DOMAIN-SUFFIX,cdrcb.com,DIRECT
+DOMAIN-SUFFIX,srcb.com,DIRECT
+DOMAIN-SUFFIX,grcbank.com,DIRECT
+DOMAIN-SUFFIX,bjrcb.com,DIRECT
+DOMAIN-SUFFIX,tjbhb.com.cn,DIRECT
+DOMAIN-SUFFIX,95559.com.cn,DIRECT
+DOMAIN-SUFFIX,95588.com,DIRECT
+DOMAIN-SUFFIX,95533.com,DIRECT
+DOMAIN-SUFFIX,95599.cn,DIRECT
+DOMAIN-SUFFIX,95566.cn,DIRECT
+DOMAIN-SUFFIX,95555.com,DIRECT
+DOMAIN-SUFFIX,cmbc.com,DIRECT
+DOMAIN-SUFFIX,10086.cn,DIRECT
+DOMAIN-SUFFIX,189.cn,DIRECT
+DOMAIN-SUFFIX,10010.com,DIRECT
+
+# ------------------------------------------------------------
+# 国际投行 / 券商
+# ------------------------------------------------------------
 DOMAIN-SUFFIX,gs.com,DIRECT
 DOMAIN-SUFFIX,goldmansachs.com,DIRECT
-# Stocks Broker
+
+# ------------------------------------------------------------
+# 美股券商
+# ------------------------------------------------------------
 DOMAIN-SUFFIX,interactivebrokers.com,DIRECT
 DOMAIN-SUFFIX,ibkr.com,DIRECT
 DOMAIN-SUFFIX,schwab.com,DIRECT
 DOMAIN-SUFFIX,firstrade.com,美国硅谷
+
+# ------------------------------------------------------------
+# Google / YouTube
+# ------------------------------------------------------------
 DOMAIN-KEYWORD,google,GHELPER
 DOMAIN-SUFFIX,ggpht.com,GHELPER
 DOMAIN-SUFFIX,gmail.com,GHELPER
@@ -83,32 +182,15 @@ DOMAIN-SUFFIX,wikipedia.org,GHELPER
 DOMAIN-SUFFIX,wikimedia.org,GHELPER
 DOMAIN-SUFFIX,appspot.com,GHELPER
 DOMAIN-SUFFIX,android.com,GHELPER
-DOMAIN-SUFFIX,github.com,GHELPER
-DOMAIN-SUFFIX,gitbook.com,GHELPER
-DOMAIN-SUFFIX,kaggle.com,GHELPER
-DOMAIN-SUFFIX,arxiv.org,GHELPER
-DOMAIN-SUFFIX,wiktionary.org,GHELPER
 DOMAIN-SUFFIX,blogger.com,GHELPER
-DOMAIN-KEYWORD,google,GHELPER
 DOMAIN-KEYWORD,youtube,GHELPER
-DOMAIN-SUFFIX,ggpht.com,GHELPER
-DOMAIN-SUFFIX,gmail.com,GHELPER
-DOMAIN-SUFFIX,gvt2.com,GHELPER
-DOMAIN-SUFFIX,gvt3.com,GHELPER
-DOMAIN-SUFFIX,chrome.com,GHELPER
-DOMAIN-SUFFIX,wikipedia.org,GHELPER
-DOMAIN-SUFFIX,wikimedia.org,GHELPER
-DOMAIN-SUFFIX,appspot.com,GHELPER
-DOMAIN-SUFFIX,android.com,GHELPER
-DOMAIN-SUFFIX,github.com,GHELPER
-DOMAIN-SUFFIX,gitbook.com,GHELPER
-DOMAIN-SUFFIX,kaggle.com,GHELPER
-DOMAIN-SUFFIX,arxiv.org,GHELPER
-DOMAIN-SUFFIX,wiktionary.org,GHELPER
-DOMAIN-SUFFIX,blogger.com,GHELPER
 DOMAIN-SUFFIX,youtu.be,GHELPER
 DOMAIN-SUFFIX,ytimg.com,GHELPER
 DOMAIN-SUFFIX,youtube.com,GHELPER
+
+# ------------------------------------------------------------
+# 社交媒体
+# ------------------------------------------------------------
 DOMAIN-SUFFIX,instagram.com,GHELPER
 DOMAIN-SUFFIX,twitter.com,GHELPER
 DOMAIN-SUFFIX,t.co,GHELPER
@@ -120,8 +202,25 @@ DOMAIN-SUFFIX,linkedin.com,GHELPER
 DOMAIN-SUFFIX,licdn.com,GHELPER
 DOMAIN-SUFFIX,trkn.us,GHELPER
 DOMAIN-SUFFIX,cedexis.com,GHELPER
+
+# ------------------------------------------------------------
+# 开发者 / 学习
+# ------------------------------------------------------------
+DOMAIN-SUFFIX,github.com,GHELPER
+DOMAIN-SUFFIX,gitbook.com,GHELPER
+DOMAIN-SUFFIX,kaggle.com,GHELPER
+DOMAIN-SUFFIX,arxiv.org,GHELPER
+DOMAIN-SUFFIX,wiktionary.org,GHELPER
+
+# ------------------------------------------------------------
+# 网络工具
+# ------------------------------------------------------------
 DOMAIN-SUFFIX,ip.sb,GHELPER
 DOMAIN-SUFFIX,ip.net,GHELPER
+
+# ------------------------------------------------------------
+# Microsoft / Bing
+# ------------------------------------------------------------
 DOMAIN-SUFFIX,bing.com,GHELPER
 DOMAIN-SUFFIX,microsoftonline.com,GHELPER
 DOMAIN-SUFFIX,live.com,GHELPER
@@ -131,11 +230,10 @@ DOMAIN-SUFFIX,bingapis.com,GHELPER
 DOMAIN-SUFFIX,bing.net,GHELPER
 DOMAIN-SUFFIX,windows.com,GHELPER
 DOMAIN-SUFFIX,microsoft.com,GHELPER
-DOMAIN-SUFFIX,linkedin.com,GHELPER
-DOMAIN-SUFFIX,licdn.com,GHELPER
-DOMAIN-SUFFIX,trkn.us,GHELPER
-DOMAIN-SUFFIX,cedexis.com,GHELPER
-# AI专用 - OpenAI/ChatGPT
+
+# ------------------------------------------------------------
+# AI 专用 - OpenAI/ChatGPT
+# ------------------------------------------------------------
 DOMAIN-SUFFIX,openai.com,AI专用
 DOMAIN-SUFFIX,auth0.com,AI专用
 DOMAIN-SUFFIX,featuregates.org,AI专用
@@ -148,19 +246,33 @@ DOMAIN-SUFFIX,oaistatic.com,AI专用
 DOMAIN-SUFFIX,oaiusercontent.com,AI专用
 DOMAIN-SUFFIX,chatgpt.com,AI专用
 DOMAIN-SUFFIX,chatgpt-async-webps-prod-southcentralus-6.webpubsub.azure.com,AI专用
-# AI专用 - Claude/Anthropic
+
+# ------------------------------------------------------------
+# AI 专用 - Claude/Anthropic
+# ------------------------------------------------------------
 DOMAIN-SUFFIX,claude.ai,AI专用
 DOMAIN-SUFFIX,anthropic.com,AI专用
-# AI专用 - Gemini/Google AI
+
+# ------------------------------------------------------------
+# AI 专用 - Gemini/Google AI
+# ------------------------------------------------------------
 DOMAIN-SUFFIX,gemini.google.com,AI专用
 DOMAIN-SUFFIX,ai.google.dev,AI专用
 DOMAIN-SUFFIX,generativeai.google.com,AI专用
 DOMAIN-SUFFIX,googleapis.com,AI专用
+
+# ------------------------------------------------------------
+# 最终规则
+# ------------------------------------------------------------
 GEOIP,CN,DIRECT
 FINAL,GHELPER
 
+# ============================================================
+
 [Host]
 localhost = 127.0.0.1
+
+# ============================================================
 
 [URL Rewrite]
 ^https?://(www.)?g.cn https://www.google.com 302
