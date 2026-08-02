@@ -169,24 +169,6 @@ DOMAIN-SUFFIX,ibkr.com,DIRECT
 DOMAIN-SUFFIX,schwab.com,DIRECT
 DOMAIN-SUFFIX,firstrade.com,美国硅谷
 
-# ------------------------------------------------------------
-# Google / YouTube
-# ------------------------------------------------------------
-DOMAIN-KEYWORD,google,GHELPER
-DOMAIN-SUFFIX,ggpht.com,GHELPER
-DOMAIN-SUFFIX,gmail.com,GHELPER
-DOMAIN-SUFFIX,gvt2.com,GHELPER
-DOMAIN-SUFFIX,gvt3.com,GHELPER
-DOMAIN-SUFFIX,chrome.com,GHELPER
-DOMAIN-SUFFIX,wikipedia.org,GHELPER
-DOMAIN-SUFFIX,wikimedia.org,GHELPER
-DOMAIN-SUFFIX,appspot.com,GHELPER
-DOMAIN-SUFFIX,android.com,GHELPER
-DOMAIN-SUFFIX,blogger.com,GHELPER
-DOMAIN-KEYWORD,youtube,GHELPER
-DOMAIN-SUFFIX,youtu.be,GHELPER
-DOMAIN-SUFFIX,ytimg.com,GHELPER
-DOMAIN-SUFFIX,youtube.com,GHELPER
 
 # ------------------------------------------------------------
 # 社交媒体
@@ -254,12 +236,32 @@ DOMAIN-SUFFIX,claude.ai,AI专用
 DOMAIN-SUFFIX,anthropic.com,AI专用
 
 # ------------------------------------------------------------
+# Google / YouTube
+# ------------------------------------------------------------
+DOMAIN-SUFFIX,google.com,GHELPER
+DOMAIN-SUFFIX,ggpht.com,GHELPER
+DOMAIN-SUFFIX,gmail.com,GHELPER
+DOMAIN-SUFFIX,gvt2.com,GHELPER
+DOMAIN-SUFFIX,gvt3.com,GHELPER
+DOMAIN-SUFFIX,chrome.com,GHELPER
+DOMAIN-SUFFIX,wikipedia.org,GHELPER
+DOMAIN-SUFFIX,wikimedia.org,GHELPER
+DOMAIN-SUFFIX,appspot.com,GHELPER
+DOMAIN-SUFFIX,android.com,GHELPER
+DOMAIN-SUFFIX,blogger.com,GHELPER
+DOMAIN-KEYWORD,youtube,GHELPER
+DOMAIN-SUFFIX,youtu.be,GHELPER
+DOMAIN-SUFFIX,ytimg.com,GHELPER
+DOMAIN-SUFFIX,youtube.com,GHELPER
+
+# ------------------------------------------------------------
 # AI 专用 - Gemini/Google AI
 # ------------------------------------------------------------
-DOMAIN-SUFFIX,gemini.google.com,AI专用
-DOMAIN-SUFFIX,ai.google.dev,AI专用
-DOMAIN-SUFFIX,generativeai.google.com,AI专用
-DOMAIN-SUFFIX,googleapis.com,AI专用
+DOMAIN,alkalinetaiwan-pa.googleapis.com,AI专用
+DOMAIN-KEYWORD,generativelanguage,AI专用
+DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com,AI专用
+DOMAIN-SUFFIX,googleusercontent.com,AI专用
+DOMAIN-SUFFIX,gstatic.com,AI专用
 
 # ------------------------------------------------------------
 # 最终规则
