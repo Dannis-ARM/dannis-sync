@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 
 # cc-switch github: https://github.com/farion1231/cc-switch
-$version = "3.15.0"
+$version = "3.19.1"
 $url = "https://github.com/farion1231/cc-switch/releases/download/v$version/CC-Switch-v$version-Windows-Portable.zip"
 $targetDir = Join-Path $env:APPDATA "CC-Switch"
 $zipPath = Join-Path $env:TEMP "CC-Switch.zip"
@@ -31,6 +31,24 @@ if (Test-Path $versionFile) {
 
 Write-Host "Downloading..."
 Invoke-WebRequest $url -OutFile $zipPath -Proxy $proxy -UseBasicParsing
+
+# Check if cc-switch is running and kill it before installation (after download succeeds)
+$processNames = @("CC-Switch", "cc-switch")
+foreach ($name in $processNames) {
+    $process = Get-Process -Name $name -ErrorAction SilentlyContinue
+    if ($process) {
+        Write-Host "Stopping $name process..."
+        $process | Stop-Process -Force
+        # Wait for process to exit
+        Start-Sleep -Seconds 2
+        # Double-check
+        $process = Get-Process -Name $name -ErrorAction SilentlyContinue
+        if ($process) {
+            Write-Host "Force killing $name process..."
+            $process | Stop-Process -Force -ErrorAction SilentlyContinue
+        }
+    }
+}
 
 Write-Host "Extracting to $targetDir..."
 if (Test-Path $targetDir) { Remove-Item $targetDir -Recurse -Force }

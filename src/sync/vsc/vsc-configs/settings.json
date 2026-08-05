@@ -464,7 +464,7 @@
   "remote.extensionKind": {
     "ms-vscode-remote.remote-ssh": [ "ui" ]
   },
-  "extensions.autoUpdate": false,
+  "extensions.autoUpdate": "off",
   "extensions.autoCheckUpdates": false,
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -476,4 +476,12 @@
   },
   "claudeCode.preferredLocation": "panel",
   "markdown-preview-enhanced.previewTheme": "github-light.css",
+  "yaml.disableSchemaDetection": [
+    "**/.github/workflows/*.yml",
+    "**/.github/workflows/*.yaml",
+    "**/.gitea/workflows/*.yml",
+    "**/.gitea/workflows/*.yaml",
+    "**/.forgejo/workflows/*.yml",
+    "**/.forgejo/workflows/*.yaml"
+  ],
 }
