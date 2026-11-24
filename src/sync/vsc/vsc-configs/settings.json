@@ -471,8 +471,7 @@
   // SECTION 21: Bash
   // ─────────────────────────────────────────────────────────────────────────────
   "[shellscript]": {
-    "files.eol": "\n",
-    // "editor.defaultFormatter": "foxundermoon.shell-format",
+    "files.eol": "\n"
   },
   "claudeCode.preferredLocation": "panel",
   "markdown-preview-enhanced.previewTheme": "github-light.css",
@@ -484,4 +483,5 @@
     "**/.forgejo/workflows/*.yml",
     "**/.forgejo/workflows/*.yaml"
   ],
+  "update.mode": "manual",
 }
