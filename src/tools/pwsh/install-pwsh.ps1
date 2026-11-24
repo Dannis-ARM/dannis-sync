@@ -2,12 +2,15 @@
 $env:HTTP_PROXY = $env:HTTPS_PROXY = "http://127.0.0.1:7890"
 if (!(Get-Command scoop -ErrorAction SilentlyContinue)) { throw "Scoop missing" }
 
+$versions = Get-Content -Raw (Join-Path $PSScriptRoot "..\..\versions.json") | ConvertFrom-Json -AsHashtable
+$version = $versions['pwsh']
+
 # 2. 安装并锁定版本
 # 使用 -s (skip) 检查是否已安装且版本匹配，避免重复安装
-if (!(scoop list pwsh | Select-String "7.6.1")) {
-    Write-Host "🔍 Installing pwsh 7.6.1..." -ForegroundColor Cyan
+if (!(scoop list pwsh | Select-String $version)) {
+    Write-Host "🔍 Installing pwsh $version..." -ForegroundColor Cyan
     scoop config proxy 127.0.0.1:7890
-    scoop install pwsh@7.6.1
+    scoop install pwsh@$version
     scoop hold pwsh
 }
 

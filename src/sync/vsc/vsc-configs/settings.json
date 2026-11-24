@@ -416,9 +416,6 @@
     "editor.formatOnSave": false,
     "editor.tabSize": 2
   },
-  "yaml.schemas": {
-    "file:///c:/Users/lenovo/.vscode/extensions/aws-toolkit.vscode-aws-toolkit-core-*/package.json": [ "**/cfn*.yaml", "**/cloudformation*.yaml" ]
-  },
   "yaml.customTags": [
     // CloudFormation intrinsic functions
     "!And",

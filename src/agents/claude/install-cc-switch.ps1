@@ -1,7 +1,8 @@
 $ErrorActionPreference = "Stop"
 
 # cc-switch github: https://github.com/farion1231/cc-switch
-$version = "3.19.1"
+$versions = Get-Content -Raw (Join-Path $PSScriptRoot "..\..\versions.json") | ConvertFrom-Json -AsHashtable
+$version = $versions['cc-switch']
 $url = "https://github.com/farion1231/cc-switch/releases/download/v$version/CC-Switch-v$version-Windows-Portable.zip"
 $targetDir = Join-Path $env:APPDATA "CC-Switch"
 $zipPath = Join-Path $env:TEMP "CC-Switch.zip"
